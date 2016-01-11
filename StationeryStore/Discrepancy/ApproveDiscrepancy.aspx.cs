@@ -42,7 +42,7 @@ public partial class ApproveDiscrepancy : System.Web.UI.Page
         int i = work.updateDiscrepancy(e.CommandArgument.ToString(), e.CommandName);
         if (i > 0)
         {
-            Response.Write("<script>alert('Successful Operation!');location.href='ViewDiscrepancy.aspx';</script>");
+            Response.Write("<script>alert('Update successfully!');location.href='ViewDiscrepancy.aspx';</script>");
             //DialogResult dr = MessageBox.Show("Successful Operation!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Question);
             //if (dr == DialogResult.OK)
             //{

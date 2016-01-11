@@ -167,6 +167,8 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             // Successfully passed Validation and Changed Database, Update data in ViewState
             ViewState["listBySummary"] = listBySummary;
             ViewState["listByDept"] = listByDepartment;
+            string errorItem = "Update successfully!\\nWe have make some auto-allocation";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
         }
         else if (res == -1001)
         {
@@ -239,8 +241,12 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             {
                 // Discrepency in BySummary and ByDepartment, Send Message
                 //System.Windows.Forms.MessageBox.Show("There are discrepency in Retrieved between By Summary and By Department.\\nWe fixed it by changing the Retrieved By Summary");
-                string errorItem = "There are discrepency in Retrieved between By Summary and By Department.\\nWe fixed it by changing the Retrieved By Summary";
+                string errorItem = "Update successfully!\\nThere are discrepency in Retrieved between By Summary and By Department.\\nWe fixed it by changing the Retrieved By Summary";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Update successfully!')</script>");
             }
             ViewState["listBySummary"] = listBySummary;
             ViewState["listByDept"] = listByDepartment;

@@ -85,6 +85,7 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             // Update ViewState
             dicByDept[selectedDept] = list;
             ViewState["dicByDept"] = dicByDept;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Update successfully!')</script>");
         }
         else if (res == -1001)
         {

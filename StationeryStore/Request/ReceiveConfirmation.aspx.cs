@@ -52,7 +52,8 @@ public partial class Request_ReceiveConfirmation : System.Web.UI.Page
         }
         if (res == 0)
         {
-            Response.Redirect("~/Request/ReceiveConfirmation.aspx");
+            Response.Write("<script>alert('Update successfully!');location.href='ReceiveConfirmation.aspx';</script>");
+            //Response.Redirect("~/Request/ReceiveConfirmation.aspx");
         }
     }
 }
