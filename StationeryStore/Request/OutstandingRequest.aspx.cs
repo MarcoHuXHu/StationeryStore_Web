@@ -134,8 +134,18 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
     // submit in "By Summary" page
     protected void ButtonSummary_Click(object sender, EventArgs e)
     {
+        List<DisbursementModel> oldlistBySummary = (List<DisbursementModel>)ViewState["listBySummary"];
+        List<DisbursementModel> oldlistByDepartment = (List<DisbursementModel>)ViewState["listByDept"];
+        // Copy from ViewState as backup so input on screen would not change list in ViewState
+        List<DisbursementModel> listBySummary = new List<DisbursementModel>();
+        foreach (DisbursementModel dm in oldlistBySummary)
+            listBySummary.Add(new DisbursementModel(dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.binNum, dm.RetrivedNumber));
+
+        List<DisbursementModel> listByDepartment = new List<DisbursementModel>();
+        foreach (DisbursementModel dm in oldlistByDepartment)
+            listByDepartment.Add(new DisbursementModel(dm.DepartmentID, dm.DepartmentName, dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.RetrivedNumber));
+
         // Update RetrievedNum by Find Control
-        List<DisbursementModel> listBySummary = (List<DisbursementModel>)ViewState["listBySummary"];
         for (int i=0; i<listBySummary.Count(); i++)
         {
             TextBox retrieveText = GridViewSummary.Rows[i].FindControl("retrieved") as TextBox;
@@ -149,33 +159,60 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
                 listBySummary[i].RetrivedNumber = retrieveQty;
             }
         }
+        // Call Service for Validation, Auto-Allocate and Update DisbursementLogs
+        int res = Work.SubmitSummary(listBySummary, listByDepartment);
+        if (res == 0)
+        {
+            // Successfully passed Validation and Changed Database, Update data in ViewState
+            ViewState["listBySummary"] = listBySummary;
+            ViewState["listByDept"] = listByDepartment;
+        }
+        else if (res == -1001)
+        {
+            // Failed in Validation (Over Needed)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in listBySummary)
+                if (dm.RetrivedNumber > dm.NeededNumber)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more retrieved quantity than Needed: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
+        else if (res == -1002)
+        {
+            // Failed in Validation (Over InStock)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in listBySummary)
+                if (dm.RetrivedNumber > dm.InStock)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more retrieved quantity than InStock: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
 
-        // TODO Validation of changing number
-
-        // Update By Department by Auto Allocate
-        AutoAllocate automator = new AutoAllocate();
-        Dictionary<string, int> dic1 = new Dictionary<string, int>();
-        foreach (DisbursementModel dm in listBySummary)
-            dic1.Add(dm.ItemID, dm.RetrivedNumber);
-        Dictionary<string, Dictionary<string, int>> dic2 = automator.AllocateAllDepartment(dic1);
-        List<DisbursementModel> listByDepartment = (List<DisbursementModel>)ViewState["listByDept"];
-        foreach (DisbursementModel model in listByDepartment)
-            model.RetrivedNumber = dic2[model.DepartmentID][model.ItemID];
-
-        // Update data in ViewState
-        ViewState["listBySummary"] = listBySummary;
-        ViewState["listByDept"] = listByDepartment;
-
-        // Submit to write RetrieveLogs
-        submitRetrieve();
     }
 
     // submit in "By Department" page
     protected void ButtonDept0_Click(object sender, EventArgs e)
     {
+        List<DisbursementModel> oldlistBySummary = (List<DisbursementModel>)ViewState["listBySummary"];
+        List<DisbursementModel> oldlistByDepartment = (List<DisbursementModel>)ViewState["listByDept"];
+        // Copy from ViewState as backup so input on screen would not change list in ViewState
+        List<DisbursementModel> listBySummary = new List<DisbursementModel>();
+        foreach (DisbursementModel dm in oldlistBySummary)
+            listBySummary.Add(new DisbursementModel(dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.binNum, dm.RetrivedNumber));
+
+        List<DisbursementModel> listByDepartment = new List<DisbursementModel>();
+        foreach (DisbursementModel dm in oldlistByDepartment)
+            listByDepartment.Add(new DisbursementModel(dm.DepartmentID, dm.DepartmentName, dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.RetrivedNumber));
+
         // Update RetrievedNum by Find Control
-        List<DisbursementModel> listByDepartment = (List<DisbursementModel>)ViewState["listByDept"];
-        Dictionary<string, int> dic = new Dictionary<string, int>();
         for (int i = 0; i < listByDepartment.Count(); i++)
         {
             TextBox retrieveText = GridViewDept.Rows[i].FindControl("retrieved") as TextBox;
@@ -187,35 +224,51 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
                     bool isInt = int.TryParse(retrieveText.Text, out retrieveQty);
                 }
                 listByDepartment[i].RetrivedNumber = retrieveQty;
-                if (dic.ContainsKey(listByDepartment[i].ItemID))
-                    dic[listByDepartment[i].ItemID] += retrieveQty;
-                else
-                    dic.Add(listByDepartment[i].ItemID, retrieveQty);
             }
         }
-        // TODO Validation of changing number
 
-        // Update listBySummary
-        List<DisbursementModel> listBySummary = (List<DisbursementModel>)ViewState["listBySummary"];
-        foreach (DisbursementModel dm in listBySummary)
-            dm.RetrivedNumber = dic[dm.ItemID];
-        // Update data in ViewState
-        ViewState["listBySummary"] = listBySummary;
-        ViewState["listByDept"] = listByDepartment;
-
-        // Submit to write RetrieveLogs
-        submitRetrieve();
-    }
-
-    private int submitRetrieve()
-    {
-        Transaction clerk = new Transaction();
-        List<DisbursementModel> listByDepartment = (List<DisbursementModel>)ViewState["listByDept"];
-        foreach (DisbursementModel dm in listByDepartment)
+        // Call Service for Validation and Update DisbursementLogs
+        int res = Work.SubmitByDepartment(listBySummary, listByDepartment);
+        if (res >= 0)
         {
-            int res = clerk.Retrieve(dm.ItemID, dm.DepartmentID, dm.RetrivedNumber);
-            if (res < 0) return res;
+            // Successfully passed Validation and Changed Database, Update data in ViewState
+            if (res >0)
+            {
+                // Discrepency in BySummary and ByDepartment, Send Message
+                System.Windows.Forms.MessageBox.Show("There are discrepency in Retrieved between By Summary and By Department.\r\nWe fixed it by changing the Retrieved By Summary");
+            }
+            ViewState["listBySummary"] = listBySummary;
+            ViewState["listByDept"] = listByDepartment;
         }
-        return 0;
+        else if (res == -1001)
+        {
+            // Failed in Validation (Over Needed)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in listBySummary)
+                if (dm.RetrivedNumber > dm.NeededNumber)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more retrieved quantity than Needed: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
+        else if (res == -1002)
+        {
+            // Failed in Validation (Over InStock)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in listBySummary)
+                if (dm.RetrivedNumber > dm.InStock)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more retrieved quantity than InStock: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
+
     }
+
 }

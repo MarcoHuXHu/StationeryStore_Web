@@ -52,7 +52,10 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
 
     protected void Button0_Click(object sender, EventArgs e)
     {
-        List<DisbursementModel> list = (List<DisbursementModel>)GridViewDept.DataSource;
+        Transaction clerk = new Transaction();
+        Dictionary<string, List<DisbursementModel>> dicByDept = (Dictionary<string, List<DisbursementModel>>)ViewState["dicByDept"];
+        string selectedDept = DropDownList1.SelectedValue;
+        List<DisbursementModel> list = dicByDept[selectedDept];
         for (int i = 0; i < list.Count(); i++)
         {
             TextBox giveText = GridViewDept.Rows[i].FindControl("Given") as TextBox;
@@ -64,7 +67,7 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
                     bool isInt = int.TryParse(giveText.Text, out giveQty);
                 }
                 list[i].GivenNumber = giveQty;
-
+                clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
             }
         }
     }

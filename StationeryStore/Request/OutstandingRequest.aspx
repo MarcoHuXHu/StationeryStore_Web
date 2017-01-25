@@ -99,9 +99,9 @@
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="ActualGiven">
+                            <asp:TemplateField HeaderText="ActualGiven" Visible="false">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="given" runat="server" min="0" TextMode="Number" Text='<%#Eval("GivenNumber") %>'></asp:TextBox>
+                                    <asp:Label runat="server" Text='<%#Eval("GivenNumber") %>'></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
