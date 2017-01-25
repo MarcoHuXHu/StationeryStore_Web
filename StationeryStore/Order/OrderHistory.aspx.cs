@@ -24,7 +24,7 @@ public partial class Order_OrderHistory : System.Web.UI.Page
             SearchDDL.DataSource = list;
             SearchDDL.DataBind();
 
-            List<OrderList> oList = Work.getOrderHistory();
+            List<OrderModel> oList = Work.getOrderHistory();
             HistoryGV.DataSource = oList;
             HistoryGV.DataBind();
             if (HistoryGV.Rows.Count == 0)
@@ -45,7 +45,7 @@ public partial class Order_OrderHistory : System.Web.UI.Page
     protected void SearchDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
         ViewState["status"] = SearchDDL.SelectedValue;
-        List<OrderList> list = Work.getOrderHistory((string)ViewState["status"]);
+        List<OrderModel> list = Work.getOrderHistory((string)ViewState["status"]);
         HistoryGV.DataSource = list;
         HistoryGV.DataBind();
 

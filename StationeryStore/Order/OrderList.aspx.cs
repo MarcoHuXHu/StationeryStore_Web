@@ -27,7 +27,7 @@ public partial class Order_OrderList : System.Web.UI.Page
             SearchDDL.DataSource = list;
             SearchDDL.DataBind();
 
-            List<OrderList> oList = Work.getOrderList();
+            List<OrderModel> oList = Work.getOrderList();
             OrderListGV.DataSource = oList;
             OrderListGV.DataBind();
             if (OrderListGV.Rows.Count == 0)
@@ -56,7 +56,7 @@ public partial class Order_OrderList : System.Web.UI.Page
     protected void SearchDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
         ViewState["status"] = SearchDDL.SelectedValue;
-        List<OrderList> list = Work.getOrderList((string)ViewState["status"]);
+        List<OrderModel> list = Work.getOrderList((string)ViewState["status"]);
         OrderListGV.DataSource = list;
         OrderListGV.DataBind();
 
