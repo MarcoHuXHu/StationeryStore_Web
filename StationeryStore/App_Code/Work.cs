@@ -1435,4 +1435,24 @@ public class Work
             return res1;
         return res2;
     }
+
+    public static int SubmitDeliver(List<DisbursementModel> list)
+    {
+        Transaction clerk = new Transaction();
+        foreach (DisbursementModel dm in list)
+        {
+            if (dm.GivenNumber > dm.NeededNumber)
+                return -1001;   // given > needed;
+            if (dm.GivenNumber > dm.InStock)
+                return -1002;   // given > instock;
+            if (dm.GivenNumber > dm.RetrivedNumber)
+                return -1003;   // given > retrieved;
+        }
+        for (int i = 0; i < list.Count(); i++)
+        {
+            int res = clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
+            if (res < 0) return res;
+        }
+        return 0;
+    }
 }
