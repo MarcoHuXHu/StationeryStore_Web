@@ -45,4 +45,25 @@ public class DisbursementModel
         this.ItemDesp = itemdesp;
         this.NeededNumber = needed;
     }
+
+    public DisbursementModel(string itemId, string itemdesp, int needed, int inStock, string binNum, int retrievedNumber)
+    {
+        this.ItemID = itemId;
+        this.ItemDesp = itemdesp;
+        this.NeededNumber = needed;
+        this.InStock = inStock;
+        this.binNum = binNum;
+        this.RetrivedNumber = retrievedNumber;
+    }
+
+    public DisbursementModel(string deptID, string deptName, string itemID, string itemdesp, int needed, int instock, int retrievedNumber)
+    {
+        this.DepartmentID = deptID;
+        this.DepartmentName = deptName;
+        this.ItemID = itemID;
+        this.ItemDesp = itemdesp;
+        this.NeededNumber = needed;
+        this.InStock = instock;
+        this.RetrivedNumber = retrievedNumber;
+    }
 }
