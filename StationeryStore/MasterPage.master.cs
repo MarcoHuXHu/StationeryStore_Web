@@ -26,7 +26,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         MenuItem m4 = new MenuItem("View Submission");
         m4.NavigateUrl = "Request/ViewSubmission.aspx";
         MenuItem m5 = new MenuItem("Collect Stationery");
-        m5.NavigateUrl = "";
+        m5.NavigateUrl = "Request/DeliverByDepartment.aspx";
         MenuItem m6 = new MenuItem("Update Collection Point");
         m6.NavigateUrl = "UpdateCP.aspx";
         MenuItem m7 = new MenuItem("Assign Department Representative");
