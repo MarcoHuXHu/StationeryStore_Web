@@ -26,8 +26,8 @@ public interface IService
     List<ItemModel> GetItemList();
 
     [OperationContract]
-    [WebGet(UriTemplate = "/SerachItemList/{search}", ResponseFormat = WebMessageFormat.Json)]
-    List<ItemModel> SerachItemList(string search);
+    [WebGet(UriTemplate = "/SearchItemList/{search}", ResponseFormat = WebMessageFormat.Json)]
+    List<ItemModel> SearchItemList(string search);
 
     [OperationContract]
     [WebGet(UriTemplate = "/GetMaxPrice/{id}", ResponseFormat = WebMessageFormat.Json)]
@@ -48,7 +48,7 @@ public interface IService
     ItemDiscrepancyModel GetDiscrepancy(string id);
 
     [OperationContract]
-    [WebGet(UriTemplate = "/UpdateDiscrepancy/{id}/{status}", ResponseFormat = WebMessageFormat.Json)]
+    [WebGet(UriTemplate = "/ UpdateDiscrepancy /{id}/{status}", ResponseFormat = WebMessageFormat.Json)]
     void UpdateDiscrepancy(string id,string status);
 
     [OperationContract]
@@ -70,6 +70,39 @@ public interface IService
     [OperationContract]
     [WebGet(UriTemplate = "/ViewNotificationByUserID?id={id}", ResponseFormat =WebMessageFormat.Json)]
     List <WCFNotification> ViewNotificationByUserID(string id);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/OrderList", ResponseFormat = WebMessageFormat.Json)]
+    List<OrderModel> GetOrderList();
+
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/PendingOrderList", ResponseFormat = WebMessageFormat.Json)]
+    List<OrderModel> getPendingOrder();
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/UpdateOrderStatus/{id}/{status}", ResponseFormat = WebMessageFormat.Json)]
+    void UpdateOrderStatus(string id, string status);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/GetCollectionPoint/{userId}", ResponseFormat = WebMessageFormat.Json)]
+    string getCollectionPoint(string userId);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/UpdateCollectionPoint/{userId}/{point}", ResponseFormat = WebMessageFormat.Json)]
+    void UpdateCollectionPoint(string userId, string point);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/GetDeptRep/{userId}", ResponseFormat = WebMessageFormat.Json)]
+    string GetDeptRep(string userId);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/GetDeptStaff/{userId}", ResponseFormat = WebMessageFormat.Json)]
+    List<string> GetDeptStaff(string userId);
+
+    [OperationContract]
+    [WebGet(UriTemplate = "/UpdateDeptRep/{userId}/{newRepName}", ResponseFormat = WebMessageFormat.Json)]
+    void UpdateDeptRep(string userId,string newRepName);
 
 }
 
@@ -100,6 +133,8 @@ public class WCFUser
         get { return password; }
         set { password = value; }
     }
+
+
 
 }
 

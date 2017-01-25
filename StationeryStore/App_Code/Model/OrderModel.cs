@@ -15,7 +15,7 @@ public class OrderModel
     public int quantity { get; set; }
     public string justification { get; set; }
     public string status { get; set; }
-    public DateTime orderDate { get; set; }
+    public Nullable<DateTime> orderDate { get; set; }
     public string comment { get; set; }
 
     public OrderModel()

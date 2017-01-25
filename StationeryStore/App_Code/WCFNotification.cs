@@ -15,6 +15,10 @@ public class WCFNotification
     private string status;
     private DateTime date;
 
+    public WCFNotification()
+    {
+
+    }
     public WCFNotification(int notification, string userid, string subject, string message, string status, DateTime date)
     {
         this.notification = notification;

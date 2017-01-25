@@ -28,7 +28,7 @@ public class Service : IService
 
     }
 
-    public List<ItemModel> SerachItemList(string search)
+    public List<ItemModel> SearchItemList(string search)
     {
         return work.searchItems(search);
     }
@@ -123,5 +123,43 @@ public class Service : IService
         return Work.ViewNotificationByUserID(userID);
     }
     
+    public List<OrderModel> GetOrderList()
+    {
+        return Work.getOrderList();
 
+    }
+
+    public List<OrderModel> getPendingOrder()
+    {
+        return Work.listPendingOrder();
+    }
+
+    public string getCollectionPoint(string userId)
+    {
+        return Work.getUser(userId).Department.Collection_Point;
+    }
+
+    public void UpdateCollectionPoint(string userId, string point)
+    {
+        Work.changeCollectionPoint(userId, point);
+    }
+
+    public void UpdateOrderStatus(string id, string status)
+    {
+        Work.UpdateOrderStatus(id, status);
+    }
+
+    public string GetDeptRep(string userId)
+    {
+        return Work.getUser(Work.getDeptRep(userId)).Name;
+    }
+    public List<string> GetDeptStaff(string userId)
+    {
+        return Work.getDptSfInfo(userId).Select(x => x.Name).ToList();
+    }
+
+    public void UpdateDeptRep(string userId,string newRepName)
+    {
+        Work.ChangeRep(Work.getUser(Work.getDeptRep(userId)).Name, newRepName);
+    }
 }
