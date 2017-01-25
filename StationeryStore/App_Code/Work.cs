@@ -364,12 +364,14 @@ public class Work
                     Department = O.Department.DepartmentName,
                     ItemID = O.ItemID,
                     Description = O.Item.Description,
-                    Needed = O.OutstandingQty
+                    Needed = O.OutstandingQty,
+                    InStock = O.Item.InStock
 
                 };
         foreach (var a in q.ToList())
         {
             DisbursementModel dm = new DisbursementModel(a.DepartmentID, a.Department, a.ItemID, a.Description, a.Needed);
+            dm.InStock = a.InStock;
             list.Add(dm);
         }
         return list;
