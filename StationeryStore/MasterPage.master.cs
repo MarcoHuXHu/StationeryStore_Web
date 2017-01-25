@@ -60,9 +60,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
         MenuItem m21 = new MenuItem("Low In Stock");
         m21.NavigateUrl = "LowInStock.aspx";
 
+        // ! when user is null, redirect to login page
+        Staff user = Work.getUser(userId);
+        if (user == null)
+            Response.Redirect("~/login.aspx");
 
-        
-        string role = Work.getUser(userId).Role;
+        string role = user.Role;
 
         if (role == "Employee")
         {
