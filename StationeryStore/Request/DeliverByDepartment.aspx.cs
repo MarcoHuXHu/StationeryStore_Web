@@ -55,7 +55,13 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
         Transaction clerk = new Transaction();
         Dictionary<string, List<DisbursementModel>> dicByDept = (Dictionary<string, List<DisbursementModel>>)ViewState["dicByDept"];
         string selectedDept = DropDownList1.SelectedValue;
-        List<DisbursementModel> list = dicByDept[selectedDept];
+        List<DisbursementModel> list = new List<DisbursementModel>();
+
+        // Backup the list
+        foreach (DisbursementModel dm in dicByDept[selectedDept])
+            list.Add(new DisbursementModel(dm.DepartmentID, dm.DepartmentName, dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.RetrivedNumber));
+
+        // Read data from input
         for (int i = 0; i < list.Count(); i++)
         {
             TextBox giveText = GridViewDept.Rows[i].FindControl("Given") as TextBox;
@@ -67,7 +73,56 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
                     bool isInt = int.TryParse(giveText.Text, out giveQty);
                 }
                 list[i].GivenNumber = giveQty;
-                clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
+                // move to Work
+            }
+        }
+        int res = Work.SubmitDeliver(list);
+        if (res == 0)
+        {
+            // Update ViewState
+            dicByDept[selectedDept] = list;
+            ViewState["dicByDept"] = dicByDept;
+        }
+        else if (res == -1001)
+        {
+            // Failed in Validation (Over Needed)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in list)
+                if (dm.GivenNumber > dm.NeededNumber)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more given quantity than Needed: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
+        else if (res == -1002)
+        {
+            // Failed in Validation (Over InStock)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in list)
+                if (dm.GivenNumber > dm.InStock)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more given quantity than InStock: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
+            }
+        }
+        else if (res == -1003)
+        {
+            // Failed in Validation (Over InStock)
+            // Find the wrong retrieve number and send Message
+            string errorItem = "";
+            foreach (DisbursementModel dm in list)
+                if (dm.GivenNumber > dm.RetrivedNumber)
+                    errorItem += dm.ItemDesp + "\r\n";
+            if (errorItem.Length > 0)
+            {
+                errorItem = "These Items put more given quantity than retrieved: \r\n" + errorItem;
+                System.Windows.Forms.MessageBox.Show(errorItem);
             }
         }
     }
