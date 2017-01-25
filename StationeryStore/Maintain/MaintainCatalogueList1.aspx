@@ -61,7 +61,13 @@ MaximumValue="999" MinimumValue="1">please input positive integer!</asp:RangeVal
           </ItemTemplate>
           <EditItemTemplate>
              
-              <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True"></asp:DropDownList>
+              <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
+                  <asp:ListItem>Box</asp:ListItem>
+                  <asp:ListItem>Dozen</asp:ListItem>
+                  <asp:ListItem>Each</asp:ListItem>
+                  <asp:ListItem>Packet</asp:ListItem>
+                  <asp:ListItem>Set</asp:ListItem>
+              </asp:DropDownList>
           </EditItemTemplate>
       </asp:TemplateField>
                 

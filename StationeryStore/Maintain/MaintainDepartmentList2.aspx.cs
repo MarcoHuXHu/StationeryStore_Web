@@ -10,22 +10,17 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string userId = (string)Session["user"];
-        if (userId == null)
-        {
-            Response.Redirect("~/login.aspx");
-        }
+
         if (!IsPostBack)
         {
-            DropDownList1.DataSource = Work.GetCollectionPoint();
-            DropDownList1.DataTextField = "Collection_Point";
-            DropDownList1.DataValueField = "Collection_Point";
 
-            DropDownList1.DataBind();
             string chosenCollectionPoint = DropDownList1.SelectedValue;
-
         }
-    }
+        
+    
+
+
+}
 
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -37,6 +32,9 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         string tel = TextBox5.Text;
         string headname = TextBox6.Text;
         string repName = TextBox7.Text;
+        string contactID = TextBox8.Text;
+        string headID = TextBox9.Text;
+        string repID = TextBox10.Text;
 
         //Work.CreateDepartment(DeptID, departmentname, contact,
         //tel, collectionpoint);
@@ -62,10 +60,14 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
             string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
             throw new DbEntityValidationException(errorMessages);
         }
-        Staff departmentHead = model.Staffs.Where(p => p.Name == headname).First();
+
+        Staff contactPerson = model.Staffs.Where(p => p.UserID == contactID).First();
+        contactPerson.DepartmentID = DeptID;
+        
+        Staff departmentHead = model.Staffs.Where(p => p.UserID == headID).First();
         departmentHead.Role = "DeptHead";
         departmentHead.DepartmentID = DeptID;
-        Staff departmentRep = model.Staffs.Where(p => p.Name == repName).First();
+        Staff departmentRep = model.Staffs.Where(p => p.UserID == repID).First();
         departmentRep.Role = "DeptRep";
         departmentRep.DepartmentID = DeptID;
         model.SaveChanges();
@@ -75,5 +77,31 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         Response.Redirect("MaintainDepartmentList1.aspx");
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+
+        Team5ADProjectEntities model = new Team5ADProjectEntities();
+        string contactID = TextBox8.Text;
+
+        Staff toSearch = model.Staffs.Where(p => p.UserID == contactID).First();
+
+        string contactName = toSearch.Name;
+        TextBox4.Text = contactName;
+
+        string headID = TextBox9.Text;
+
+        Staff toSearchHead = model.Staffs.Where(p => p.UserID == headID).First();
+
+        string HeadName = toSearchHead.Name;
+        TextBox6.Text = HeadName;
+
+        string repID = TextBox10.Text;
+
+        Staff toSearchRep = model.Staffs.Where(p => p.UserID == repID).First();
+
+        string repName = toSearchRep.Name;
+        TextBox7.Text = repName;
     }
 }

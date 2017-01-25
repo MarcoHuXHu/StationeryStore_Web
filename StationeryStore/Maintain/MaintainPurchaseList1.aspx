@@ -27,6 +27,11 @@
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtPrice" Text='<%# Eval("Price")%>' />
+           <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPrice"
+ValidationExpression="[0-9]{1,2}.[0-9]{2}"
+ForeColor="Red">Invalid price. please input with 2 decimal places. max price set to $99.99</asp:RegularExpressionValidator>
+             
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:BoundField DataField="UOM" HeaderText="Unit of Measure" ReadOnly="true" />
@@ -36,7 +41,14 @@
               <%# Eval("Priority")%>
           </ItemTemplate>
           <EditItemTemplate>
-              <asp:TextBox runat="server" ID="txtPriority" Text='<%# Eval("Priority")%>' />
+                 
+              <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
+                  <asp:ListItem>1</asp:ListItem>
+                  <asp:ListItem>2</asp:ListItem>
+                  <asp:ListItem>3</asp:ListItem>
+                 
+              </asp:DropDownList>
+              
           </EditItemTemplate>
       </asp:TemplateField>
          

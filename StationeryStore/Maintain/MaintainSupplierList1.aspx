@@ -52,6 +52,11 @@
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtPhone" Text='<%# Eval("Phone")%>' />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                   ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPhone"
+ValidationExpression="[0-9]{9}">tel should have exactly 9 digits
+              </asp:RegularExpressionValidator>
+            
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:TemplateField HeaderText="Fax">
@@ -60,6 +65,7 @@
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtFax" Text='<%# Eval("FaxNo")%>' />
+      
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:TemplateField HeaderText="Address">

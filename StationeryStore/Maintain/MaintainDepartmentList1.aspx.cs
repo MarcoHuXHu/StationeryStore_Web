@@ -9,11 +9,6 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string userId = (string)Session["user"];
-        if (userId == null)
-        {
-            Response.Redirect("~/login.aspx");
-        }
         Team5ADProjectEntities model = new Team5ADProjectEntities();
         if (!IsPostBack)
         {
@@ -39,14 +34,20 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
 
             GridView1.DataSource = query.ToList();
             GridView1.DataBind();
+            
+
         }
     }
 
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        GridView1.EditIndex = e.NewEditIndex;
-
+        
         Team5ADProjectEntities model = new Team5ADProjectEntities();
+        GridView1.EditIndex = e.NewEditIndex;
+        GridViewRow row = GridView1.Rows[e.NewEditIndex];
+
+       
+
         var query = from head in model.Staffs.Where(head => head.Role == "DeptHead")
                     join rep in model.Staffs.Where(rep => rep.Role == "DeptRep")
                     on head.DepartmentID equals rep.DepartmentID
@@ -69,6 +70,29 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
         GridView1.DataSource = query.ToList();
 
         GridView1.DataBind();
+        string deptID = row.Cells[0].Text;
+        DropDownList DropDownList2 = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DropDownList2");
+        DropDownList2.DataSource = GetStaff(deptID);
+        
+        DropDownList2.DataTextField = "Name";
+        DropDownList2.DataValueField = "Name";
+        DropDownList2.DataBind();
+
+        DropDownList DropDownList3 = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DropDownList3");
+        DropDownList3.DataSource = GetStaff(deptID);
+
+        DropDownList3.DataTextField = "Name";
+        DropDownList3.DataValueField = "UserId";
+        DropDownList3.DataBind();
+
+        DropDownList DropDownList4 = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DropDownList4");
+        DropDownList4.DataSource = GetStaff(deptID);
+
+        DropDownList4.DataTextField = "Name";
+        DropDownList4.DataValueField = "UserId";
+        DropDownList4.DataBind();
+
+
 
     }
 
@@ -111,18 +135,22 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
 
 
         TextBox txtDepartmentName = (TextBox)row.FindControl("txtDepartmentName");
-        TextBox txtContactName = (TextBox)row.FindControl("txtContactName");
+ 
         TextBox txtTelephone = (TextBox)row.FindControl("txtTelephone");
-        TextBox txtHeadName = (TextBox)row.FindControl("txtHeadName");
-        TextBox txtCollection_Point = (TextBox)row.FindControl("txtCollection_Point");
-        TextBox txtRepresentativeName = (TextBox)row.FindControl("txtRepresentativeName");
+        
+        DropDownList dropdownlist1 = (DropDownList)row.FindControl("DropDownList1");
+        DropDownList dropdownlist2 = (DropDownList)row.FindControl("DropDownList2");
+        DropDownList dropdownlist3 = (DropDownList)row.FindControl("DropDownList3");
+        DropDownList dropdownlist4 = (DropDownList)row.FindControl("DropDownList4");
+
+       
 
         string DepartmentName = txtDepartmentName.Text;
-        string ContactName = txtContactName.Text;
+        string ContactName = dropdownlist2.SelectedValue;
         string Telephone = txtTelephone.Text;
-        string HeadName = txtHeadName.Text;
-        string Collection_Point = txtCollection_Point.Text;
-        string RepresentativeName = txtRepresentativeName.Text;
+        string HeadID = dropdownlist4.SelectedValue;
+        string Collection_Point = dropdownlist1.SelectedValue; 
+        string RepresentativeID = dropdownlist3.SelectedValue;
 
         //string SupplierCode = GridView1.DataKeys[e.RowIndex].Value.ToString();
         string departmentCode = row.Cells[0].Text;
@@ -138,35 +166,36 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
 
         affectedDepartment.Collection_Point = Collection_Point;
 
+        Staff existingDeptHead = new Staff();
+        //List<Staff> stafflistofdeptHead = new List<Staff>();
+        existingDeptHead = model.Staffs.Where(staff => staff.Role == "DeptHead" &&
+        staff.DepartmentID == departmentCode).First();
+        //foreach (Staff c in stafflistofdeptHead)
+        //{
+        existingDeptHead.Role = "Employee";
+            //stafflistofdeptHead.Remove(c);
 
-        List<Staff> stafflistofdeptHead = new List<Staff>();
-        stafflistofdeptHead = model.Staffs.Where(staff => staff.Role == "DeptHead" &&
-        staff.DepartmentID == departmentCode).ToList();
-        foreach (Staff c in stafflistofdeptHead)
-        {
-            c.Role = "Employee";
-            stafflistofdeptHead.Remove(c);
-
-        }
+        //}
         Staff toAddtoList = new Staff();
-        toAddtoList = model.Staffs.Where(staff => staff.Name == HeadName).First();
+        toAddtoList = model.Staffs.Where(staff => staff.UserID==HeadID).First();
 
         toAddtoList.Role = "DeptHead";
-        stafflistofdeptHead.Add(toAddtoList);
+        //stafflistofdeptHead.Add(toAddtoList);
 
-        List<Staff> stafflistofdeptRep = new List<Staff>();
-        stafflistofdeptHead = model.Staffs.Where(staff => staff.Role == "DeptRep" &&
-        staff.DepartmentID == departmentCode).ToList();
-        foreach (Staff c in stafflistofdeptRep)
-        {
-            c.Role = "Employee";
-            stafflistofdeptRep.Remove(c);
+        Staff existingDeptRep = new Staff();
+        //List<Staff> stafflistofdeptRep = new List<Staff>();
+        existingDeptRep = model.Staffs.Where(staff => staff.Role == "DeptRep" &&
+        staff.DepartmentID == departmentCode).First();
+        //foreach (Staff c in stafflistofdeptRep)
+        //{
+        existingDeptRep.Role = "Employee";
+            //stafflistofdeptRep.Remove(c);
 
-        }
+        //}
         Staff toAddtoListofRep = new Staff();
-        toAddtoListofRep = model.Staffs.Where(staff => staff.Name == RepresentativeName).First();
+        toAddtoListofRep = model.Staffs.Where(staff => staff.UserID == RepresentativeID).First();
         toAddtoListofRep.Role = "DeptRep";
-        stafflistofdeptHead.Add(toAddtoList);
+        //stafflistofdeptHead.Add(toAddtoList);
         model.SaveChanges();
 
         //Work.UpdateDepartment(departmentCode, DepartmentName, ContactName, Telephone, HeadName, Collection_Point, RepresentativeName);
@@ -241,4 +270,13 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
     {
         Response.Redirect("MaintainDepartmentList2.aspx");
     }
+
+    public static List<Staff> GetStaff(string deptID)
+    {
+        Team5ADProjectEntities model1 = new Team5ADProjectEntities();
+        return model1.Staffs.Where(x=>x.DepartmentID==deptID).ToList<Staff>();
+    }
+
+
+
 }

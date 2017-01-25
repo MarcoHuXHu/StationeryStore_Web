@@ -41,9 +41,22 @@ ErrorMessage="RangeValidator" ControlToValidate="TextBox5"
 ForeColor="Red" Type="Integer"
 MaximumValue="999" MinimumValue="1">please input positive integer!</asp:RangeValidator>
         <br />
-        Unit of Measure: <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True"></asp:DropDownList>
+        Unit of Measure: <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
+            <asp:ListItem>Box</asp:ListItem>
+            <asp:ListItem>Dozen</asp:ListItem>
+            <asp:ListItem>Each</asp:ListItem>
+            <asp:ListItem>Packet</asp:ListItem>
+            <asp:ListItem>Set</asp:ListItem>
+        </asp:DropDownList>
         <br />
          Bin No: <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+  
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
+ErrorMessage="RegularExpressionValidator" ControlToValidate="TextBox7"
+ValidationExpression="[C,E,F,H,P,S,T][1-9][0-9]{0,1}"
+ForeColor="Red">Invalid format. Please Enter first alphabet of category followed by 1 or 2-digit number!
+
+        </asp:RegularExpressionValidator>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
             ControlToValidate="TextBox7" ErrorMessage="RequiredFieldValidator">please enter bin no</asp:RequiredFieldValidator>
         <br />

@@ -9,11 +9,6 @@ public partial class MaintainPurchaseList1 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string userId = (string)Session["user"];
-        if (userId == null)
-        {
-            Response.Redirect("~/login.aspx");
-        }
         if (!IsPostBack)
         {
             DropDownList1.DataSource = Work.GetSupplier();
@@ -99,9 +94,9 @@ public partial class MaintainPurchaseList1 : System.Web.UI.Page
 
         TextBox txtPrice = (TextBox)row.FindControl("txtPrice");
         TextBox txtPriority = (TextBox)row.FindControl("txtPriority");
-
+        DropDownList DropDownList2 = (DropDownList)row.FindControl("DropDownList2");
         Decimal Price = Convert.ToDecimal(txtPrice.Text);
-        int Priority = Convert.ToInt32(txtPriority.Text);
+        int Priority = Convert.ToInt32(DropDownList2.SelectedValue);
         string itemid = row.Cells[0].Text;
         //string SupplierCode = GridView1.DataKeys[e.RowIndex].Value.ToString();
         string SupplierID = DropDownList1.SelectedValue;
