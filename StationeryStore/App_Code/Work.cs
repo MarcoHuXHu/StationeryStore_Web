@@ -1170,9 +1170,9 @@ public class Work
 
    
 
-    public static List<OrderList> listPendingOrder()
+    public static List<OrderModel> listPendingOrder()
     {
-        List<OrderList> list = new List<OrderList>();
+        List<OrderModel> list = new List<OrderModel>();
         var q = from x in ctx.Orders
                 where x.Status == "PendingApproval"
                 orderby x.OrderDate
@@ -1180,7 +1180,7 @@ public class Work
 
         foreach (var a in q.ToList())
         {
-            OrderList ol = new OrderList(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification);
+            OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification);
             list.Add(ol);
         }
         return list;
@@ -1192,24 +1192,24 @@ public class Work
         return list.Select(o => o.Status).ToList();
     }
 
-    public static List<OrderList> getOrderList()
+    public static List<OrderModel> getOrderList()
     {
-        List<OrderList> oList = new List<OrderList>();
+        List<OrderModel> oList = new List<OrderModel>();
         var q = from x in ctx.Orders
                 orderby x.OrderDate descending
                 select new { x.OrderID, x.ItemID, x.Item.Description, x.TotalQty, x.Justification, x.Status };
 
         foreach (var a in q.ToList())
         {
-            OrderList ol = new OrderList(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.Status);
+            OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.Status);
             oList.Add(ol);
         }
         return oList;
     }
 
-    public static List<OrderList> getOrderHistory()
+    public static List<OrderModel> getOrderHistory()
     {
-        List<OrderList> oList = new List<OrderList>();
+        List<OrderModel> oList = new List<OrderModel>();
         var q = from x in ctx.Orders
                 where x.Status != "PendingApproval"
                 orderby x.OrderDate descending
@@ -1217,15 +1217,15 @@ public class Work
 
         foreach (var a in q.ToList())
         {
-            OrderList ol = new OrderList(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification, a.Status, a.OrderDate, a.Comment);
+            OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification, a.Status, a.OrderDate, a.Comment);
             oList.Add(ol);
         }
         return oList;
     }
 
-    public static List<OrderList> getOrderList(string stt)
+    public static List<OrderModel> getOrderList(string stt)
     {
-        List<OrderList> list = new List<OrderList>();
+        List<OrderModel> list = new List<OrderModel>();
         if (!stt.Equals("Show All"))
         {
             var q = from x in ctx.Orders
@@ -1235,7 +1235,7 @@ public class Work
 
             foreach (var a in q.ToList())
             {
-                OrderList ol = new OrderList(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.Status);
+                OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.Status);
                 list.Add(ol);
             }
         }
@@ -1246,9 +1246,9 @@ public class Work
         return list;
     }
 
-    public static List<OrderList> getOrderHistory(string stt)
+    public static List<OrderModel> getOrderHistory(string stt)
     {
-        List<OrderList> list = new List<OrderList>();
+        List<OrderModel> list = new List<OrderModel>();
         if (!stt.Equals("Show All"))
         {
             var q = from x in ctx.Orders
@@ -1258,7 +1258,7 @@ public class Work
 
             foreach (var a in q.ToList())
             {
-                OrderList ol = new OrderList(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification, a.Status, a.OrderDate, a.Comment);
+                OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Category, a.Description, a.TotalQty, a.Justification, a.Status, a.OrderDate, a.Comment);
                 list.Add(ol);
             }
         }
@@ -1336,7 +1336,13 @@ public class Work
 
         return o.PurchaseOrderID;
     }
-
+    /// <summary>
+    /// For bySummary, get Retrieve Summary
+    /// For byDepartment Get Retrieve Log and Given Log
+    /// </summary>
+    /// <param name="bySummary"></param>
+    /// <param name="byDepartment"></param>
+    /// <returns></returns>
     public static int GetRetrieveLog(List<DisbursementModel> bySummary, List<DisbursementModel> byDepartment)
     {
         HistoryDisbursement finder = new HistoryDisbursement();
