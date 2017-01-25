@@ -1362,4 +1362,77 @@ public class Work
         }
         return result;
     }
+
+    private static int SubmitRetrieve(List<DisbursementModel> listByDepartment)
+    {
+        Transaction clerk = new Transaction();
+        foreach (DisbursementModel dm in listByDepartment)
+        {
+            int res = clerk.Retrieve(dm.ItemID, dm.DepartmentID, dm.RetrivedNumber);
+            if (res < 0) return res;
+        }
+        return 0;
+    }
+
+    public static int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    {
+        // Validation of changing number
+        foreach (DisbursementModel dm in listBySummary)
+        {
+            if (dm.NeededNumber < dm.RetrivedNumber)
+                return -1001;   // Over Needed
+            if (dm.InStock < dm.RetrivedNumber)
+                return -1002;   // Over InStock
+        }
+
+        // Update By Department by Auto Allocate
+        AutoAllocate automator = new AutoAllocate();
+        Dictionary<string, int> dic1 = new Dictionary<string, int>();
+        foreach (DisbursementModel dm in listBySummary)
+            dic1.Add(dm.ItemID, dm.RetrivedNumber);
+        Dictionary<string, Dictionary<string, int>> dic2 = automator.AllocateAllDepartment(dic1);
+        foreach (DisbursementModel model in listByDepartment)
+            model.RetrivedNumber = dic2[model.DepartmentID][model.ItemID];
+
+        // Submit to write RetrieveLogs
+        return SubmitRetrieve(listByDepartment);
+    }
+
+    public static int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    {
+        // Update listBySummary
+        Dictionary<string, int> dic = new Dictionary<string, int>();
+        for (int i = 0; i < listByDepartment.Count(); i++)
+        {
+            if (dic.ContainsKey(listByDepartment[i].ItemID))
+                dic[listByDepartment[i].ItemID] += listByDepartment[i].RetrivedNumber;
+            else
+                dic.Add(listByDepartment[i].ItemID, listByDepartment[i].RetrivedNumber);
+        }
+
+        int res1 = 0;
+        // Check Discrepency in BySummary and ByDepartment
+        foreach (DisbursementModel dm in listBySummary)
+        {
+            int num = dic[dm.ItemID];
+            if (num != dm.RetrivedNumber)
+                res1 = 1;        // Discrepency in BySummary and ByDepartment
+            dm.RetrivedNumber = num;
+        }
+
+        // Validation of changing number
+        foreach (DisbursementModel dm in listBySummary)
+        {
+            if (dm.NeededNumber < dm.RetrivedNumber)
+                return -1001;   // Over Needed
+            if (dm.InStock < dm.RetrivedNumber)
+                return -1002;   // Over InStock
+        }
+
+        // Submit to write RetrieveLogs
+        int res2 = SubmitRetrieve(listByDepartment);
+        if (res2 == 0)
+            return res1;
+        return res2;
+    }
 }
