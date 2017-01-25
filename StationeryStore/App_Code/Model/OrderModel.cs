@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Summary description for OrderList
 /// </summary>
-public class OrderList
+public class OrderModel
 {
     public string orderId { get; set; }
     public string itemId { get; set; }
@@ -18,12 +18,12 @@ public class OrderList
     public DateTime orderDate { get; set; }
     public string comment { get; set; }
 
-    public OrderList()
+    public OrderModel()
     {
 
     }
 
-    public OrderList(string orderId, string itemId, string description, int quantity, string justification, string status)
+    public OrderModel(string orderId, string itemId, string description, int quantity, string justification, string status)
     {
         this.orderId = orderId;
         this.itemId = itemId;
@@ -33,7 +33,7 @@ public class OrderList
         this.status = status;
     }
 
-    public OrderList(string orderId, string itemId, string category, string description, int quantity, string justification, string status, DateTime orderDate, string comment)
+    public OrderModel(string orderId, string itemId, string category, string description, int quantity, string justification, string status, DateTime orderDate, string comment)
     {
         this.orderId = orderId;
         this.itemId = itemId;
@@ -46,7 +46,7 @@ public class OrderList
         this.comment = comment; 
     }
 
-    public OrderList(string orderId, string itemId, string category, string description, int quantity, string justification)
+    public OrderModel(string orderId, string itemId, string category, string description, int quantity, string justification)
     {
         this.orderId = orderId;
         this.itemId = itemId;
