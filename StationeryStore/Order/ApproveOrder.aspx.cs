@@ -20,7 +20,7 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            List<OrderList> oList = Work.listPendingOrder();
+            List<OrderModel> oList = Work.listPendingOrder();
             GridView1.DataSource = oList;
             GridView1.DataBind();
             if (GridView1.Rows.Count == 0)
