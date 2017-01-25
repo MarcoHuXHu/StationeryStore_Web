@@ -13,7 +13,50 @@
        </div>
         <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red"></asp:Label>
         <br />
-        <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" DataKeyNames="ItemID">
+                <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" DataKeyNames="ItemID" AutoGenerateColumns="False">
+              <Columns>
+             <asp:TemplateField HeaderText="ItemID">
+                <ItemTemplate>
+                    <asp:Label ID="itemid" runat="server" Text='<%#Eval("ItemID") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="Category">
+                <ItemTemplate>
+                    <asp:Label ID="category" runat="server" Text='<%#Eval("Category") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+             <asp:TemplateField HeaderText="Description">
+                <ItemTemplate>
+                    <asp:Label ID="description" runat="server" Text='<%#Eval("Description") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+                  <asp:TemplateField HeaderText="Reorder Level">
+                <ItemTemplate>
+                    <asp:Label ID="reorderLevel" runat="server" Text='<%#Eval("ReorderLevel") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="Reorder Quantity">
+                <ItemTemplate>
+                    <asp:Label ID="reorderQty" runat="server" Text='<%#Eval("ReorderQty") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+             <asp:TemplateField HeaderText="Unit of Measure">
+                <ItemTemplate>
+                    <asp:Label ID="uom" runat="server" Text='<%#Eval("UOM") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+           </Columns>
         </asp:GridView>
         <br />
 </asp:Content>

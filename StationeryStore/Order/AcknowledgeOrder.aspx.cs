@@ -7,36 +7,24 @@ using System.Web.UI.WebControls;
 
 public partial class Order_AcknowledgeOrder : System.Web.UI.Page
 {
-    Team5ADProjectEntities context= new Team5ADProjectEntities();
     string userid;
     string orderID;
     string itemID;
     protected void Page_Load(object sender, EventArgs e)
     {
         userid = (string)Session["user"];
-        if (userid == null)
-        {
-            Response.Redirect("~/login.aspx");
-        }
         orderID = Request.QueryString["OrderID"];
         if (!IsPostBack)
         {
             OrderIDLbl.Text = orderID;
             ItemIDLbl.Text = Request.QueryString["Item"];
             DescriptionLbl.Text = Request.QueryString["Description"];
-            DisplayData(orderID);
+
+            List<OrderDetail> list = Work.getOrderDetailsList(orderID);
+            GridView1.DataSource = list;
+            GridView1.DataBind();
         }
     }
-
-    void DisplayData(String orderID)
-    {
-        var q = from x in context.OrderDetails
-                where x.Order.OrderID == orderID
-                select new { x.PurchaseOrderID, x.SupplierID, x.OrderQty };
-        GridView1.DataSource = q.ToList();
-        GridView1.DataBind();
-    }
-
 
     protected void SubmitBtn_Click1(object sender, EventArgs e)
     {
@@ -47,7 +35,7 @@ public partial class Order_AcknowledgeOrder : System.Web.UI.Page
         Work.UpdateItemStock(orderID, itemID);
         for (int i = 0; i < GridView1.Rows.Count; i++)
         {
-            string poNumber = GridView1.Rows[i].Cells[0].Text;
+            string poNumber = ((Label)GridView1.Rows[i].FindControl("poid")).Text;
             Work.UpdateOrderDetails(poNumber);
         }
 

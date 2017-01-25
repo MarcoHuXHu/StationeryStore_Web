@@ -8,35 +8,22 @@ using System.Web.UI.WebControls;
 
 public partial class Order_ItemList : System.Web.UI.Page
 {
-    Team5ADProjectEntities context;
     protected void Page_Load(object sender, EventArgs e)
     {
-        string userId = (string)Session["user"];
-        if (userId == null)
-        {
-            Response.Redirect("~/login.aspx");
-        }
         Label2.Text = "";
-        context = new Team5ADProjectEntities();
         if (!IsPostBack)
         {
             ShowAllBtn.Enabled = false;
-            BindGV();
+            List<Item> iList = Work.getAllItems();
+            GridView1.DataSource = iList;
+            GridView1.DataBind();
+            if (!iList.Any())
+            {
+                Label2.Text = "No item found!";
+            }
+            Session["all"] = iList;
         }
 
-    }
-
-    void BindGV()
-    {
-        var q = from x in context.Items
-                select new { x.ItemID, x.Category, x.Description, x.ReorderLevel, x.ReorderQty, x.UOM };
-        GridView1.DataSource = q.ToList();
-        GridView1.DataBind();
-    }
-
-    protected void OrderBtn_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MakeNewOrder.aspx");
     }
 
     protected void SearchBtn_Click(object sender, EventArgs e)
@@ -44,15 +31,12 @@ public partial class Order_ItemList : System.Web.UI.Page
         ShowAllBtn.Enabled = true;
         if (!(string.IsNullOrEmpty(SearchTextBox.Text)))
         {
-            context = new Team5ADProjectEntities();
-            var q = from x in context.Items
-                    where x.Description.ToLower().Contains(SearchTextBox.Text.ToLower())
-                    select new { x.ItemID, x.Category, x.Description, x.ReorderLevel, x.ReorderQty, x.UOM };
-            if (!q.Any())
+            List<Item> list = Work.getFoundItems(SearchTextBox.Text);
+            if (!list.Any())
             {
                 Label2.Text = "No item found!";
             }
-            GridView1.DataSource = q.ToList();
+            GridView1.DataSource = list;
             GridView1.DataBind();
         }
     }
@@ -61,7 +45,12 @@ public partial class Order_ItemList : System.Web.UI.Page
     {
         ShowAllBtn.Enabled = false;
         SearchTextBox.Text = String.Empty;
-        BindGV();
+        GridView1.DataSource = Session["all"];
+        GridView1.DataBind();
+        if (GridView1.Rows.Count == 0)
+        {
+            Label2.Text = "No item found!";
+        }
     }
 
 

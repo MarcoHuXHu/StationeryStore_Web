@@ -21,7 +21,29 @@
 &nbsp;<asp:Label ID="DescriptionLbl" runat="server" Text="Label"></asp:Label>
         <br />
         <br />
-        <asp:GridView ID="GridView1" runat="server">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+              <Columns>
+             <asp:TemplateField HeaderText="PurchaseOrderID">
+                <ItemTemplate>
+                    <asp:Label ID="poid" runat="server" Text='<%#Eval("PurchaseOrderID") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="SupplierID">
+                <ItemTemplate>
+                    <asp:Label ID="supplierid" runat="server" Text='<%#Eval("SupplierID") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+
+             <asp:TemplateField HeaderText="Ordered Quantity">
+                <ItemTemplate>
+                    <asp:Label ID="ordered" runat="server" Text='<%#Eval("OrderQty") %>'></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+           </Columns>
         </asp:GridView>
         <br />
     
