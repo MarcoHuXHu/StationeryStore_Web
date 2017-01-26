@@ -13,7 +13,7 @@ public partial class Notification : System.Web.UI.Page
         if (!IsPostBack)
         {
             Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-            GridView1.DataSource = ctx.Notification.Where(x => x.UserID == "00242").Select(x => new { x.NotificationID, x.Subject, x.Status, x.Date }).ToList();
+            GridView1.DataSource = ctx.Notifications.Where(x => x.UserID == "00242").Select(x => new { x.NotificationID, x.Subject, x.Status, x.Date }).ToList();
             GridView1.DataBind();
         }
     }
@@ -22,7 +22,7 @@ public partial class Notification : System.Web.UI.Page
     {
         Team5ADProjectEntities ctx = new Team5ADProjectEntities();
         int NotificationID= Convert.ToInt32(e.CommandArgument.ToString());
-        var sql = from n in ctx.Notification where n.NotificationID == NotificationID && n.UserID == "00242" select n.Message;
+        var sql = from n in ctx.Notifications where n.NotificationID == NotificationID && n.UserID == "00242" select n.Message;
         List<string> list = sql.ToList();
         TextBox1.Text = list[0];
 
