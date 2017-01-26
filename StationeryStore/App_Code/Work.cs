@@ -13,6 +13,7 @@ public class Work
     static Team5ADProjectEntities ctx = new Team5ADProjectEntities();
     List<ItemDiscrepancyModel> idlist;
     List<ItemModel> ilist;
+    List<Decimal> pricelist;
     Discrepancy discrepancy;
     Item item;
     public Work()
@@ -378,9 +379,21 @@ public class Work
 
     public Decimal getMaxPrice(string itemId)
     {
-        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId && s.Priority == 1 select s.Price;
-        List<Decimal> pricelist = sql.ToList();
-        return pricelist[0];
+        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId select s.Price;
+        pricelist = sql.ToList();
+        Decimal maxPrice = pricelist[0];
+        for (int i = 0; i < 3; i++)
+        {
+            if (pricelist[0] < pricelist[1])
+            {
+                maxPrice = pricelist[1];
+                if (maxPrice < pricelist[2])
+                {
+                    maxPrice = pricelist[2];
+                }
+            }
+        }
+        return maxPrice;
     }
     public List<ItemModel> showAllItems()
     {
@@ -409,7 +422,7 @@ public class Work
                       Description = i.Description,
                       ReorderLevel = i.ReorderLevel,
                       InStock = i.InStock,
-                      GUOM = i.UOM,
+                      UOM = i.UOM,
                   };
         ilist = sql.ToList();
         return ilist;
@@ -1421,5 +1434,25 @@ public class Work
         if (res2 == 0)
             return res1;
         return res2;
+    }
+
+    public static int SubmitDeliver(List<DisbursementModel> list)
+    {
+        Transaction clerk = new Transaction();
+        foreach (DisbursementModel dm in list)
+        {
+            if (dm.GivenNumber > dm.NeededNumber)
+                return -1001;   // given > needed;
+            if (dm.GivenNumber > dm.InStock)
+                return -1002;   // given > instock;
+            if (dm.GivenNumber > dm.RetrivedNumber)
+                return -1003;   // given > retrieved;
+        }
+        for (int i = 0; i < list.Count(); i++)
+        {
+            int res = clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
+            if (res < 0) return res;
+        }
+        return 0;
     }
 }
