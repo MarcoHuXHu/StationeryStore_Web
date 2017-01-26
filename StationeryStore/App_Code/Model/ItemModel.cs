@@ -13,7 +13,7 @@ public class ItemModel
     private string description;
     private int reorderLevel;
     private int inStock;
-    private string UOM;
+    private string uOM;
     public ItemModel()
     {
        
@@ -43,9 +43,9 @@ public class ItemModel
         get { return inStock; }
         set { inStock = value; }
     }
-    public string GUOM
+    public string UOM
     {
-        get { return UOM; }
-        set { UOM = value; }
+        get { return uOM; }
+        set { uOM = value; }
     }
 }

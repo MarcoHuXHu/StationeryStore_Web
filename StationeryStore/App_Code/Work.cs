@@ -13,7 +13,6 @@ public class Work
     static Team5ADProjectEntities ctx = new Team5ADProjectEntities();
     List<ItemDiscrepancyModel> idlist;
     List<ItemModel> ilist;
-    List<Decimal> pricelist;
     Discrepancy discrepancy;
     Item item;
     public Work()
@@ -35,13 +34,13 @@ public class Work
     {
         List<Item> result = new List<Item>();
         List<Item> all = ctx.Items.ToList();
-        foreach(Item i in all)
+        foreach (Item i in all)
         {
             if (i.InStock <= i.ReorderLevel)
             {
                 result.Add(i);
             }
-            
+
 
         }
         return result;
@@ -113,7 +112,7 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void changeCollectionPoint(string userId,string point)
+    public static void changeCollectionPoint(string userId, string point)
     {
         Department d = Work.getUser(userId).Department;
         d.Collection_Point = point;
@@ -121,7 +120,7 @@ public class Work
     }
     public static string getDeptHeadId(string deptId)
     {
-        return ctx.Staffs.Where(x => x.DepartmentID == deptId && (x.Role == "DeptHead" || x.Role=="Manager"||x.Role=="Supervisor")).ToList().FirstOrDefault().UserID;
+        return ctx.Staffs.Where(x => x.DepartmentID == deptId && (x.Role == "DeptHead" || x.Role == "Manager" || x.Role == "Supervisor")).ToList().FirstOrDefault().UserID;
     }
 
     public static Request getRequestById(string id)
@@ -379,21 +378,9 @@ public class Work
 
     public Decimal getMaxPrice(string itemId)
     {
-        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId select s.Price;
-        pricelist = sql.ToList();
-        Decimal maxPrice = pricelist[0];
-        for (int i = 0; i < 3; i++)
-        {
-            if (pricelist[0] < pricelist[1])
-            {
-                maxPrice = pricelist[1];
-                if (maxPrice < pricelist[2])
-                {
-                    maxPrice = pricelist[2];
-                }
-            }
-        }
-        return maxPrice;
+        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId && s.Priority == 1 select s.Price;
+        List<Decimal> pricelist = sql.ToList();
+        return pricelist[0];
     }
     public List<ItemModel> showAllItems()
     {
@@ -405,7 +392,7 @@ public class Work
                       Description = i.Description,
                       ReorderLevel = i.ReorderLevel,
                       InStock = i.InStock,
-                      GUOM = i.UOM,
+                      UOM = i.UOM,
                   };
         ilist = sql.ToList();
         return ilist;
@@ -1168,7 +1155,7 @@ public class Work
         return ctx.Orders.Where(x => x.OrderID == id).ToList().FirstOrDefault();
     }
 
-   
+
 
     public static List<OrderModel> listPendingOrder()
     {

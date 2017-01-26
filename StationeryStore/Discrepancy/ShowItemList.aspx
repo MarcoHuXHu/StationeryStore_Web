@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ShowItemList.aspx.cs" Inherits="ShowItemList" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="ShowItemList.aspx.cs" Inherits="ShowItemList" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
         var prevselitem = null;
         function selectx(row) {
             if (prevselitem != null) {
@@ -14,7 +14,7 @@
             row.style.backgroundColor = 'PeachPuff';
             prevselitem = row;
         }
-    </script>
+    </script>--%>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -22,11 +22,14 @@
             <asp:Label ID="Label2" runat="server" Text="Item List" Font-Bold="True" Font-Italic="True" Font-Underline="True"></asp:Label>
 
         </div>
-        <asp:Label ID="Label3" runat="server" Text="Categoty:"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="Category:"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" />
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All" />
+        <br />
         <div>
-            <asp:GridView ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound" DataKeyNames="ItemID,Description" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="true" OnPageIndexChanging="GridView1_PageIndexChanging">
+            <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red"></asp:Label>
+            <asp:GridView ID="GridView1" runat="server" DataKeyNames="ItemID,Description" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="true" OnPageIndexChanging="GridView1_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField>
 
