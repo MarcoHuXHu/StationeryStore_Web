@@ -49,6 +49,10 @@ public partial class RequestDetailPage : System.Web.UI.Page
         {
             
             List<RequestDetail> rdList = Work.getRequestDetail(rqId);
+            if (rdList.Count == 0)
+            {
+                Response.Redirect("RequestHistory.aspx");
+            }
 
             deList = new List<RqDeatail>();
             foreach (RequestDetail rd in rdList)
