@@ -28,7 +28,7 @@
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All" />
         <br />
         <div>
-            <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red"></asp:Label>
+            <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red" Visible="False"></asp:Label>
             <asp:GridView ID="GridView1" runat="server" DataKeyNames="ItemID,Description" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="true" OnPageIndexChanging="GridView1_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField>

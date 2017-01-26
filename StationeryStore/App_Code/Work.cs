@@ -13,7 +13,6 @@ public class Work
     static Team5ADProjectEntities ctx = new Team5ADProjectEntities();
     List<ItemDiscrepancyModel> idlist;
     List<ItemModel> ilist;
-    List<Decimal> pricelist;
     Discrepancy discrepancy;
     Item item;
     public Work()
@@ -379,21 +378,9 @@ public class Work
 
     public Decimal getMaxPrice(string itemId)
     {
-        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId select s.Price;
-        pricelist = sql.ToList();
-        Decimal maxPrice = pricelist[0];
-        for (int i = 0; i < 3; i++)
-        {
-            if (pricelist[0] < pricelist[1])
-            {
-                maxPrice = pricelist[1];
-                if (maxPrice < pricelist[2])
-                {
-                    maxPrice = pricelist[2];
-                }
-            }
-        }
-        return maxPrice;
+        var sql = from s in ctx.SupplyDetails where s.ItemID == itemId && s.Priority == 1 select s.Price;
+        List<Decimal> pricelist = sql.ToList();
+        return pricelist[0];
     }
     public List<ItemModel> showAllItems()
     {
