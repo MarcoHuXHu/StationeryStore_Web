@@ -1349,7 +1349,11 @@ public class Work
         }
         return result;
     }
-
+    /// <summary>
+    /// Clerk Submit Retrieve List, and will update database
+    /// </summary>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     private static int SubmitRetrieve(List<DisbursementModel> listByDepartment)
     {
         Transaction clerk = new Transaction();
@@ -1360,7 +1364,12 @@ public class Work
         }
         return 0;
     }
-
+    /// <summary>
+    /// Clerk change number by Summary
+    /// </summary>
+    /// <param name="listBySummary"></param>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     public static int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Validation of changing number
@@ -1384,7 +1393,12 @@ public class Work
         // Submit to write RetrieveLogs
         return SubmitRetrieve(listByDepartment);
     }
-
+    /// <summary>
+    /// Clerk change number byDepartment
+    /// </summary>
+    /// <param name="listBySummary"></param>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     public static int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Update listBySummary
@@ -1422,7 +1436,11 @@ public class Work
             return res1;
         return res2;
     }
-
+    /// <summary>
+    /// Clerk Submit to Deliver Item at Collection
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
     public static int SubmitDeliver(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
@@ -1438,6 +1456,31 @@ public class Work
         for (int i = 0; i < list.Count(); i++)
         {
             int res = clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
+            if (res < 0) return res;
+        }
+        return 0;
+    }
+    /// <summary>
+    /// Dept Rep confirmation and update database
+    /// This action will end an transaction
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static int SubmitReceive(List<DisbursementModel> list)
+    {
+        Transaction clerk = new Transaction();
+        foreach (DisbursementModel dm in list)
+        {
+            if (dm.GivenNumber > dm.NeededNumber)
+                return -1001;   // given > needed;
+            if (dm.GivenNumber > dm.InStock)
+                return -1002;   // given > instock;
+            if (dm.GivenNumber > dm.RetrivedNumber)
+                return -1003;   // given > retrieved;
+        }
+        for (int i = 0; i < list.Count(); i++)
+        {
+            int res = clerk.Receive(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
             if (res < 0) return res;
         }
         return 0;
