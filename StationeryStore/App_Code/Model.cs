@@ -279,6 +279,15 @@ public partial class SupplyDetail
     public virtual Supplier Supplier { get; set; }
 }
 
+public partial class sysdiagram
+{
+    public string name { get; set; }
+    public int principal_id { get; set; }
+    public int diagram_id { get; set; }
+    public Nullable<int> version { get; set; }
+    public byte[] definition { get; set; }
+}
+
 public partial class TransactionLog
 {
     public int TransactionID { get; set; }
@@ -291,4 +300,56 @@ public partial class TransactionLog
 
     public virtual Department Department { get; set; }
     public virtual Item Item { get; set; }
+}
+
+public partial class depttrend_Result
+{
+    public string DepartmentID { get; set; }
+    public string DepartmentName { get; set; }
+    public System.DateTime RequestDate { get; set; }
+    public string Mon_YY { get; set; }
+    public string Category { get; set; }
+    public int RetrievedQty { get; set; }
+    public decimal Price { get; set; }
+    public Nullable<decimal> Sum { get; set; }
+}
+
+public partial class invtystatus_Result
+{
+    public string ItemID { get; set; }
+    public string Description { get; set; }
+    public string Category { get; set; }
+    public int InStock { get; set; }
+    public string BinNumber { get; set; }
+    public string UOM { get; set; }
+    public int ReorderLevel { get; set; }
+    public int ReorderQty { get; set; }
+}
+
+public partial class ordertrend_Result
+{
+    public string SupplierName { get; set; }
+    public string SupplierID { get; set; }
+    public string ItemID { get; set; }
+    public decimal Price { get; set; }
+    public System.DateTime OrderDate { get; set; }
+    public string Mon_YY { get; set; }
+    public int TotalQty { get; set; }
+    public string Description { get; set; }
+    public string Category { get; set; }
+}
+
+public partial class sp_helpdiagramdefinition_Result
+{
+    public Nullable<int> version { get; set; }
+    public byte[] definition { get; set; }
+}
+
+public partial class sp_helpdiagrams_Result
+{
+    public string Database { get; set; }
+    public string Name { get; set; }
+    public int ID { get; set; }
+    public string Owner { get; set; }
+    public int OwnerID { get; set; }
 }

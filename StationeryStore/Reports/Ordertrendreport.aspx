@@ -7,20 +7,21 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h2> Order Trend By Suppliers</h2>
      <p>
-        Select 1 or more reporting period (month):&nbsp;&nbsp;<asp:ListBox ID="LBperiod" runat="server" DataSourceID="SqlDataSource4" DataTextField="YYYY/MM" DataValueField="YYYY/MM" Height="96px" SelectionMode="Multiple" Width="165px"></asp:ListBox>
+        Select 1 or more reporting period (month):&nbsp;&nbsp;<asp:ListBox ID="LBperiod" runat="server" DataSourceID="SqlDataSource4" DataTextField="YYYY/MM" DataValueField="YYYY/MM" Height="79px" SelectionMode="Multiple" Width="165px"></asp:ListBox>
         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT FORMAT(OrderDate, 'yyyy/MM') AS [YYYY/MM] FROM [Order] AS o ORDER BY [YYYY/MM] DESC"></asp:SqlDataSource>
 
     </p>
     <p>
         Select 1 or more suppliers:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
-        <asp:ListBox ID="LBss" runat="server" DataSourceID="SqlDataSource1" DataTextField="SupplierName" DataValueField="SupplierName" SelectionMode="Multiple" Width="163px" Height="86px"></asp:ListBox>
+        <asp:ListBox ID="LBss" runat="server" DataSourceID="SqlDataSource1" DataTextField="SupplierName" DataValueField="SupplierName" SelectionMode="Multiple" Width="163px" Height="87px"></asp:ListBox>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT [SupplierName] FROM [Supplier]"></asp:SqlDataSource>
         <asp:EntityDataSource ID="EntityDataSource1" runat="server">
         </asp:EntityDataSource>
+
     </p>
     <p>
         Select 1 or more categories:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:ListBox ID="LBcate" runat="server" DataSourceID="SqlDataSource2" DataTextField="Category" DataValueField="Category" SelectionMode="Multiple" Width="157px" Height="89px"></asp:ListBox>
+        <asp:ListBox ID="LBcate" runat="server" DataSourceID="SqlDataSource2" DataTextField="Category" DataValueField="Category" SelectionMode="Multiple" Width="157px" Height="97px"></asp:ListBox>
         <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT [Category] FROM [Item]"></asp:SqlDataSource>
     </p>
     <p>
