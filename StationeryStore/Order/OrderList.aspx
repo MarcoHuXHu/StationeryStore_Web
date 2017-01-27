@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="OrderList.aspx.cs" Inherits="Order_OrderList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+     <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<div>
-        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" />
+    <div>
+        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" CssClass="buttonm" />
     &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="SearchDDL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="SearchDDL_SelectedIndexChanged">
         </asp:DropDownList>

@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AcknowledgeOrder.aspx.cs" Inherits="Order_AcknowledgeOrder" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <script type = "text/javascript" >
@@ -48,6 +50,6 @@
         <br />
     
         
-    <asp:Button ID="SubmitBtn" runat="server" Text="Acknowledge" OnClick="SubmitBtn_Click1" />
+    <asp:Button ID="SubmitBtn" runat="server" Text="Acknowledge" OnClick="SubmitBtn_Click1" CssClass="button" />
 </asp:Content>
 

@@ -1,74 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MakeNewOrder.aspx.cs" Inherits="Order_MakeNewOrder" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">
-        .auto-style10 {
-            width: 88px;
-            height: 33px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style11 {
-            height: 33px;
-        }
-        .auto-style12 {
-            width: 16px;
-            height: 33px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style13 {
-            width: 16px;
-            height: 77px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style17 {
-            width: 8%;
-            height: 19px;
-            vertical-align: top;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style18 {
-            width: 16px;
-            height: 19px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style19 {
-            height: 19px;
-        }
-        .auto-style20 {
-            width: 88px;
-            height: 37px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style21 {
-            width: 16px;
-            height: 37px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style22 {
-            height: 37px;
-        }
-        .auto-style23 {
-            width: 88px;
-            height: 77px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style24 {
-            height: 77px;
-        }
-        .auto-style25 {
-            width: 699px;
-            height: 254px;
-        }
-    </style>
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <script type = "text/javascript" >
         function preventBack(){window.history.forward();}
@@ -114,7 +50,7 @@
      </tr>
       <tr>
          <td align="right" colspan="3">
-             <asp:Button ID="SubmitBtn" runat="server" Text="Submit" OnClick="SubmitBtn_Click"/>
+             <asp:Button ID="SubmitBtn" runat="server" Text="Submit" OnClick="SubmitBtn_Click" CssClass="button"/>
              </td>
      </tr>
  </table>
