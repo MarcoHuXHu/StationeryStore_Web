@@ -1,13 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintainSupplierList1.aspx.cs" Inherits="MaintainSupplierList1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MaintainSupplierList1.aspx.cs" Inherits="MaintainSupplierList1" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <div>
      Supplier List
         
@@ -36,9 +35,9 @@
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtGSTRegistrationNo" Text='<%# Eval("GSTRegistrationNo")%>' />
-                       <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
-                   ErrorMessage="RegularExpressionValidator" ControlToValidate="txtGSTRegistrationNo"
-ValidationExpression="[M][R][-][0-9]{7}[-][0-9]">gst registration number should be in MR-XXXXXXX-X format!
+				<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
+                  ErrorMessage="RegularExpressionValidator" ControlToValidate="txtGSTRegistrationNo"
+				  ValidationExpression="[M][R][-][0-9]{7}[-][0-9]">gst registration number should be in MR-XXXXXXX-X format!
               </asp:RegularExpressionValidator>
           </EditItemTemplate>
       </asp:TemplateField>
@@ -69,9 +68,9 @@ ValidationExpression="[0-9]{9}">tel should have exactly 9 digits
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtFax" Text='<%# Eval("FaxNo")%>' />
-       <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
-                   ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPhone"
-ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
+				<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
+                  ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPhone"
+				  ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
               </asp:RegularExpressionValidator>
           </EditItemTemplate>
       </asp:TemplateField>
@@ -86,15 +85,13 @@ ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
       </asp:TemplateField>
 
                 
-                <asp:CommandField ButtonType="Button" ShowEditButton="True" ShowCancelButton="true" />
+                <asp:CommandField ButtonType="Button" ShowEditButton="True" ShowCancelButton="true" ControlStyle-CssClass="buttonm" />
                 
-                <asp:CommandField ShowDeleteButton="True" ButtonType="Button"  />
+                <asp:CommandField ShowDeleteButton="True" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
             
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Supplier" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Supplier" CssClass="button" />
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>

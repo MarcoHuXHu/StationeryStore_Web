@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MaintainCatalogueList1.aspx.cs" Inherits="MaintainCatalogueList1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet"/>
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet"/>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -72,11 +75,11 @@ MaximumValue="999" MinimumValue="1">please input positive integer!</asp:RangeVal
       </asp:TemplateField>
                 
                 
-                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true" />
+                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true" ControlStyle-CssClass="buttonm" />
                 
-                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  />
+                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" CssClass="button" />
 </asp:Content>
