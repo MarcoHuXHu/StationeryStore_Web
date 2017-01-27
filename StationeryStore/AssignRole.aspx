@@ -1,21 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AssignRole.aspx.cs" Inherits="AssignRole" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"AutoEventWireup="true" CodeFile="AssignRole.aspx.cs" Inherits="AssignRole" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 168px;
-        }
-    </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
@@ -56,7 +46,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td>
                     
                     &nbsp;</td>
                 <td>
@@ -66,13 +56,13 @@
                 </td>
             </tr>
                         <tr>
-                <td class="auto-style1">
+                <td>
                     
-                    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" Height="26px" Width="90px" />
+                    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" Height="26px" Width="90px" CssClass="buttonm" />
                     
                 </td>
                 <td>
-        <asp:Button ID="Button2" runat="server" Text="Revoke Delegate" OnClick="Button2_Click" Height="26px" Width="146px" />
+        <asp:Button ID="Button2" runat="server" Text="Revoke Delegate" OnClick="Button2_Click" Height="26px" Width="146px" CssClass="buttonm" />
     
                 </td>
             </tr>
@@ -86,8 +76,6 @@
             
         <br />
         <br />
-    </div>          
+        
     
-    </form>
-</body>
-</html>
+</asp:Content>

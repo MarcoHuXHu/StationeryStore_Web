@@ -8,17 +8,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title> Stationery Store Inventory System</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    
 
     <link href="Stylesheet/simple-sidebar.css" rel="stylesheet" />
     <link href="Stylesheet/StyleSheet.css" rel="stylesheet" />
+
+    </asp:ContentPlaceHolder>
     
     <style type="text/css">
       
         .auto-style2 {
-            width: 88px;
+            width: 129px;
             height: 500px;
             background-color:#558C89; color: white;
         }
@@ -29,7 +31,7 @@
             background-color:#558C89; color: white;
         }
         .auto-style4 {
-            width: 88px;
+            width: 129px;
             height: 93px;
             background-color:#558C89; color: white;
         }
@@ -38,6 +40,7 @@
             width: 687px;
             background-color:#558C89; color: white;
             font-family: 'Comic Sans MS';
+            font-size: 20px;
         }
         .auto-style6 {
             height: 335px;
@@ -75,8 +78,32 @@
             height: 30px;
             margin-left: 9px;
         }
-    </style>
 
+       
+        .button { 
+            background-color: #D9853B; 
+            border: none;
+            color: white; 
+            padding: 15px 15px; 
+            text-align: center; 
+            text-decoration: none; 
+            font-size: 14px;
+}
+
+           .buttonsmall { 
+            background-color: #D9853B; 
+            border: none;
+            color: white; 
+            text-align: center; 
+            text-decoration: none; 
+            font-size: 10px;
+}
+
+       
+
+
+    </style>
+  
 </head>
 <body>
     <form id="form1" runat="server">
@@ -85,10 +112,9 @@
             <tr>
                 <td class="auto-style4">
                     
-                    <img src="image/icon1.gif" /> 
+                    <img src="../Image/icon1.gif" /> 
                 </td>
-                <td class="auto-style5">STATIONERY STORE <br />
-                    INVENTORY SYSTEM</td>
+                <td class="auto-style5">STATIONERY STORE INVENTORY SYSTEM</td>
                 <td class="auto-style7" > 
                       <asp:Label ID="lblusername" runat="server" Text=" " CssClass="newStyle2"></asp:Label>
                       <asp:LoginName ID="LoginName1" runat="server" FormatString="Welcome {0}" />
@@ -96,14 +122,16 @@
 
                 <td class="auto-style3" > 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img alt="Help" class="auto-style9" src="image/questionmark.gif" /><br />
+                    <!-- userguide here <a href="Image/User Filled.png" target="_blank" /> -->
+                    <img alt="Help" class="auto-style9" src="../Image/questionmark.gif" /><br />
                     <br />
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" />
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="buttonm" />
                 </td>
             </tr>
 
             <tr>
                 <td class="auto-style2" valign="top">
+                    
                     <asp:Panel ID="Panel1" runat="server">
                     </asp:Panel>
 <%--                   <asp:Menu ID="Menu1" runat="server" Visible="true">
