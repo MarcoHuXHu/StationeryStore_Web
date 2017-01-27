@@ -830,7 +830,7 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo)
+    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo, string email)
     {
 
         //List<Supplier> currentList = GetSupplier();
@@ -853,6 +853,7 @@ public class Work
         toAddSupplier.Phone = PhoneNo;
         toAddSupplier.FaxNo = FaxNo;
         toAddSupplier.Address = Address;
+        toAddSupplier.Email = email;
         ctx.Suppliers.Add(toAddSupplier);
         try
         {
