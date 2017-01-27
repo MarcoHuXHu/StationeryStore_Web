@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="OutstandingRequest.aspx.cs" Inherits="Request_OutstandingRequest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -53,7 +56,7 @@
             </asp:TemplateField>
         </Columns>
         </asp:GridView>
-        <asp:Button ID="ButtonSummary" runat="server" Text="Submit" OnClick="ButtonSummary_Click" />
+        <asp:Button ID="ButtonSummary" runat="server" Text="Submit" OnClick="ButtonSummary_Click" CssClass="button" />
     </asp:Panel>
     <asp:Panel ID="PanelDept" runat="server">
         
@@ -116,7 +119,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="ButtonDept0" runat="server" Text="Submit" OnClick="ButtonDept0_Click" />
+                    <asp:Button ID="ButtonDept0" runat="server" Text="Submit" OnClick="ButtonDept0_Click" CssClass="button" />
                 </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
