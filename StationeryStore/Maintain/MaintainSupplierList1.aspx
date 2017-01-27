@@ -36,6 +36,10 @@
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtGSTRegistrationNo" Text='<%# Eval("GSTRegistrationNo")%>' />
+                       <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
+                   ErrorMessage="RegularExpressionValidator" ControlToValidate="txtGSTRegistrationNo"
+ValidationExpression="[M][R][-][0-9]{7}[-][0-9]">gst registration number should be in MR-XXXXXXX-X format!
+              </asp:RegularExpressionValidator>
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:TemplateField HeaderText="Contact Name">
@@ -65,7 +69,10 @@ ValidationExpression="[0-9]{9}">tel should have exactly 9 digits
           </ItemTemplate>
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtFax" Text='<%# Eval("FaxNo")%>' />
-      
+       <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
+                   ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPhone"
+ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
+              </asp:RegularExpressionValidator>
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:TemplateField HeaderText="Address">
