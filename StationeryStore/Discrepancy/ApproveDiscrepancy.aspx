@@ -1,14 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ApproveDiscrepancy.aspx.cs" Inherits="ApproveDiscrepancy" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ApproveDiscrepancy.aspx.cs" Inherits="ApproveDiscrepancy" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+        
             <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Italic="True" Font-Underline="True" Text="Discrepancies"></asp:Label>
             <br />
             <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand" OnRowCreated="GridView1_RowCreated" DataKeyNames="DiscrepancyID">
@@ -16,8 +15,8 @@
 
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btn11" CommandName="Approved" CommandArgument='<%#Eval("DiscrepancyID") %>' runat="server" Text="Approve" />
-                            <asp:Button ID="btn12" CommandName="Rejected" CommandArgument='<%#Eval("DiscrepancyID") %>' runat="server" Text="Reject" />
+                            <asp:Button ID="btn11" CssClass=" buttonsmall" CommandName="Approved" CommandArgument='<%#Eval("DiscrepancyID") %>' runat="server" Text="Approve" />
+                            <asp:Button ID="btn12" CssClass=" buttonsmall" CommandName="Rejected" CommandArgument='<%#Eval("DiscrepancyID") %>' runat="server" Text="Reject" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -42,7 +41,4 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT d.DiscrepancyID, s.Name, d.ItemID, d.Quantity, d.Reason, d.Status FROM Discrepancy AS d INNER JOIN Staff AS s ON d.UserID = s.UserID WHERE (d.Status = 'Approved') OR (d.Status = 'Rejected')"></asp:SqlDataSource>
             <br />
 
-        </div>
-    </form>
-</body>
-</html>
+  </asp:Content>

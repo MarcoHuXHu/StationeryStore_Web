@@ -1,117 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ProceedApprovedOrder.aspx.cs" Inherits="Order_ProceedApprovedOrder" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">
-        .auto-style10 {
-            width: 113px;
-            height: 30px;
-            margin-left: 9px;
-        }
-        .auto-style11 {
-            height: 93px;
-            background-color: #558C89;
-            color: white;
-            padding-left: 0em;
-            padding-right: 0em;
-        }
-        .auto-style12 {
-            width: 486px;
-        }
-        .auto-style13 {
-            width: 486px;
-            height: 30px;
-            margin-left: 9px;
-        }
-        .auto-style14 {
-            height: 81px;
-            background-color: #558C89;
-            color: white;
-            width: 486px;
-            padding-left: 0em;
-            padding-right: 0em;
-        }
-        .auto-style15 {
-            height: 93px;
-            width: 113px;
-            background-color: #558C89;
-            color: white;
-            font-family: 'Comic Sans MS';
-        }
-        .auto-style16 {
-            height: 81px;
-            vertical-align: top;
-            width: 113px;
-        }
-        .auto-style17 {
-            height: 81px;
-        }
-        .auto-style18 {
-            width: 88px;
-            height: 74px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style19 {
-            height: 43px;
-            width: 113px;
-            background-color: #558C89;
-            color: white;
-            font-family: 'Comic Sans MS';
-        }
-        .auto-style20 {
-            height: 43px;
-        }
-        .auto-style21 {
-            width: 486px;
-            height: 43px;
-            margin-left: 9px;
-        }
-        .auto-style22 {
-            height: 37px;
-            width: 113px;
-            background-color: #558C89;
-            color: white;
-            font-family: 'Comic Sans MS';
-        }
-        .auto-style23 {
-            height: 37px;
-        }
-        .auto-style24 {
-            width: 486px;
-            height: 37px;
-            margin-left: 9px;
-        }
-        .auto-style25 {
-            height: 34px;
-            width: 113px;
-            background-color: #558C89;
-            color: white;
-            font-family: 'Comic Sans MS';
-        }
-        .auto-style26 {
-            height: 34px;
-        }
-        .auto-style27 {
-            width: 486px;
-            height: 34px;
-            margin-left: 9px;
-        }
-        .auto-style28 {
-            height: 33px;
-            width: 113px;
-            background-color: #558C89;
-            color: white;
-            font-family: 'Comic Sans MS';
-        }
-        .auto-style29 {
-            height: 33px;
-        }
-        .auto-style30 {
-            width: 486px;
-            height: 33px;
-            margin-left: 9px;
-        }
-    </style>
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <script type = "text/javascript" >
@@ -151,7 +42,7 @@
               <td Valign="top" class="auto-style17">:</td>
         <td class="auto-style14">
             <asp:Label ID="Supplier1Lbl" runat="server" Text="Label"></asp:Label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label11" runat="server" Text="Quantity:" ClientIDMode="Static"></asp:Label>&nbsp;<asp:TextBox ID="QuantityTextBox1" runat="server" Width="50px" MaxLength="3"></asp:TextBox>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label11" runat="server" Text="Quantity:" ClientIDMode="Static"></asp:Label>&nbsp;<asp:TextBox ID="QuantityTextBox1" runat="server" Width="50px" MaxLength="3"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="QuantityTextBox1" ErrorMessage="Quantity must be integer greater than 0!" Font-Size="Small" ForeColor="Red" Operator="GreaterThan" Type="Integer" ValueToCompare="0"></asp:CompareValidator>
             <br />
             <asp:Label ID="SupplierDetails1Lbl" runat="server" Text="Label"></asp:Label>
@@ -176,7 +67,7 @@
           </tr>
 
          <tr>
-        <td Valign="top" class="auto-style10">
+        <td align="top" class="auto-style10">
             <asp:CheckBox ID="Supplier3CB" runat="server" Text="3rd Supplier" OnCheckedChanged="Supplier3CB_CheckedChanged" AutoPostBack="True" />
              </td>
              <td Valign="top" class="auto-style11">:</td>
@@ -192,7 +83,7 @@
          </tr>
  
           <tr>
-              <td colspan="3" align="right" class="auto-style18"><asp:Button ID="OrderBtn" runat="server" Text="Order" OnClick="OrderBtn_Click" />
+              <td colspan="3" align="right" class="auto-style18"><asp:Button ID="OrderBtn" runat="server" Text="Order" OnClick="OrderBtn_Click" CssClass="button" />
                   <br />
                   <asp:Label ID="Label14" runat="server" Font-Bold="True" Font-Size="Small" ForeColor="Red" Text="Label"></asp:Label>
               </td>

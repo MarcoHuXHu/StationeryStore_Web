@@ -1,92 +1,10 @@
-﻿<%@ Page Title="" Language="C#" ValidateRequest="false" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="EditOrder.aspx.cs" Inherits="Order_EditOrder" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="EditOrder.aspx.cs" Inherits="Order_EditOrder" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <style type="text/css">
-        .auto-style10 {
-            width: 88px;
-            height: 35px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style11 {
-            height: 35px;
-        }
-        .auto-style12 {
-            height: 37px;
-        }
-        .auto-style13 {
-            width: 88px;
-            height: 37px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style14 {
-            width: 88px;
-            height: 27px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style15 {
-            height: 27px;
-        }
-        .auto-style16 {
-            width: 88px;
-            height: 60px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style17 {
-            height: 60px;
-        }
-        .auto-style18 {
-            width: 491px;
-            height: 35px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style19 {
-            width: 491px;
-            height: 37px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style20 {
-            width: 491px;
-            height: 27px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style21 {
-            width: 491px;
-            height: 60px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style23 {
-            width: 88px;
-            height: 44px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style24 {
-            height: 44px;
-        }
-        .auto-style25 {
-            width: 491px;
-            height: 44px;
-            background-color: #558C89;
-            color: white;
-        }
-        .auto-style26 {
-            height: 53px;
-        }
-        .auto-style27 {
-            width: 491px;
-            height: 53px;
-            background-color: #558C89;
-            color: white;
-        }
-    </style>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <script type = "text/javascript" >
@@ -140,8 +58,8 @@
       <tr>
           <td colspan="2" class="auto-style26"></td>
          <td class="auto-style27">
-             <asp:Button ID="SubmitBtn" runat="server" Text="Submit" OnClick="SubmitBtn_Click"/>
-             <asp:Button ID="CancelBtn" runat="server" Text="Cancel Order" OnClick="CancelBtn_Click" />
+             <asp:Button ID="SubmitBtn" runat="server" Text="Submit" OnClick="SubmitBtn_Click" CssClass="button"/>
+             &nbsp;<asp:Button ID="CancelBtn" runat="server" Text="Cancel Order" OnClick="CancelBtn_Click" CssClass="button" />
              </td>
      </tr>
  </table>

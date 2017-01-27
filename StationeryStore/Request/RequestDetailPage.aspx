@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="RequestDetailPage.aspx.cs" Inherits="RequestDetailPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -95,8 +97,8 @@
 
             </Columns>
         </asp:GridView>
-        <asp:Button ID="ButtonCancel" runat="server" Text="Cancle Request" OnClick="ButtonCancel_Click" />
-        <asp:Button ID="ButtonSubmit" runat="server" Text="Submit" OnClick="ButtonSubmit_Click" />
+        <asp:Button ID="ButtonCancel" runat="server" Text="Cancel Request" OnClick="ButtonCancel_Click" CssClass="buttonm" />
+        &nbsp;<asp:Button ID="ButtonSubmit" runat="server" Text="Submit" OnClick="ButtonSubmit_Click" CssClass="buttonm" />
     </asp:Panel>
 
 </asp:Content>

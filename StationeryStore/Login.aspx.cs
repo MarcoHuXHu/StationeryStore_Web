@@ -27,18 +27,20 @@ public partial class Login : System.Web.UI.Page
             if (role == "Employee")
             {
                 Response.Redirect("Request/MakeRequest.aspx");
-            }else if (role == "DeptRep")
+            }
+            else if (role == "DeptRep")
             {
                 Response.Redirect("Request/MakeRequest.aspx");
             }
             else if (role == "DeptHead")
             {
                 Response.Redirect("Request/ViewSubmission.aspx");
-            }else if (role == "Clerk")
+            }
+            else if (role == "Clerk")
             {
                 Response.Redirect("LowInStock.aspx");
             }
-            else if (role == "Manager" || role== "Supervisor")
+            else if (role == "Manager" || role == "Supervisor")
             {
                 Response.Redirect("Order/ApproveOrder.aspx");
             }

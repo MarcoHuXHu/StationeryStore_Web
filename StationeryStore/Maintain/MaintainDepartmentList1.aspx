@@ -1,18 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintainDepartmentList1.aspx.cs" Inherits="MaintainDepartmentList1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MaintainDepartmentList1.aspx.cs" Inherits="MaintainDepartmentList1" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     Department List
         
         <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
    onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
             onrowdeleting="GridView1_OnRowDeleting" Width="1115px">
+            
+            <AlternatingRowStyle HorizontalAlign="Left" />
             
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="DepartmentID" ReadOnly="true"/>
@@ -87,16 +87,14 @@ Height="21px" Width="263px"></asp:DropDownList>
       </asp:TemplateField>
                 
                 
-                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true" />
+                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true" ControlStyle-CssClass="buttonm" />
                 
-                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  />
+                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Department" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Department" CssClass="button" />
         
   
         
-    </form>
-</body>
-</html>
+</asp:Content>

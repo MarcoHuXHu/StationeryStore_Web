@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MakeRequest.aspx.cs" Inherits="MakeRequest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
     <style type="text/css">
         .auto-style9 {
             width: 430px;
@@ -11,7 +13,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">    
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Search" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Search" CssClass="buttonm" />
         <br />
         <br />
         <table style="width:100%;">
@@ -67,7 +69,7 @@
         </table>
         <br />
         <br />
-        <asp:Button ID="Button2" runat="server" Text="Add to Cart" OnClick="Button2_Click" />
+        <asp:Button ID="Button2" runat="server" Text="Add to Cart" OnClick="Button2_Click" CssClass="button" />
         <asp:Label ID="Label1" runat="server"></asp:Label>
         <br />
         </asp:Content>

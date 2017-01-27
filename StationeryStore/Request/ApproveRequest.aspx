@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ApproveRequest.aspx.cs" Inherits="RequestDetailPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+        <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+        <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -91,9 +93,9 @@
         <asp:Label runat="server" Text="Comment:"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <br />
-        <asp:Button ID="ButtonApprove" runat="server" Text="Approve" OnClick="ButtonApprove_Click" />
+        <asp:Button ID="ButtonApprove" runat="server" Text="Approve" OnClick="ButtonApprove_Click" CssClass="button" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="ButtonReject" runat="server" Text="Reject" OnClick="ButtonReject_Click" />
+        <asp:Button ID="ButtonReject" runat="server" Text="Reject" OnClick="ButtonReject_Click" CssClass="button" />
     </asp:Panel>
 
 </asp:Content>

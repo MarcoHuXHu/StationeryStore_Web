@@ -1,13 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewNotificationByUserID.aspx.cs" Inherits="Notification" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"  AutoEventWireup="true" CodeFile="ViewNotificationByUserID.aspx.cs" Inherits="Notification" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    </head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
         <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand" DataKeyNames="NotificationID" Height="48px" Width="310px" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" style="margin-top: 0px">
             <AlternatingRowStyle BackColor="#F7F7F7" />
@@ -31,6 +29,4 @@
             <SortedDescendingHeaderStyle BackColor="#3E3277" />
         </asp:GridView>
                 <asp:TextBox ID="TextBox1" runat="server" ReadOnly="True" style="z-index: 1; left: 573px; top: 18px; position: absolute; width: 390px; height: 108px" TextMode="MultiLine"></asp:TextBox>
-    </form>
-</body>
-</html>
+</asp:Content>

@@ -1,11 +1,12 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="ShowItemList.aspx.cs" Inherits="ShowItemList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" EnableEventValidation="false" AutoEventWireup="true" CodeFile="ShowItemList.aspx.cs" Inherits="ShowItemList" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-<%--    <script type="text/javascript">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"> 
+    <%--    <script type="text/javascript">
         var prevselitem = null;
         function selectx(row) {
             if (prevselitem != null) {
@@ -15,17 +16,16 @@
             prevselitem = row;
         }
     </script>--%>
-</head>
-<body>
-    <form id="form1" runat="server">
+
         <div>
             <asp:Label ID="Label2" runat="server" Text="Item List" Font-Bold="True" Font-Italic="True" Font-Underline="True"></asp:Label>
 
         </div>
         <asp:Label ID="Label3" runat="server" Text="Category:"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" />
-        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All" />
+        <asp:Button ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" CssClass="buttonm" />
+        &nbsp;
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All" CssClass="buttonm" />
         <br />
         <div>
             <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red" Visible="False"></asp:Label>
@@ -42,6 +42,4 @@
                 <SelectedRowStyle BackColor="#FFCC00" />
             </asp:GridView>
         </div>
-    </form>
-</body>
-</html>
+</asp:Content>

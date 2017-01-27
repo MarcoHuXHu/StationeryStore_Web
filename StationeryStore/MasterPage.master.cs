@@ -13,7 +13,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         if(userId == null)
         {
             Button1.Text = "Login";
-        }else
+        } else
         {
             Button1.Text = "Logout";
         }
@@ -53,12 +53,24 @@ public partial class MasterPage : System.Web.UI.MasterPage
         m17.NavigateUrl = "Discrepancy/ApproveDiscrepancy.aspx";
         MenuItem m18 = new MenuItem("Approve Order");
         m18.NavigateUrl = "Order/ApproveOrder.aspx";
+
+
         MenuItem m19 = new MenuItem("Generate Report");
         m19.NavigateUrl = "";
+
+
         MenuItem m20 = new MenuItem("Notification");
         m20.NavigateUrl = "Notification.aspx";
         MenuItem m21 = new MenuItem("Low In Stock");
         m21.NavigateUrl = "LowInStock.aspx";
+        MenuItem m22 = new MenuItem("Inventory Status Report");
+        m22.NavigateUrl = "Reports/InventoryStatusReport.aspx";
+        MenuItem m23 = new MenuItem("Order Trend Report");
+        m23.NavigateUrl = "Reports/Ordertrendreport.aspx";
+        MenuItem m24 = new MenuItem("Departments Trend Report");
+        m24.NavigateUrl = "Reports/depttrendreport.aspx";
+        MenuItem m25 = new MenuItem("Chargeback Report");
+        m25.NavigateUrl = "Reports/chargebackreport.aspx";
 
         // ! when user is null, redirect to login page
         Staff user = Work.getUser(userId);
@@ -154,7 +166,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m14);
                 menu.Items.Add(m15);
                 menu.Items.Add(m16);
-                menu.Items.Add(m19);
+                //menu.Items.Add(m19);
+                menu.Items.Add(m22);
+                menu.Items.Add(m23);
+                menu.Items.Add(m24);
+                menu.Items.Add(m25);
                 menu.Items.Add(m20);
                 Panel1.Controls.Add(menu);
                 Panel1.DataBind();
@@ -171,9 +187,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m14);
                 menu.Items.Add(m15);
                 menu.Items.Add(m16);
+
+                menu.Items.Add(m22);
+                menu.Items.Add(m23);
+                menu.Items.Add(m24);
+                menu.Items.Add(m25);
+
                 menu.Items.Add(m20);
                 Panel1.Controls.Add(menu);
                 Panel1.DataBind();
+
+                //AL comment- who is this role?
             }
         }
         else if (role == "Supervisor" || role == "Manager")
@@ -182,7 +206,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Menu menu = new Menu();
             menu.Items.Add(m17);
             menu.Items.Add(m18);
-            menu.Items.Add(m19);
+            //menu.Items.Add(m19);
+            menu.Items.Add(m22);
+            menu.Items.Add(m23);
+            menu.Items.Add(m24);
+            menu.Items.Add(m25);
             menu.Items.Add(m20);
             Panel1.Controls.Add(menu);
             Panel1.DataBind();

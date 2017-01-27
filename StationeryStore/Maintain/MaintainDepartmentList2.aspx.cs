@@ -35,7 +35,6 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         string contactID = TextBox8.Text;
         string headID = TextBox9.Text;
         string repID = TextBox10.Text;
-
         if (headID == repID)
         {
             throw new Exception("head cannot be same as rep");
@@ -67,11 +66,12 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         }
 
         Staff contactPerson = model.Staffs.Where(p => p.UserID == contactID).First();
-      
+        //contactPerson.DepartmentID = DeptID;
+        
         Staff departmentHead = model.Staffs.Where(p => p.UserID == headID).First();
-        Staff departmentRep = model.Staffs.Where(p => p.UserID == repID).First();
-
-        if (contactPerson.Role=="DeptHead" || contactPerson.Role=="DeptRep" || departmentHead.Role=="DeptHead"
+        //departmentHead.Role = "DeptHead";
+        //departmentHead.DepartmentID = DeptID;
+		        if (contactPerson.Role=="DeptHead" || contactPerson.Role=="DeptRep" || departmentHead.Role=="DeptHead"
             || departmentHead.Role=="DeptRep"||departmentRep.Role=="DeptHead"||departmentRep.Role=="DeptRep")
         {
             throw new Exception("cannot select existing department head or department rep!");
@@ -88,7 +88,12 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
             model.SaveChanges();
             Response.Redirect("MaintainDepartmentList1.aspx");
         }
-        
+       
+        //Staff departmentRep = model.Staffs.Where(p => p.UserID == repID).First();
+        //departmentRep.Role = "DeptRep";
+        //departmentRep.DepartmentID = DeptID;
+        //model.SaveChanges();
+        //Response.Redirect("MaintainDepartmentList1.aspx");
     }
 
     protected void Button2_Click(object sender, EventArgs e)
