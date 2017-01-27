@@ -289,13 +289,20 @@ public class Work
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
         rq.Comment = comment;
         List<RequestDetail> list = Work.getRequestDetail(rqId);
+
+        // Edited by Marco
+        // Updated version can also operate on TransactionLog
+        Transaction clerk = new Transaction();
+        foreach (RequestDetail rd in list)
+        {
+            string deptId = rq.Staff.DepartmentID;
+            clerk.requestUpdateOutstanding(rd.ItemID, deptId, rd.RequestQty);
+        }
         foreach (RequestDetail rd in list)
         {
             rd.Status = "InProgress";
             ctx.SaveChanges();
-            string deptId = rq.Staff.DepartmentID;
-            Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
-
+            //Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
         }
     }
 
