@@ -354,7 +354,8 @@ public class Work
         foreach (var a in q.ToList())
         {
             DisbursementModel dm = new DisbursementModel(a.ItemID, a.Description, a.Needed, a.InStock, a.BinNumber);
-            list.Add(dm);
+            if (dm.NeededNumber != 0)
+                list.Add(dm);
         }
         return list;
     }
@@ -378,7 +379,8 @@ public class Work
         {
             DisbursementModel dm = new DisbursementModel(a.DepartmentID, a.Department, a.ItemID, a.Description, a.Needed);
             dm.InStock = a.InStock;
-            list.Add(dm);
+            if (dm.NeededNumber != 0)
+                list.Add(dm);
         }
         return list;
     }
