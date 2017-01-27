@@ -24,7 +24,7 @@
 
 #sidebar-wrapper {
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     left: 250px;
     width: 0;
     height: 100%;
@@ -54,8 +54,8 @@
 
 /* Sidebar Styles */
 
-.sidebar-nav {
-    position: absolute;
+.sidebar-nav{
+    position: inherit ;
     top: 0;
     width: 250px;
     margin: 0;
@@ -73,7 +73,6 @@
     text-decoration: none;
     color: #000000;
 }
-
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
