@@ -36,6 +36,11 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         string headID = TextBox9.Text;
         string repID = TextBox10.Text;
 
+        if (headID == repID)
+        {
+            throw new Exception("head cannot be same as rep");
+        }
+
         //Work.CreateDepartment(DeptID, departmentname, contact,
         //tel, collectionpoint);
         Department toAddDepartment = new Department();
@@ -62,16 +67,28 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         }
 
         Staff contactPerson = model.Staffs.Where(p => p.UserID == contactID).First();
-        contactPerson.DepartmentID = DeptID;
-        
+      
         Staff departmentHead = model.Staffs.Where(p => p.UserID == headID).First();
-        departmentHead.Role = "DeptHead";
-        departmentHead.DepartmentID = DeptID;
         Staff departmentRep = model.Staffs.Where(p => p.UserID == repID).First();
-        departmentRep.Role = "DeptRep";
-        departmentRep.DepartmentID = DeptID;
-        model.SaveChanges();
-        Response.Redirect("MaintainDepartmentList1.aspx");
+
+        if (contactPerson.Role=="DeptHead" || contactPerson.Role=="DeptRep" || departmentHead.Role=="DeptHead"
+            || departmentHead.Role=="DeptRep"||departmentRep.Role=="DeptHead"||departmentRep.Role=="DeptRep")
+        {
+            throw new Exception("cannot select existing department head or department rep!");
+        }
+
+        else
+        {
+            contactPerson.DepartmentID = DeptID;
+            departmentHead.Role = "DeptHead";
+            departmentHead.DepartmentID = DeptID;
+
+            departmentRep.Role = "DeptRep";
+            departmentRep.DepartmentID = DeptID;
+            model.SaveChanges();
+            Response.Redirect("MaintainDepartmentList1.aspx");
+        }
+        
     }
 
     protected void Button2_Click(object sender, EventArgs e)

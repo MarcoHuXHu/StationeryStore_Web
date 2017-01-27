@@ -289,13 +289,20 @@ public class Work
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
         rq.Comment = comment;
         List<RequestDetail> list = Work.getRequestDetail(rqId);
+
+        // Edited by Marco
+        // Updated version can also operate on TransactionLog
+        Transaction clerk = new Transaction();
+        foreach (RequestDetail rd in list)
+        {
+            string deptId = rq.Staff.DepartmentID;
+            clerk.requestUpdateOutstanding(rd.ItemID, deptId, rd.RequestQty);
+        }
         foreach (RequestDetail rd in list)
         {
             rd.Status = "InProgress";
             ctx.SaveChanges();
-            string deptId = rq.Staff.DepartmentID;
-            Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
-
+            //Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
         }
     }
 
@@ -823,7 +830,7 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo)
+    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo, string email)
     {
 
         //List<Supplier> currentList = GetSupplier();
@@ -846,6 +853,7 @@ public class Work
         toAddSupplier.Phone = PhoneNo;
         toAddSupplier.FaxNo = FaxNo;
         toAddSupplier.Address = Address;
+        toAddSupplier.Email = email;
         ctx.Suppliers.Add(toAddSupplier);
         try
         {
@@ -1349,7 +1357,11 @@ public class Work
         }
         return result;
     }
-
+    /// <summary>
+    /// Clerk Submit Retrieve List, and will update database
+    /// </summary>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     private static int SubmitRetrieve(List<DisbursementModel> listByDepartment)
     {
         Transaction clerk = new Transaction();
@@ -1360,7 +1372,12 @@ public class Work
         }
         return 0;
     }
-
+    /// <summary>
+    /// Clerk change number by Summary
+    /// </summary>
+    /// <param name="listBySummary"></param>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     public static int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Validation of changing number
@@ -1384,7 +1401,12 @@ public class Work
         // Submit to write RetrieveLogs
         return SubmitRetrieve(listByDepartment);
     }
-
+    /// <summary>
+    /// Clerk change number byDepartment
+    /// </summary>
+    /// <param name="listBySummary"></param>
+    /// <param name="listByDepartment"></param>
+    /// <returns></returns>
     public static int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Update listBySummary
@@ -1422,7 +1444,11 @@ public class Work
             return res1;
         return res2;
     }
-
+    /// <summary>
+    /// Clerk Submit to Deliver Item at Collection
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
     public static int SubmitDeliver(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
@@ -1438,6 +1464,31 @@ public class Work
         for (int i = 0; i < list.Count(); i++)
         {
             int res = clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
+            if (res < 0) return res;
+        }
+        return 0;
+    }
+    /// <summary>
+    /// Dept Rep confirmation and update database
+    /// This action will end an transaction
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static int SubmitReceive(List<DisbursementModel> list)
+    {
+        Transaction clerk = new Transaction();
+        foreach (DisbursementModel dm in list)
+        {
+            if (dm.GivenNumber > dm.NeededNumber)
+                return -1001;   // given > needed;
+            if (dm.GivenNumber > dm.InStock)
+                return -1002;   // given > instock;
+            if (dm.GivenNumber > dm.RetrivedNumber)
+                return -1003;   // given > retrieved;
+        }
+        for (int i = 0; i < list.Count(); i++)
+        {
+            int res = clerk.Receive(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
             if (res < 0) return res;
         }
         return 0;

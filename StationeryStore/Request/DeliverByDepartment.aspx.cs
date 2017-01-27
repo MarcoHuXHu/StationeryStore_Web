@@ -11,9 +11,11 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            // Get Data
+            // dicByDept to store all Log and Map to DepartmentID
             Dictionary<string, List<DisbursementModel>> dicByDept = new Dictionary<string, List<DisbursementModel>>();
+            // deptList for DropdownList
             List<DisbursementModel> deptList = new List<DisbursementModel>();
+            // Get Data
             List<DisbursementModel> listByDepartment = Work.viewRequestByDept();
             Work.GetRetrieveLog(new List<DisbursementModel>(), listByDepartment);
             foreach (DisbursementModel dm in listByDepartment)

@@ -21,9 +21,9 @@ public partial class MaintainSupplierList2 : System.Web.UI.Page
         String FaxNo = TextBox5.Text;
         String Address = TextBox6.Text;
         String GSTNo = TextBox7.Text;
-
+        string email = TextBox8.Text;
         Work.CreateSupplier(SupplierCode, SupplierName, ContactName, PhoneNo,
-            FaxNo, Address, GSTNo);
+            FaxNo, Address, GSTNo, email);
 
         Response.Redirect("MaintainSupplierList1.aspx");
     }

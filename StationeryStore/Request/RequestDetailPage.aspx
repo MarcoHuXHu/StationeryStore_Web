@@ -71,7 +71,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="RequestQty">
                     <ItemTemplate>
-                        <asp:TextBox ID="quantity" runat="server" TextMode="Number" min="0" Text='<%#Eval("RequestQty") %>'></asp:TextBox>
+                        <asp:TextBox ID="quantity" runat="server" TextMode="Number" min="1" Text='<%#Eval("RequestQty") %>'></asp:TextBox>
                     </ItemTemplate>
                     <HeaderStyle HorizontalAlign="Center" />
                 </asp:TemplateField>
