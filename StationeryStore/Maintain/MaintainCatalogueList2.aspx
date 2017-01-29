@@ -1,13 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintainCatalogueList2.aspx.cs" Inherits="MaintainCatalogueList2" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"AutoEventWireup="true" CodeFile="MaintainCatalogueList2.aspx.cs" Inherits="MaintainCatalogueList2" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <div>
     Item Code:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="RequiredFieldValidator">
@@ -64,9 +63,7 @@ ForeColor="Red">Invalid format. Please Enter first alphabet of category followed
 
 
     </div>
-        <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
-        <asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" />
+        <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" CssClass="buttonm" />
+        &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" CssClass="buttonm" />
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
-    </form>
-</body>
-</html>
+</asp:Content>

@@ -18,13 +18,16 @@ public partial class Request_ReceiveConfirmation : System.Web.UI.Page
             }
             string departmentID = Work.getUser(userId).DepartmentID;
             // Get Data
-            List<DisbursementModel> listByDepartment = Work.viewRequestByDept();
-            Work.GetRetrieveLog(new List<DisbursementModel>(), listByDepartment);
-            foreach (DisbursementModel dm in listByDepartment)
+            List<DisbursementModel> list = Work.viewRequestByDept();
+            Work.GetRetrieveLog(new List<DisbursementModel>(), list);
+            List<DisbursementModel> listByDepartment = new List<DisbursementModel>();
+            foreach (DisbursementModel dm in list)
             {
                 // in case log waiting for changing
                 if (dm.GivenNumber < 0)
                     dm.GivenNumber = 0;
+                if (dm.DepartmentID == departmentID)
+                    listByDepartment.Add(dm);
             }
             ViewState["list"] = listByDepartment;
             GridViewDept.DataSource = listByDepartment;

@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" EnableEventValidation="false" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="Cart" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+        <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+        <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:Button ID="Button1" runat="server" Text="Add Item" OnClick="Button1_Click" />
+    <asp:Button ID="Button1" runat="server" Text="Add Item" OnClick="Button1_Click" CssClass="buttonm" />
     <asp:GridView ID="cartGridView" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand">
         <Columns>
             <asp:TemplateField HeaderText="Item">
@@ -36,7 +38,8 @@
 
         </Columns>
     </asp:GridView>
-    <asp:Button ID="Button2" runat="server" Text="Clear Cart" OnClick="Button2_Click" />
-    <asp:Button ID="Button3" runat="server" Text="Submit" OnClick="Button3_Click" />
+    <asp:Button ID="Button2" runat="server" Text="Clear Cart" OnClick="Button2_Click" CssClass="button" />
+    &nbsp;
+    <asp:Button ID="Button3" runat="server" Text="Submit" OnClick="Button3_Click" CssClass="button" />
 </asp:Content>
 

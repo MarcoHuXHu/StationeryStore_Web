@@ -1,16 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintainPurchaseList1.aspx.cs" Inherits="MaintainPurchaseList1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MaintainPurchaseList1.aspx.cs" Inherits="MaintainPurchaseList1" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
-    </div>
+
         Select Supplier<asp:DropDownList ID="DropDownList1" runat="server" onselectedindexchanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True" ViewStateMode="Enabled"></asp:DropDownList>
 
          <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
@@ -53,13 +50,12 @@ ForeColor="Red">Invalid price. please input with 2 decimal places. max price set
       </asp:TemplateField>
          
                 
-                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true" />
+                <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowCancelButton="true"  ControlStyle-CssClass="buttonm" />
                 
-                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  />
+                <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
         </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" />
-    </form>
-</body>
-</html>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" CssClass="button" />
+
+</asp:Content>

@@ -142,6 +142,10 @@ public class HistoryDisbursement
                 this.LogByDepartment[log.DepartmentID].Add(log);
                 this.GroupLogByDepartment[log.DepartmentID][log.ItemID].Add(log);
 
+                // give item and department reference to summary
+                this.SummaryByItem[log.ItemID].Item = log.Item;
+                this.SummaryByDepartment[log.DepartmentID][log.ItemID].Item = log.Item;
+                this.SummaryByDepartment[log.DepartmentID][log.ItemID].Department = log.Department;
                 // summary
                 // Because it calculate with start and end instead of one deal, so accumulating
                 if (log.RetrivedNumber < 0)

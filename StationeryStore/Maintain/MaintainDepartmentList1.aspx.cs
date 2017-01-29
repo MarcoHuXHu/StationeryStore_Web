@@ -75,16 +75,23 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
         DropDownList2.DataSource = GetStaff(deptID);
         
         DropDownList2.DataTextField = "Name";
-        DropDownList2.DataValueField = "Name";
+        DropDownList2.DataValueField = "UserID";
         DropDownList2.DataBind();
-
+        Department affectedDepartment = new Department();
+        affectedDepartment = model.Departments.Where(department => department.DepartmentID == deptID).First();
+        Staff contactPerson = new Staff();
+        contactPerson = model.Staffs.Where(s=>s.Name==affectedDepartment.ContactName).First();
+        DropDownList2.SelectedValue = contactPerson.UserID;
         DropDownList DropDownList3 = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DropDownList3");
         DropDownList3.DataSource = GetStaff(deptID);
 
         DropDownList3.DataTextField = "Name";
         DropDownList3.DataValueField = "UserId";
         DropDownList3.DataBind();
-
+        Staff existingDeptRep = new Staff();
+        existingDeptRep = model.Staffs.Where(staff => staff.Role == "DeptRep" &&
+        staff.DepartmentID == deptID).First();
+        DropDownList3.SelectedValue = existingDeptRep.UserID;
         DropDownList DropDownList4 = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DropDownList4");
         DropDownList4.DataSource = GetStaff(deptID);
 
@@ -93,7 +100,11 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
         DropDownList4.DataBind();
 
 
-
+        Staff existingDeptHead = new Staff();
+        //List<Staff> stafflistofdeptHead = new List<Staff>();
+        existingDeptHead = model.Staffs.Where(staff => staff.Role == "DeptHead" &&
+        staff.DepartmentID == deptID).First();
+        DropDownList4.SelectedValue = existingDeptHead.UserID;
     }
 
     protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -133,8 +144,9 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
     {
         GridViewRow row = GridView1.Rows[e.RowIndex];
 
-
+		string departmentCode = row.Cells[0].Text;
         TextBox txtDepartmentName = (TextBox)row.FindControl("txtDepartmentName");
+ 
  
         TextBox txtTelephone = (TextBox)row.FindControl("txtTelephone");
         
@@ -146,14 +158,19 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
        
 
         string DepartmentName = txtDepartmentName.Text;
-        string ContactName = dropdownlist2.SelectedValue;
+        //string ContactName = dropdownlist2.SelectedValue;
         string Telephone = txtTelephone.Text;
         string HeadID = dropdownlist4.SelectedValue;
         string Collection_Point = dropdownlist1.SelectedValue; 
         string RepresentativeID = dropdownlist3.SelectedValue;
-
+        string contactPersonID = dropdownlist2.SelectedValue;
         //string SupplierCode = GridView1.DataKeys[e.RowIndex].Value.ToString();
-        string departmentCode = row.Cells[0].Text;
+		        
+        //System.Diagnostics.Debug.WriteLine(RepresentativeID);
+        //System.Diagnostics.Debug.WriteLine(contactPersonID);
+        //System.Diagnostics.Debug.WriteLine("SomeText");
+        //System.Diagnostics.Debug.WriteLine("SomeText");
+        //string departmentCode = row.Cells[0].Text;
 
         Team5ADProjectEntities model = new Team5ADProjectEntities();
         //List<Department> departmentlist = new List<Department>();
@@ -161,8 +178,11 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
         affectedDepartment = model.Departments.Where(department => department.DepartmentID == departmentCode).First();
 
         affectedDepartment.DepartmentName = DepartmentName;
-        affectedDepartment.ContactName = ContactName;
+        //affectedDepartment.ContactName = ContactName;
         affectedDepartment.Telephone = Telephone;
+		Staff contactPerson = new Staff();
+        contactPerson=model.Staffs.Where(staff => staff.UserID == contactPersonID).First();
+        affectedDepartment.ContactName = contactPerson.Name;
 
         affectedDepartment.Collection_Point = Collection_Point;
 
@@ -176,25 +196,60 @@ public partial class MaintainDepartmentList1 : System.Web.UI.Page
             //stafflistofdeptHead.Remove(c);
 
         //}
-        Staff toAddtoList = new Staff();
-        toAddtoList = model.Staffs.Where(staff => staff.UserID==HeadID).First();
-
-        toAddtoList.Role = "DeptHead";
-        //stafflistofdeptHead.Add(toAddtoList);
-
-        Staff existingDeptRep = new Staff();
-        //List<Staff> stafflistofdeptRep = new List<Staff>();
+                Staff existingDeptRep = new Staff();
         existingDeptRep = model.Staffs.Where(staff => staff.Role == "DeptRep" &&
         staff.DepartmentID == departmentCode).First();
+        existingDeptRep.Role = "Employee";
+
+        if (dropdownlist4.SelectedValue==dropdownlist3.SelectedValue)
+        {
+            throw new Exception("head cannot be same as rep");
+        }
+        if (dropdownlist2.SelectedValue==dropdownlist4.SelectedValue)
+        {
+            
+            contactPerson.Role = "DeptHead";
+            Staff toAddtoListofRep = new Staff();
+            toAddtoListofRep = model.Staffs.Where(staff => staff.UserID == RepresentativeID).First();
+            toAddtoListofRep.Role = "DeptRep";
+        }
+		//Staff toAddtoList = new Staff();
+        //toAddtoList = model.Staffs.Where(staff => staff.UserID==HeadID).First();
+		else if (dropdownlist2.SelectedValue==dropdownlist3.SelectedValue)
+        {
+            contactPerson.Role = "DeptRep";
+            Staff toAddtoList = new Staff();
+            toAddtoList = model.Staffs.Where(staff => staff.UserID == HeadID).First();
+
+            toAddtoList.Role = "DeptHead";
+        }
+        
+        else
+        {
+            Staff toAddtoList = new Staff();
+            toAddtoList = model.Staffs.Where(staff => staff.UserID == HeadID).First();
+
+            toAddtoList.Role = "DeptHead";
+            Staff toAddtoListofRep = new Staff();
+            toAddtoListofRep = model.Staffs.Where(staff => staff.UserID == RepresentativeID).First();
+            toAddtoListofRep.Role = "DeptRep";
+        }
+        //toAddtoList.Role = "DeptHead";
+        //stafflistofdeptHead.Add(toAddtoList);
+
+        //Staff existingDeptRep = new Staff();
+        //List<Staff> stafflistofdeptRep = new List<Staff>();
+        //existingDeptRep = model.Staffs.Where(staff => staff.Role == "DeptRep" &&
+        //staff.DepartmentID == departmentCode).First();
         //foreach (Staff c in stafflistofdeptRep)
         //{
-        existingDeptRep.Role = "Employee";
+        //existingDeptRep.Role = "Employee";
             //stafflistofdeptRep.Remove(c);
 
         //}
-        Staff toAddtoListofRep = new Staff();
-        toAddtoListofRep = model.Staffs.Where(staff => staff.UserID == RepresentativeID).First();
-        toAddtoListofRep.Role = "DeptRep";
+        //Staff toAddtoListofRep = new Staff();
+        //toAddtoListofRep = model.Staffs.Where(staff => staff.UserID == RepresentativeID).First();
+        //toAddtoListofRep.Role = "DeptRep";
         //stafflistofdeptHead.Add(toAddtoList);
         model.SaveChanges();
 

@@ -1,20 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintainPurchaseList3.aspx.cs" Inherits="MaintainPurchaseList3" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"  AutoEventWireup="true" CodeFile="MaintainPurchaseList3.aspx.cs" Inherits="MaintainPurchaseList3" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
             Item Code:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; <asp:TextBox ID="TextBox1" runat="server" ReadOnly="true"/>
        
         <br />
-        Item Description:&nbsp; <asp:TextBox ID="TextBox2" runat="server" ReadOnly="true"/>
+        Item Description:&nbsp;&nbsp; <asp:TextBox ID="TextBox2" runat="server" ReadOnly="true"/>
         
         <br />
         Tender Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
@@ -36,9 +32,8 @@ ForeColor="Red">
     
         <p>
     
-        <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
-        <asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" />
+        <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" CssClass="button" />
+        &nbsp;
+        <asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" CssClass="button" />
         </p>
-    </form>
-</body>
-</html>
+</asp:Content>

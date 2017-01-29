@@ -289,13 +289,20 @@ public class Work
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
         rq.Comment = comment;
         List<RequestDetail> list = Work.getRequestDetail(rqId);
+
+        // Edited by Marco
+        // Updated version can also operate on TransactionLog
+        Transaction clerk = new Transaction();
+        foreach (RequestDetail rd in list)
+        {
+            string deptId = rq.Staff.DepartmentID;
+            clerk.requestUpdateOutstanding(rd.ItemID, deptId, rd.RequestQty);
+        }
         foreach (RequestDetail rd in list)
         {
             rd.Status = "InProgress";
             ctx.SaveChanges();
-            string deptId = rq.Staff.DepartmentID;
-            Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
-
+            //Work.updateOutstangQty(deptId, rd.ItemID, rd.RequestQty);
         }
     }
 
@@ -347,7 +354,8 @@ public class Work
         foreach (var a in q.ToList())
         {
             DisbursementModel dm = new DisbursementModel(a.ItemID, a.Description, a.Needed, a.InStock, a.BinNumber);
-            list.Add(dm);
+            if (dm.NeededNumber != 0)
+                list.Add(dm);
         }
         return list;
     }
@@ -371,7 +379,8 @@ public class Work
         {
             DisbursementModel dm = new DisbursementModel(a.DepartmentID, a.Department, a.ItemID, a.Description, a.Needed);
             dm.InStock = a.InStock;
-            list.Add(dm);
+            if (dm.NeededNumber != 0)
+                list.Add(dm);
         }
         return list;
     }
@@ -823,7 +832,7 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo)
+    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo, string email)
     {
 
         //List<Supplier> currentList = GetSupplier();
@@ -846,6 +855,7 @@ public class Work
         toAddSupplier.Phone = PhoneNo;
         toAddSupplier.FaxNo = FaxNo;
         toAddSupplier.Address = Address;
+        toAddSupplier.Email = email;
         ctx.Suppliers.Add(toAddSupplier);
         try
         {

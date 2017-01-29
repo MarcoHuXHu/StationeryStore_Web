@@ -1,14 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UpdateCP.aspx.cs" Inherits="UpdateCP" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="UpdateCP.aspx.cs" Inherits="UpdateCP" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Update Collection Point</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     
         Current Collection Point:<asp:TextBox ID="TextBox1" runat="server" ReadOnly="true" Width="342px"></asp:TextBox>
         <br />
@@ -26,9 +24,6 @@
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select one point." ControlToValidate="RadioButtonList1" ForeColor="Red"></asp:RequiredFieldValidator>
     
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Confirm" OnClick="Button1_Click" />
+        <asp:Button ID="Button1" runat="server" Text="Confirm" OnClick="Button1_Click" CssClass="button" />
     
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>

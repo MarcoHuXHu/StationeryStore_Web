@@ -1,13 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="NewDiscrepancy.aspx.cs" Inherits="NewDiscrepancy" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master"  AutoEventWireup="true" CodeFile="NewDiscrepancy.aspx.cs" Inherits="NewDiscrepancy" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <div>
             <asp:Label ID="Label1" runat="server" Text="Item Code:"></asp:Label>
             <asp:TextBox ID="TextBox1" runat="server" ReadOnly="true"></asp:TextBox>
@@ -33,9 +31,7 @@
             <asp:TextBox ID="TextBox5" runat="server" TextMode="MultiLine"></asp:TextBox>
             <br />
             <br />
-            <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" CssClass="button" />
         </div>
 
-    </form>
-</body>
-</html>
+</asp:Content>

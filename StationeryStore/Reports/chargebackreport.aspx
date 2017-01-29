@@ -4,17 +4,23 @@
 <%@ Register assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
+
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <h2> Department Chargeback Report</h2> 
+     
+    <h2> Department Chargeback Report</h2> 
     <p>
         Select
         Start Date:
         <asp:TextBox ID="txtstartdate" runat="server" Height="21px"></asp:TextBox>
         <ajaxToolkit:CalendarExtender ID="txtstartdate_CalendarExtender" runat="server" TargetControlID="txtstartdate" Format="dd/MM/yyyy" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select End Date:&nbsp;&nbsp;
-        <asp:TextBox ID="txtenddate" runat="server" Height="21px"></asp:TextBox>
-        <ajaxToolkit:CalendarExtender ID="txtenddate_CalendarExtender" runat="server" TargetControlID="txtenddate" Format="dd/MM/yyyy" />
+        <asp:TextBox ID="txtenddate" runat="server"></asp:TextBox>
+        <ajaxToolkit:CalendarExtender ID="txtenddate_CalendarExtender" runat="server" Format="dd/MM/yyyy" TargetControlID="txtenddate" />
         
        
     </p>
@@ -24,35 +30,17 @@
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT [DepartmentID] FROM [Department]"></asp:SqlDataSource>
                
     </p>
-    <p>
-        <asp:Button ID="btnGenrpt" runat="server" Text="Generate Report" OnClick="btnGenrpt_Click" />
-       
-      
+    
+        <asp:Button ID="btnGenrpt" runat="server" Text="Generate Report" OnClick="btnGenrpt_Click" CssClass="button" />
+           
     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowValidationErrors="False" Visible="False" />
-    
-    
-    
+          
+            
     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtstartdate" ErrorMessage="*Start Date must not be blank"
     ForeColor="Red"></asp:RequiredFieldValidator>
              <br />
         <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtstartdate"
          ForeColor="Red" ErrorMessage="*Start date is an invalid date" ValidationGroup="Group2" />
-            <br />
-            <br />
-        
-        <script type="text/javascript">
-        function ValidateDate(sender, args) {
-        var dateString = document.getElementById(sender.controltovalidate).value;
-        var regex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
-        if (regex.test(dateString)) {
-            var parts = dateString.split("/");
-            var dt = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
-            args.IsValid = (dt.getDate() == parts[0] && dt.getMonth() + 1 == parts[1] && dt.getFullYear() == parts[2]);
-              } else {
-            args.IsValid = false;
-        }
-             }
-        </script>
         <br />
         
     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtstartdate"
@@ -65,7 +53,6 @@
     ForeColor="Red"></asp:RequiredFieldValidator> <br /> 
         <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtenddate"
          ForeColor="Red" ErrorMessage="*End Date is an invalid date" ValidationGroup="Group2" />
-            <br />
             <br />
         
         <script type="text/javascript">
