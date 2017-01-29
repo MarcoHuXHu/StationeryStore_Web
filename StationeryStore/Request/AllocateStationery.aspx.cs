@@ -79,23 +79,11 @@ public partial class Request_AllocateStationery : System.Web.UI.Page
             {
                 bool isInt = int.TryParse(quantity.Text, out qty);
             }
-            if(qty<= list[i].neededQty)
-            {
-                Work.AllocateItems(list[i].requestId, list[i].itemId, qty);
-                Label error = GridView1.Rows[i].FindControl("error") as Label;
-                error.BorderStyle = BorderStyle.None;
-                error.Text = "Allocation sucessful.";
-            }
-            else
-            {
-                Label error = GridView1.Rows[i].FindControl("error") as Label;
-                error.Text = "Allocation not sucessful.";
-            }
+            Work.AllocateItems(list[i].requestId, list[i].itemId, qty);
+            Response.Redirect("AllocateStationery.aspx");
 
-            
         }
-
-        //Response.Redirect("AllocateStationery.aspx");
+        
     }
 
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)

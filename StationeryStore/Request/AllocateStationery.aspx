@@ -37,13 +37,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Allocated">
                 <ItemTemplate>
-                    <asp:TextBox ID="allocated" runat="server" TextMode="Number" min="0" ></asp:TextBox>
-                </ItemTemplate>
-                <HeaderStyle HorizontalAlign="Center" />
-            </asp:TemplateField>
-            <asp:TemplateField >
-                <ItemTemplate>
-                    <asp:Label ID="error" runat="server" ></asp:Label>
+                    <asp:TextBox width="100px" ID="allocated" runat="server" TextMode="Number" min="0" max ='<%#Eval("neededQty")%>'></asp:TextBox>
                 </ItemTemplate>
                 <HeaderStyle HorizontalAlign="Center" />
             </asp:TemplateField>
