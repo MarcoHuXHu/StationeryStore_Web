@@ -73,8 +73,8 @@ public class Work
     public static List<Staff> getDptSfInfo(string userId)
     {
         string deptId = Work.getUser(userId).DepartmentID;
-        List<Staff> st1 = new List<Staff>();
-        st1 = ctx.Staffs.Where(x => x.DepartmentID == deptId).ToList();
+        List<Staff> st1 = ctx.Staffs.OrderBy(x=>x.Name).Where(x => x.DepartmentID == deptId).ToList();
+        st1.Remove(Work.getUser(userId));
         return st1;
     }
 

@@ -41,8 +41,14 @@
                 </ItemTemplate>
                 <HeaderStyle HorizontalAlign="Center" />
             </asp:TemplateField>
+            <asp:TemplateField >
+                <ItemTemplate>
+                    <asp:Label ID="error" runat="server" ></asp:Label>
+                </ItemTemplate>
+                <HeaderStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click1" />
-</asp:Content>
+    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click1"/>
+    </asp:Content>
 
