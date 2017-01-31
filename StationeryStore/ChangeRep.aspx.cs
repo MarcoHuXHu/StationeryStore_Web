@@ -34,19 +34,6 @@ public partial class ChangeRep : System.Web.UI.Page
     {
         string newRep = DropDownList1.Text;
         Work.ChangeRep(Work.getUser(Work.getDeptRep(userId)).Name,newRep);
-        
-        string oldrepID = Work.getUser(Work.getDeptRep(userId)).UserID;
-        string subject = "You Role has changed ";
-        string body = "Dear " + Work.getUser(Work.getDeptRep(userId)).Name + ",<br />You role has changed as Employee. <br />Thanks & regards.";
-        SendEmail sm = new SendEmail(oldrepID, subject, body);
-        sm.initEmail();
-        sm.sendEmail();
-        string newrepID = Work.getUserbyName(newRep).UserID;
-        string subject1 = "You Role has changed ";
-        string body1 = "Dear " + newRep + ",<br />Congraduation!You are seleced as Department Rep!<br/><br/>Thanks & regards.";
-        SendEmail osm = new SendEmail(newrepID, subject1, body1);
-        osm.initEmail();
-        osm.sendEmail();
         Response.Redirect("ChangeRep.aspx");
     }
 }

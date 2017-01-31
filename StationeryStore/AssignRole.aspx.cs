@@ -20,7 +20,6 @@ public partial class AssignRole : System.Web.UI.Page
             Response.Redirect("~/login.aspx");
         }
         de = Work.getDlgtInfo(userId);
-
         if (!IsPostBack)
         {
             DropDownList1.DataSource = Work.getDptSfInfo(userId).Select(x => x.Name).ToList();
@@ -30,8 +29,8 @@ public partial class AssignRole : System.Web.UI.Page
 
             if (de != null){
                 TextBox4.Text = Work.getUser(de.CoveringHeadID).Name;
-                TextBox5.Text = de.StartDate.ToString("dd/MM/yyyy");
-                TextBox6.Text = de.EndDate.ToString("dd/MM/yyyy");
+                TextBox5.Text = de.StartDate.ToString();
+                TextBox6.Text = de.EndDate.ToString();
                 DropDownList1.Text = TextBox4.Text;
             }
             else
@@ -53,69 +52,53 @@ public partial class AssignRole : System.Web.UI.Page
 
 
 
-        Staff sch = Work.getDptSfInfo(userId).Where(x => x.Name == DropDownList1.Text.ToString()).FirstOrDefault();//选择的临时head的一行信息   
-        if (sch == null)
+        Staff sch = Work.getDptSfInfo(userId).Where(x => x.Name == DropDownList1.Text.ToString()).First();//选择的临时head的一行信息     
+
+        string[] format = { "dd/MM/yyyy" };
+        DateTime start;
+        if (DateTime.TryParseExact(TextBox5.Text,
+                           format,
+                           System.Globalization.CultureInfo.InvariantCulture,
+                           System.Globalization.DateTimeStyles.None,
+                           out start)) ;
+        DateTime end;
+        if (DateTime.TryParseExact(TextBox6.Text,
+                     format,
+                     System.Globalization.CultureInfo.InvariantCulture,
+                     System.Globalization.DateTimeStyles.None,
+                     out end)) ;
+        if (DateTime.Compare(start, DateTime.Today) >= 0)
         {
-            Label1.Text = "Please select one staff.";
-        }
-        else {
-
-            string[] format = { "dd/MM/yyyy" };
-            DateTime start;
-            if (DateTime.TryParseExact(TextBox5.Text,
-                               format,
-                               System.Globalization.CultureInfo.InvariantCulture,
-                               System.Globalization.DateTimeStyles.None,
-                               out start)) ;
-            DateTime end;
-            if (DateTime.TryParseExact(TextBox6.Text,
-                         format,
-                         System.Globalization.CultureInfo.InvariantCulture,
-                         System.Globalization.DateTimeStyles.None,
-                         out end)) ;
-            if (DateTime.Compare(start, DateTime.Today) >= 0)
+            if (DateTime.Compare(start, end) <= 0)
             {
-                if (DateTime.Compare(start, end) <= 0)
-                {
 
-                    Delegation dlgt = new Delegation();
-                    dlgt.CoveringHeadID = sch.UserID;
-                    dlgt.StartDate = start;
-                    dlgt.EndDate = end;
-                    dlgt.DepartmentHeadID = userId;
-                    Work.addDelegation(dlgt);
-                    //TextBox4.Text = sch.Name;
-                    //Label1.Text = "Delegation is updated Successful!";
-                    //Button2.Visible = true;
-
-
-                    string coveringheadID = sch.UserID;
-                    string subject = "Covering Head";
-                    string chname = sch.Name;
-                    string body = "Dear" + chname + ",<br />" + "<br />You are selected as new covering head. " + "<br/>From" + start + "to" + end + ".<br/><br /> Regards.";
-                    SendEmail sm = new SendEmail(coveringheadID, subject, body);
-                    sm.initEmail();
-                    sm.sendEmail();
-
-                    Response.Redirect("AssignRole.aspx");
-                }
-                else
-                {
-                    Label1.Text = "End Date can bot be earlier than Start Date!";
-                }
+                Delegation dlgt = new Delegation();
+                dlgt.CoveringHeadID = sch.UserID;
+                dlgt.StartDate = start;
+                dlgt.EndDate = end;
+                dlgt.DepartmentHeadID = userId;
+                Work.addDelegation(dlgt);
+                TextBox4.Text = sch.Name;
+                Label1.Text = "Delegation is updated Successful!";
+                Button2.Visible = true;
+                Response.Redirect("AssignRole.aspx");
 
             }
             else
             {
-                Label1.Text = "Start day can not be earlier than today.";
+                Label1.Text = "End Date can bot be earlier than Start Date!";
             }
+
         }
+        else
+        {
+            Label1.Text = "Start day can not be earlier than today.";
+        } 
+
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        string ochId = Work.getUser(de.CoveringHeadID).Name;
-        string subject = "Assignment issuse have changed";
         string[] format = { "dd/MM/yyyy" };
         DateTime start;
         if (DateTime.TryParseExact(TextBox5.Text,
@@ -133,27 +116,19 @@ public partial class AssignRole : System.Web.UI.Page
 
         if (DateTime.Compare(start,DateTime.Now)>=0)
         {
-            Work.deleteDelegation(de);
+            Work.revokeDelegation(de);
             Label1.Text = "Revoke Successful!";
-            string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
-            SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
-            sm.initEmail();
-            sm.sendEmail();
             Response.Redirect("AssignRole.aspx");
 
         }
         else
         {
-            Work.revokeDelegation(de);
+            Work.deleteDelegation(de);
             Label1.Text = "Revoke Successful.";
-            string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
-            SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
-            sm.initEmail();
-            sm.sendEmail();
             Response.Redirect("AssignRole.aspx");
         }
-
-
+        
+       
 
     }
 
@@ -181,5 +156,5 @@ public partial class AssignRole : System.Web.UI.Page
     //            {
     //            }
 
-
+    
 }
