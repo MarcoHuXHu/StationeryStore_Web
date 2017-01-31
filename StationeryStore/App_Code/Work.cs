@@ -67,7 +67,25 @@ public class Work
 
     public static Delegation getDlgtInfo(string userId)
     {
-        return ctx.Delegations.Where(x => x.DepartmentHeadID == userId && (x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today) || (x.StartDate >= DateTime.Today)).ToList().LastOrDefault();
+        List<Delegation> list = ctx.Delegations.Where(x => x.DepartmentHeadID == userId && (x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today) || (x.StartDate >= DateTime.Today)).ToList();
+        if (list.Count == 0)
+        {
+            return null;
+        }else if (list.Count == 1)
+        {
+            return list.First();
+        }else
+        {
+            for(int c=0;c< list.Count() - 1;c++)
+            {
+                
+                Delegation de = list[c];        
+                ctx.Delegations.Remove(de);
+                ctx.SaveChanges();
+                list.RemoveAt(c);
+            }
+            return list.First();
+        }
     }
 
     public static List<Staff> getDptSfInfo(string userId)
@@ -164,6 +182,12 @@ public class Work
     {
         return ctx.Staffs.Where(x => x.UserID == id).FirstOrDefault();
     }
+
+    public static Staff getUserbyName(string name)
+    {
+        return ctx.Staffs.Where(x => x.Name == name).FirstOrDefault();
+    }
+
 
     public static void createRequestDetail(RequestDetail rd)
     {
