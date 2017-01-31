@@ -8,6 +8,7 @@
     <div>
         <asp:Label ID="Label2" runat="server" Text="Order History" Font-Bold="True"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="Label3" runat="server" Text="Choose Status:"></asp:Label>
                 <asp:DropDownList ID="SearchDDL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="SearchDDL_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
