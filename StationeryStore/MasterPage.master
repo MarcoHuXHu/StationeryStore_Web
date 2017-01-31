@@ -24,82 +24,7 @@
             height: 500px;
             background-color:#558C89; color: white;
         }
-        .auto-style3 {
-            width: 8%;
-            height: 93px;
-            vertical-align:top;
-            background-color:#558C89; color: white;
-        }
-        .auto-style4 {
-            width: 129px;
-            height: 93px;
-            background-color:#558C89; color: white;
-        }
-        .auto-style5 {
-            height: 93px;
-            width: 687px;
-            background-color:#558C89; color: white;
-            font-family: 'Comic Sans MS';
-            font-size: 20px;
-        }
-        .auto-style6 {
-            height: 335px;
-            vertical-align: top;
-            width: 687px;
-        }
-        .auto-style7 {
-            height: 93px;
-            background-color:#558C89; color: white;
-            width: 10%;
-            padding-left:0em ;
-            padding-right:0em;
-        }
-
-        .auto-style8 {
-            width: 100%;
-        }
-           .newStyle1 {
-         font-family: Arial;
-         font-size: 12px;
-         color: #FFFFFF;
-         text-decoration:none;
-         font-weight: 700;
-     }
-     
-        .newStyle2 {
-         width: 17%;
-         font-family: Arial;
-         font-size: 12px;
-         color: #FFFFFF;
-     }
-
-        .auto-style9 {
-            width: 45px;
-            height: 30px;
-            margin-left: 9px;
-        }
-
-       
-        .button { 
-            background-color: #D9853B; 
-            border: none;
-            color: white; 
-            padding: 15px 15px; 
-            text-align: center; 
-            text-decoration: none; 
-            font-size: 14px;
-}
-
-           .buttonsmall { 
-            background-color: #D9853B; 
-            border: none;
-            color: white; 
-            text-align: center; 
-            text-decoration: none; 
-            font-size: 10px;
-}
-
-       
+      
 
 
     </style>
@@ -132,7 +57,7 @@
             <tr>
                 <td class="auto-style2" valign="top">
                     
-                    <asp:Panel ID="Panel1" runat="server">
+                    <asp:Panel ID="Panel1" runat="server" CssClass="sidebar-nav">
                     </asp:Panel>
 <%--                   <asp:Menu ID="Menu1" runat="server" Visible="true">
                         <Items>
