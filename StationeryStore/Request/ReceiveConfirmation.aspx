@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ReceiveConfirmation.aspx.cs" Inherits="Request_ReceiveConfirmation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -58,7 +60,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Button ID="ButtonDept0" runat="server" Text="Submit" OnClick="Button0_Click" />
+                <asp:Button ID="ButtonDept0" runat="server" Text="Submit" OnClick="Button0_Click" CssClass="button" />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

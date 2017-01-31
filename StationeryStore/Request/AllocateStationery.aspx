@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AllocateStationery.aspx.cs" Inherits="Request_AllocateStationery" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting">
@@ -43,6 +45,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click1"/>
+    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click1" CssClass="button"/>
     </asp:Content>
 
