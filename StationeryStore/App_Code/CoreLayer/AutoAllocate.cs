@@ -116,21 +116,24 @@ public class AutoAllocate
             qty.Add(key, retrievedNum[key]);
 
         // get all Transaction Logs
-        List<TransactionLog> transactionLogs = ctx.TransactionLogs.ToList();
+        List<TransactionLog> transactionLogs = ctx.TransactionLogs.Where(x=>x.Flag.Equals("Request")).ToList();
         foreach (TransactionLog log in transactionLogs)
         {
             string departmentID = log.DepartmentID;
             string itemID = log.ItemID;
-            if (!result.ContainsKey(departmentID))
-                result.Add(departmentID, new Dictionary<string, int>());
-            if (!result[departmentID].ContainsKey(itemID))
-                result[departmentID].Add(itemID, 0);
-            int requestQty = log.RequestQty ?? 0;
-            int receiveQty = log.ReceiveQty ?? 0;
-            int putQty = requestQty - receiveQty;
-            putQty = Math.Min(putQty, qty[itemID]);
-            result[departmentID][itemID] += putQty;
-            qty[itemID] -= putQty;
+            if (qty.ContainsKey(itemID))
+            {
+                if (!result.ContainsKey(departmentID))
+                    result.Add(departmentID, new Dictionary<string, int>());
+                if (!result[departmentID].ContainsKey(itemID))
+                    result[departmentID].Add(itemID, 0);
+                int requestQty = log.RequestQty ?? 0;
+                int receiveQty = log.ReceiveQty ?? 0;
+                int putQty = requestQty - receiveQty;
+                putQty = Math.Min(putQty, qty[itemID]);
+                result[departmentID][itemID] += putQty;
+                qty[itemID] -= putQty;
+            }
         }
 
         return result;

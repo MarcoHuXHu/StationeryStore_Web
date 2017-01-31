@@ -307,7 +307,11 @@ public class Work
         ctx.SaveChanges();
 
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="rqId"></param>
+    /// <param name="comment"></param>
     public static void ApproveRequest(string rqId, string comment)
     {
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
@@ -360,7 +364,10 @@ public class Work
         rd.RetrievedQty = result;
         ctx.SaveChanges();
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static List<DisbursementModel> viewRequestSummary()
     {
         List<DisbursementModel> list = new List<DisbursementModel>();
@@ -383,7 +390,10 @@ public class Work
         }
         return list;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static List<DisbursementModel> viewRequestByDept()
     {
         List<DisbursementModel> list = new List<DisbursementModel>();
@@ -1447,21 +1457,17 @@ public class Work
 
         int res1 = 0;
         // Check Discrepency in BySummary and ByDepartment
+        // And Validation of changing number
         foreach (DisbursementModel dm in listBySummary)
         {
             int num = dic[dm.ItemID];
+            if (dm.NeededNumber < num)
+                return -1001;   // Over Needed
+            if (dm.InStock < num)
+                return -1002;   // Over InStock
             if (num != dm.RetrivedNumber)
                 res1 = 1;        // Discrepency in BySummary and ByDepartment
             dm.RetrivedNumber = num;
-        }
-
-        // Validation of changing number
-        foreach (DisbursementModel dm in listBySummary)
-        {
-            if (dm.NeededNumber < dm.RetrivedNumber)
-                return -1001;   // Over Needed
-            if (dm.InStock < dm.RetrivedNumber)
-                return -1002;   // Over InStock
         }
 
         // Submit to write RetrieveLogs
