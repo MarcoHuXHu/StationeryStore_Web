@@ -52,7 +52,6 @@ ErrorMessage="valid email address required"
 ValidationExpression="^([a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]){1,70}$">
 </asp:RegularExpressionValidator>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="TextBox8" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="TextBox7"  ErrorMessage="RequiredFieldValidator">please enter address</asp:RequiredFieldValidator>
     </div>
  <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" CssClass="buttonm" />
         &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" CssClass="buttonm" />
