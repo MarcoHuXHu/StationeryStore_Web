@@ -11,8 +11,8 @@
     <title></title>
    
 
-    <link href="Stylesheet/simple-sidebar.css" rel="stylesheet" />
-    <link href="Stylesheet/StyleSheet.css" rel="stylesheet" />
+    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="./Stylesheet/StyleSheet.css" rel="stylesheet" />
     
     <style type="text/css">
        .auto-style1 {
