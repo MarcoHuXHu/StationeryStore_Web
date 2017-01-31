@@ -19,14 +19,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
         MenuItem m1 = new MenuItem("Request Stationery");
         m1.NavigateUrl = "Request/MakeRequest.aspx";
-        MenuItem m2 = new MenuItem("Request History");
+        MenuItem m2 = new MenuItem("View Requests History");
         m2.NavigateUrl = "Request/RequestHistory.aspx";
         MenuItem m3 = new MenuItem("Allocate Stationery");
         m3.NavigateUrl = "Request/AllocateStationery.aspx";
         MenuItem m4 = new MenuItem("View Submission");
         m4.NavigateUrl = "Request/ViewSubmission.aspx";
-        MenuItem m5 = new MenuItem("Collect Stationery");
-        m5.NavigateUrl = "Request/ReceiveConfirmation.aspx";
+        MenuItem m5 = new MenuItem("Disburse Stationery at Collection");
+        m5.NavigateUrl = "Request/DeliverByDepartment.aspx";
         MenuItem m6 = new MenuItem("Update Collection Point");
         m6.NavigateUrl = "UpdateCP.aspx";
         MenuItem m7 = new MenuItem("Assign Department Representative");
@@ -35,8 +35,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
         m8.NavigateUrl = "AssignRole.aspx";
         MenuItem m9 = new MenuItem("Outstanding Request");
         m9.NavigateUrl = "Request/OutstandingRequest.aspx";
-        MenuItem m10 = new MenuItem("View Request History");
-        m10.NavigateUrl = "";
+        MenuItem m10 = new MenuItem("Disbursement History");
+        m10.NavigateUrl = "Request/DisbursementHistory.aspx";
         MenuItem m11 = new MenuItem("Order");
         m11.NavigateUrl = "Order/OrderList.aspx";
         MenuItem m12 = new MenuItem("Report Discrepancy");
@@ -53,13 +53,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
         m17.NavigateUrl = "Discrepancy/ApproveDiscrepancy.aspx";
         MenuItem m18 = new MenuItem("Approve Order");
         m18.NavigateUrl = "Order/ApproveOrder.aspx";
-
-
-        MenuItem m19 = new MenuItem("Generate Report");
-        m19.NavigateUrl = "";
-
-
-        MenuItem m20 = new MenuItem("Notification");
+        MenuItem m19 = new MenuItem("Acknowledge Collection");
+        m19.NavigateUrl = "Request/ReceiveConfirmation.aspx ";
+        MenuItem m20 = new MenuItem("Notifications");
         m20.NavigateUrl = "ViewNotificationByUserID.aspx";
         MenuItem m21 = new MenuItem("Low In Stock");
         m21.NavigateUrl = "LowInStock.aspx";
@@ -67,10 +63,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
         m22.NavigateUrl = "Reports/InventoryStatusReport.aspx";
         MenuItem m23 = new MenuItem("Order Trend Report");
         m23.NavigateUrl = "Reports/Ordertrendreport.aspx";
-        MenuItem m24 = new MenuItem("Departments Trend Report");
+        MenuItem m24 = new MenuItem("Department Trend Report");
         m24.NavigateUrl = "Reports/depttrendreport.aspx";
         MenuItem m25 = new MenuItem("Chargeback Report");
         m25.NavigateUrl = "Reports/chargebackreport.aspx";
+
 
         // ! when user is null, redirect to login page
         Staff user = Work.getUser(userId);
@@ -108,7 +105,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 Menu menu = new Menu();
                 menu.Items.Add(m3);
                 menu.Items.Add(m4);
-                menu.Items.Add(m5);
+                menu.Items.Add(m19);
                 menu.Items.Add(m6);
                 menu.Items.Add(m20);
                 Panel1.Controls.Add(menu);
@@ -120,7 +117,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m1);
                 menu.Items.Add(m2);
                 menu.Items.Add(m3);
-                menu.Items.Add(m5);
+                menu.Items.Add(m19);
                 menu.Items.Add(m6);
                 menu.Items.Add(m20);
                 Panel1.Controls.Add(menu);
@@ -157,8 +154,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
             {
                 Menu menu = new Menu();
                 menu.Items.Add(m9);
+                menu.Items.Add(m5);
                 menu.Items.Add(m10);
-                menu.Items.Add(m12);
+                //menu.Items.Add(m12);
                 menu.Items.Add(m21);
                 menu.Items.Add(m17);
                 menu.Items.Add(m18);
@@ -166,7 +164,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m14);
                 menu.Items.Add(m15);
                 menu.Items.Add(m16);
-                //menu.Items.Add(m19);
                 menu.Items.Add(m22);
                 menu.Items.Add(m23);
                 menu.Items.Add(m24);
@@ -179,6 +176,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             {
                 Menu menu = new Menu();
                 menu.Items.Add(m9);
+                menu.Items.Add(m5);
                 menu.Items.Add(m10);
                 menu.Items.Add(m11);
                 menu.Items.Add(m12);
@@ -187,17 +185,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m14);
                 menu.Items.Add(m15);
                 menu.Items.Add(m16);
-
                 menu.Items.Add(m22);
                 menu.Items.Add(m23);
                 menu.Items.Add(m24);
                 menu.Items.Add(m25);
-
                 menu.Items.Add(m20);
                 Panel1.Controls.Add(menu);
                 Panel1.DataBind();
 
-                //AL comment- who is this role?
+               
             }
         }
         else if (role == "Supervisor" || role == "Manager")
@@ -206,7 +202,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Menu menu = new Menu();
             menu.Items.Add(m17);
             menu.Items.Add(m18);
-            //menu.Items.Add(m19);
+            menu.Items.Add(m8);
             menu.Items.Add(m22);
             menu.Items.Add(m23);
             menu.Items.Add(m24);
