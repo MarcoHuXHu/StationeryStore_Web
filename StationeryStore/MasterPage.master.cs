@@ -26,7 +26,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         MenuItem m4 = new MenuItem("View Submission");
         m4.NavigateUrl = "Request/ViewSubmission.aspx";
         MenuItem m5 = new MenuItem("Collect Stationery");
-        m5.NavigateUrl = "Request/DeliverByDepartment.aspx";
+        m5.NavigateUrl = "Request/ReceiveConfirmation.aspx";
         MenuItem m6 = new MenuItem("Update Collection Point");
         m6.NavigateUrl = "UpdateCP.aspx";
         MenuItem m7 = new MenuItem("Assign Department Representative");
@@ -60,7 +60,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
 
         MenuItem m20 = new MenuItem("Notification");
-        m20.NavigateUrl = "Notification.aspx";
+        m20.NavigateUrl = "ViewNotificationByUserID.aspx";
         MenuItem m21 = new MenuItem("Low In Stock");
         m21.NavigateUrl = "LowInStock.aspx";
         MenuItem m22 = new MenuItem("Inventory Status Report");
