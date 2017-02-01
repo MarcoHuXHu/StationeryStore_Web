@@ -144,32 +144,18 @@ public partial class AssignRole : System.Web.UI.Page
                      out end));
 
 
-        if (DateTime.Compare(start,DateTime.Today)>=0)
-        {
-            Work.deleteDelegation(de);
+        Work.deleteDelegation(de);
+        // Multi Thread
+        ThreadStart childref = new ThreadStart(sendrevokeemail);
+        Thread childThread = new Thread(childref);
+        childThread.Start();
 
-            // Multi Thread
-            ThreadStart childref = new ThreadStart(sendrevokeemail);
-            Thread childThread = new Thread(childref);
-            childThread.Start();
-
-            //Response.Redirect("AssignRole.aspx");
-            Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
+        //Response.Redirect("AssignRole.aspx");
+        Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
 
 
-        }
-        else
-        {
-            Work.revokeDelegation(de);
-            // Multi Thread
-            ThreadStart childref = new ThreadStart(sendrevokeemail);
-            Thread childThread = new Thread(childref);
-            childThread.Start();
+        
 
-            //Response.Redirect("AssignRole.aspx");
-            Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
-
-        }
 
 
 
