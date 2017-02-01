@@ -96,7 +96,8 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             if (errorItem.Length > 0)
             {
                 errorItem = "These Items put more given quantity than Needed: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
         else if (res == -1002)
@@ -110,7 +111,8 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             if (errorItem.Length > 0)
             {
                 errorItem = "These Items put more given quantity than InStock: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
         else if (res == -1003)
@@ -124,7 +126,8 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             if (errorItem.Length > 0)
             {
                 errorItem = "These Items put more given quantity than retrieved: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
     }

@@ -174,11 +174,12 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in listBySummary)
                 if (dm.RetrivedNumber > dm.NeededNumber)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more retrieved quantity than Needed: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                errorItem = "These Items put more retrieved quantity than Needed: \\n" + errorItem;
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
         else if (res == -1002)
@@ -188,11 +189,12 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in listBySummary)
                 if (dm.RetrivedNumber > dm.InStock)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more retrieved quantity than InStock: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                errorItem = "These Items put more retrieved quantity than InStock: \\n" + errorItem;
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
 
@@ -235,7 +237,9 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             if (res >0)
             {
                 // Discrepency in BySummary and ByDepartment, Send Message
-                System.Windows.Forms.MessageBox.Show("There are discrepency in Retrieved between By Summary and By Department.\r\nWe fixed it by changing the Retrieved By Summary");
+                //System.Windows.Forms.MessageBox.Show("There are discrepency in Retrieved between By Summary and By Department.\\nWe fixed it by changing the Retrieved By Summary");
+                string errorItem = "There are discrepency in Retrieved between By Summary and By Department.\\nWe fixed it by changing the Retrieved By Summary";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
             ViewState["listBySummary"] = listBySummary;
             ViewState["listByDept"] = listByDepartment;
@@ -247,11 +251,12 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in listBySummary)
                 if (dm.RetrivedNumber > dm.NeededNumber)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more retrieved quantity than Needed: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                errorItem = "These Items put more retrieved quantity than Needed: \\n" + errorItem;
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
         else if (res == -1002)
@@ -261,11 +266,12 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in listBySummary)
                 if (dm.RetrivedNumber > dm.InStock)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more retrieved quantity than InStock: \r\n" + errorItem;
-                System.Windows.Forms.MessageBox.Show(errorItem);
+                errorItem = "These Items put more retrieved quantity than InStock: \\n" + errorItem;
+                //System.Windows.Forms.MessageBox.Show(errorItem);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
 
