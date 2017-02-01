@@ -97,7 +97,7 @@ public partial class AssignRole : System.Web.UI.Page
                     childThread.Start();
 
                     //Response.Redirect("AssignRole.aspx");
-                    Response.Write("<script>alert('An email has been sent out!');location.href='ChangeRep.aspx';</script>");
+                    Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
                 }
                 else
                 {
@@ -117,11 +117,13 @@ public partial class AssignRole : System.Web.UI.Page
         string coveringheadID = sch.UserID;
         string subject = "Covering Head";
         string chname = sch.Name;
-        string body = "Dear" + chname + ",<br />" + "<br />You are selected as new covering head. " + "<br/>From" + start + "to" + end + ".<br/><br /> Regards.";
+        string body = "Dear" + chname + ",<br />" + "<br />You are selected as new covering head. " + "<br/>From " + start + " to " + end + ".<br/><br /> Regards.";
         SendEmail sm = new SendEmail(coveringheadID, subject, body);
         sm.initEmail();
         sm.sendEmail();
     }
+
+
 
     protected void Button2_Click(object sender, EventArgs e)
     {
@@ -145,29 +147,42 @@ public partial class AssignRole : System.Web.UI.Page
         if (DateTime.Compare(start,DateTime.Today)>=0)
         {
             Work.deleteDelegation(de);
-            Label1.Text = "Revoke Successful!";
-            string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
-            SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
-            sm.initEmail();
-            sm.sendEmail();
-            Response.Redirect("AssignRole.aspx");
+
+            // Multi Thread
+            ThreadStart childref = new ThreadStart(sendrevokeemail);
+            Thread childThread = new Thread(childref);
+            childThread.Start();
+
+            //Response.Redirect("AssignRole.aspx");
+            Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
+
 
         }
         else
         {
             Work.revokeDelegation(de);
-            Label1.Text = "Revoke Successful.";
-            string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
-            SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
-            sm.initEmail();
-            sm.sendEmail();
-            Response.Redirect("AssignRole.aspx");
+            // Multi Thread
+            ThreadStart childref = new ThreadStart(sendrevokeemail);
+            Thread childThread = new Thread(childref);
+            childThread.Start();
+
+            //Response.Redirect("AssignRole.aspx");
+            Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
+
         }
 
 
 
     }
-
+    private void sendrevokeemail()
+    {
+        string ochId = Work.getUser(de.CoveringHeadID).Name;
+        string subject = "Assignment issuse have changed";
+        string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
+        SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
+        sm.initEmail();
+        sm.sendEmail();
+    }
 
     //    protected void Button3_Click(object sender, EventArgs e)
     //    {

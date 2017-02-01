@@ -62,15 +62,17 @@ public partial class RequestDetailPage : System.Web.UI.Page
         Work.ApproveRequest(rqId,comment);
 
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendemail);
+        ThreadStart childref = new ThreadStart(sendApproceEmail);
         Thread childThread = new Thread(childref);
         childThread.Start();
 
         //Response.Redirect("ViewSubmission.aspx");
-        Response.Write("<script>alert('An email has been sent out to inform the requester!');location.href='RequestHistory.aspx';</script>");
+        Response.Write("<script>alert('An email has been sent out to inform the requester!');location.href='ViewSubmission.aspx';</script>");
+
+
     }
 
-    private void sendemail()
+    private void sendApproceEmail()
     {
         string to = Work.getRequestById(rqId).UserID;
         string subject = "Your request " + rqId + " has been approved.";
@@ -88,12 +90,24 @@ public partial class RequestDetailPage : System.Web.UI.Page
             comment = "NA";
         }
         Work.RejecteRequest(rqId, comment);
+
+        // Multi Thread
+        ThreadStart childref = new ThreadStart(sendRejecteEmail);
+        Thread childThread = new Thread(childref);
+        childThread.Start();
+
+        //Response.Redirect("ViewSubmission.aspx");
+        Response.Write("<script>alert('An email has been sent out to inform the requester!');location.href='ViewSubmission.aspx';</script>");
+
+    }
+
+    private void sendRejecteEmail()
+    {
         string to = Work.getRequestById(rqId).UserID;
         string subject = "Your request " + rqId + " has been rejected.";
         string body = "Dear Sir/ Madam,<br />" + "<br />Your request " + rqId + " has been rejected. Please click <a href = 'http://localhost/StationeryStore/Request/RequestHistory.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
         SendEmail sm = new SendEmail(to, subject, body);
         sm.initEmail();
         sm.sendEmail();
-        Response.Redirect("ViewSubmission.aspx");
     }
 }

@@ -53,7 +53,7 @@ public partial class UpdateCP : System.Web.UI.Page
         childThread.Start();
 
         //Response.Redirect("UpdateCP.aspx");
-        Response.Write("<script>alert('An email has been sent out!');location.href='ChangeRep.aspx';</script>");
+        Response.Write("<script>alert('An email has been sent out!');location.href='UpdateCP.aspx';</script>");
 
     }
 
