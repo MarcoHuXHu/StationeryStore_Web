@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -73,22 +74,21 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
         ConfirmLbl.Visible = YesBtn.Visible = NoBtn.Visible = true;
     }
 
+    string orderID;
     protected void YesBtn_Click(object sender, EventArgs e)
     {
         string lbl = ConfirmLbl.Text;
-        string orderID = lbl.Substring(lbl.Length - 11, 9);
+        orderID = lbl.Substring(lbl.Length - 11, 9);
 
         if (ConfirmLbl.Text.Contains("approve"))
         {
             string stt = "Approved";
             Work.UpdateOrderStatus(orderID, stt);
 
-            string to = Work.getOrderById(orderID).UserID;
-            string subject = "Approved Order " + orderID;
-            string body = "Dear Sir/ Madam,<br />" + "<br />Order " + orderID + " has been approved. Please click <a href = 'http://localhost/StationeryStore/Order/OrderList.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
-            SendEmail sm = new SendEmail(to, subject, body);
-            sm.initEmail();
-            sm.sendEmail();
+            // Multi Thread
+            ThreadStart childref = new ThreadStart(sendemail);
+            Thread childThread = new Thread(childref);
+            childThread.Start();
 
             string message = "You have successfully send email for order approval. The order " + orderID + " is approved successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='ApproveOrder.aspx'", true);
@@ -99,6 +99,16 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
             ReasonLbl.Visible = ReasonTextBox.Visible = Button1.Visible = true;
             ReasonLbl.Text = "Specify reasons for reject order " + orderID + " (optional): ";
         }
+    }
+
+    private void sendemail()
+    {
+        string to = Work.getOrderById(orderID).UserID;
+        string subject = "Approved Order " + orderID;
+        string body = "Dear Sir/ Madam,<br />" + "<br />Order " + orderID + " has been approved. Please click <a href = 'http://localhost/StationeryStore/Order/OrderList.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
+        SendEmail sm = new SendEmail(to, subject, body);
+        sm.initEmail();
+        sm.sendEmail();
     }
 
     protected void NoBtn_Click(object sender, EventArgs e)

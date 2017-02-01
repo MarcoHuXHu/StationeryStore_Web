@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net.Mail;
+using System.Threading;
 
 public partial class Cart : System.Web.UI.Page
 {
@@ -83,6 +84,7 @@ public partial class Cart : System.Web.UI.Page
         }
     }
 
+    string newId = null;
     protected void Button3_Click(object sender, EventArgs e)
     {
         string userid = (string) Session["user"];
@@ -92,7 +94,7 @@ public partial class Cart : System.Web.UI.Page
         string id = Work.getRequestId(deptId);
         
         
-        string newId = null; ;
+        
         if (id == null)
         {
             newId = deptId + "/00001";
@@ -133,6 +135,16 @@ public partial class Cart : System.Web.UI.Page
         }
         Session["cart"] = null;
 
+        // Multi Thread
+        ThreadStart childref = new ThreadStart(sendemail);
+        Thread childThread = new Thread(childref);
+        childThread.Start();
+
+        Response.Write("<script>alert('An email has been sent out to inform your manager!');location.href='RequestHistory.aspx';</script>");
+    }
+
+    private void sendemail()
+    {
         string headID = Work.getDeptHeadId(Work.getUser(userId).DepartmentID);
         string subject = "Request " + newId + " for approval";
         string body = "Dear Sir/ Madam,<br />" + "<br />Request " + newId + " is pending your approval.Please click <a href = 'http://localhost/StationeryStore/Request/ViewSubmission.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";

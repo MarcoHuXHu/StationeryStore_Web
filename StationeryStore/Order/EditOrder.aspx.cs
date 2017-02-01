@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,21 +33,29 @@ public partial class Order_EditOrder : System.Web.UI.Page
     }
 
 
-
+    string userID;
     protected void CancelBtn_Click(object sender, EventArgs e)
     {
-        string userID = (string)Session["user"];
+        userID = (string)Session["user"];
         string status = "Cancelled";
         Work.UpdateOrderStatus(OrderIDLbl.Text, status);
 
+        // Multi Thread
+        ThreadStart childref = new ThreadStart(sendemail);
+        Thread childThread = new Thread(childref);
+        childThread.Start();
+
+        string message = "Email about cancelling order has successfully been sent. The order " + OrderIDLbl.Text + " is cancelled.";
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='OrderList.aspx'", true);
+    }
+
+    private void sendemail()
+    {
         string headID = Work.getDeptHeadId(Work.getUser(userID).DepartmentID);
         string subject = "Order " + OrderIDLbl.Text + " has been cancelled";
         string body = "Dear Sir/ Madam,<br />" + "<br />Order " + OrderIDLbl.Text + " is cancelled. Please click <a href = 'http://localhost/StationeryStore/OrderHistory.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
         SendEmail sm = new SendEmail(headID, subject, body);
         sm.initEmail();
         sm.sendEmail();
-
-        string message = "Email about cancelling order has successfully been sent. The order " + OrderIDLbl.Text + " is cancelled.";
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='OrderList.aspx'", true);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -92,16 +93,27 @@ public partial class RequestDetailPage : System.Web.UI.Page
 
     }
 
-    protected void ButtonCancel_Click(object sender, EventArgs e)
+    private void sendemail()
     {
-        Work.CancelRequest(rqId);
         string headID = Work.getDeptHeadId(Work.getUser(userId).DepartmentID);
         string subject = "Request " + rqId + " cancelled ";
         string body = "Dear Sir/ Madam,<br />" + "<br />Request " + rqId + " has been cancelled by requester. No approval is required now.<br />" + "<br />Thanks & regards.";
         SendEmail sm = new SendEmail(headID, subject, body);
         sm.initEmail();
         sm.sendEmail();
-        Response.Redirect("RequestHistory.aspx");
+    }
+
+    protected void ButtonCancel_Click(object sender, EventArgs e)
+    {
+        Work.CancelRequest(rqId);
+
+        // Multi Thread
+        ThreadStart childref = new ThreadStart(sendemail);
+        Thread childThread = new Thread(childref);
+        childThread.Start();
+
+        Response.Write("<script>alert('An email has been sent out to inform your manager!');location.href='RequestHistory.aspx';</script>");
+        //Response.Redirect("RequestHistory.aspx");
     }
 
     protected void ButtonSubmit_Click(object sender, EventArgs e)
