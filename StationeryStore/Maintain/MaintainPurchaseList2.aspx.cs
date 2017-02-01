@@ -41,6 +41,13 @@ public partial class MaintainPurchaseList2 : System.Web.UI.Page
         var q = from x in context.Items
                 where x.Description.ToLower().Contains(SearchTextBox.Text.ToLower())
                 select new { x.ItemID, x.Category, x.Description, x.ReorderLevel, x.ReorderQty, x.UOM };
+
+        if (q.ToList().Count==0)
+        {
+            Label2.Text = "No Item Found!!!";
+        }
+
+        
         GridView1.DataSource = q.ToList();
         GridView1.DataBind();
     }
