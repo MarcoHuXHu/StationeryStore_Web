@@ -22,6 +22,7 @@ public class Work
 
     public static bool Authenticate(string userId, string pwd)
     {
+        ctx = new Team5ADProjectEntities();
         Staff s = ctx.Staffs.Where(x => x.UserID == userId && x.Password == pwd).ToList().FirstOrDefault();
         if (s != null)
         {
@@ -298,6 +299,13 @@ public class Work
         RequestDetail rd = ctx.RequestDetails.Where(x => x.RequestID == rqId && x.ItemID == itemId).ToList().First();
         ctx.RequestDetails.Remove(rd);
         ctx.SaveChanges();
+        List<RequestDetail> list = ctx.RequestDetails.Where(x => x.RequestID == rqId).ToList();
+        if (list.Count == 0)
+        {
+            Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().FirstOrDefault();
+            ctx.Requests.Remove(rq);
+            ctx.SaveChanges();
+        }
     }
 
     public static void UpdateRqQty(string rqId, string itemId, int qty)

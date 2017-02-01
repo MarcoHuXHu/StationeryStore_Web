@@ -29,6 +29,7 @@ public partial class ShowItemList : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        Label4.Visible = false;
         ViewState["category"] = TextBox1.Text;
         if (TextBox1.Text.Trim() == String.Empty)
         {
