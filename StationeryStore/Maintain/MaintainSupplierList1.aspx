@@ -19,7 +19,7 @@
                 
                  <asp:BoundField DataField="SupplierID" HeaderText="SupplierID" ReadOnly="true" />
                 
-                <asp:TemplateField HeaderText="Supplier Name"  ItemStyle-HorizontalAlign="Left">
+                <asp:TemplateField HeaderText="Supplier Name">
           <ItemTemplate>
             <%# Eval("SupplierName")%>
           </ItemTemplate>
@@ -69,7 +69,7 @@ ValidationExpression="[0-9]{9}">tel should have exactly 9 digits
           <EditItemTemplate>
               <asp:TextBox runat="server" ID="txtFax" Text='<%# Eval("FaxNo")%>' />
 				<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
-                  ErrorMessage="RegularExpressionValidator" ControlToValidate="txtPhone"
+                  ErrorMessage="RegularExpressionValidator" ControlToValidate="txtFax"
 				  ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
               </asp:RegularExpressionValidator>
           </EditItemTemplate>
