@@ -15,7 +15,7 @@
         <Columns>
         <asp:TemplateField HeaderText="">
                     <ItemTemplate>
-                        <asp:HyperLink Text="Order" runat="server" NavigateUrl='<%# "/StationeryStore/Order/MakeNewOrder.aspx?ItemID="+Eval("ItemID")+"&Description="+Eval("Description") %>'></asp:HyperLink>
+                        <asp:HyperLink Text="Order" runat="server" NavigateUrl='<%# "~/Order/MakeNewOrder.aspx?ItemID="+Eval("ItemID")+"&Description="+Eval("Description") %>'></asp:HyperLink>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
