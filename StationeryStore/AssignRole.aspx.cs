@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Threading;
 
 public partial class AssignRole : System.Web.UI.Page
 {
@@ -47,13 +48,16 @@ public partial class AssignRole : System.Web.UI.Page
     }
 
 
+    Staff sch;
+    DateTime start;
+    DateTime end;
 
     protected void Button1_Click(object sender, EventArgs e)
     {
 
 
 
-        Staff sch = Work.getDptSfInfo(userId).Where(x => x.Name == DropDownList1.Text.ToString()).FirstOrDefault();//选择的临时head的一行信息   
+        sch = Work.getDptSfInfo(userId).Where(x => x.Name == DropDownList1.Text.ToString()).FirstOrDefault();//选择的临时head的一行信息   
         if (sch == null)
         {
             Label1.Text = "Please select one staff.";
@@ -61,13 +65,11 @@ public partial class AssignRole : System.Web.UI.Page
         else {
 
             string[] format = { "dd/MM/yyyy" };
-            DateTime start;
             if (DateTime.TryParseExact(TextBox5.Text,
                                format,
                                System.Globalization.CultureInfo.InvariantCulture,
                                System.Globalization.DateTimeStyles.None,
                                out start)) ;
-            DateTime end;
             if (DateTime.TryParseExact(TextBox6.Text,
                          format,
                          System.Globalization.CultureInfo.InvariantCulture,
@@ -88,16 +90,13 @@ public partial class AssignRole : System.Web.UI.Page
                     //Label1.Text = "Delegation is updated Successful!";
                     //Button2.Visible = true;
 
+                    // Multi Thread
+                    ThreadStart childref = new ThreadStart(sendemail);
+                    Thread childThread = new Thread(childref);
+                    childThread.Start();
 
-                    string coveringheadID = sch.UserID;
-                    string subject = "Covering Head";
-                    string chname = sch.Name;
-                    string body = "Dear" + chname + ",<br />" + "<br />You are selected as new covering head. " + "<br/>From" + start + "to" + end + ".<br/><br /> Regards.";
-                    SendEmail sm = new SendEmail(coveringheadID, subject, body);
-                    sm.initEmail();
-                    sm.sendEmail();
-
-                    Response.Redirect("AssignRole.aspx");
+                    //Response.Redirect("AssignRole.aspx");
+                    Response.Write("<script>alert('An email has been sent out!');location.href='ChangeRep.aspx';</script>");
                 }
                 else
                 {
@@ -110,6 +109,17 @@ public partial class AssignRole : System.Web.UI.Page
                 Label1.Text = "Start day can not be earlier than today.";
             }
         }
+    }
+
+    private void sendemail()
+    {
+        string coveringheadID = sch.UserID;
+        string subject = "Covering Head";
+        string chname = sch.Name;
+        string body = "Dear" + chname + ",<br />" + "<br />You are selected as new covering head. " + "<br/>From" + start + "to" + end + ".<br/><br /> Regards.";
+        SendEmail sm = new SendEmail(coveringheadID, subject, body);
+        sm.initEmail();
+        sm.sendEmail();
     }
 
     protected void Button2_Click(object sender, EventArgs e)
