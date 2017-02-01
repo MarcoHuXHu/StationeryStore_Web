@@ -55,12 +55,13 @@
 /* Sidebar Styles */
 
 .sidebar-nav{
-    position: inherit ;
+    position: center ;
     top: 0;
     width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
+    color: #fff
 }
 
 .sidebar-nav li {
@@ -71,19 +72,19 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #000000;
+    color: #fff;
 }
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: #D9853B;
 }
 
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: #D9853B;
 }
 
 .sidebar-nav > .sidebar-brand {
@@ -126,5 +127,13 @@ li.selected a { color: #ff8080; }
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
+    }
+
+    .ct102{
+        width: 250px;
+    }
+
+    .level1 static{
+        width:250px;
     }
 }
