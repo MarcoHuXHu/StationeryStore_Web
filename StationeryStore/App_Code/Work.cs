@@ -112,7 +112,7 @@ public class Work
     public static void revokeDelegation(Delegation de)
     {
         Delegation d = ctx.Delegations.Where(x => x.DelegationID == de.DelegationID).ToList().FirstOrDefault();
-        d.EndDate = DateTime.Now;
+        d.EndDate = DateTime.Today;
         ctx.SaveChanges();
     }
 

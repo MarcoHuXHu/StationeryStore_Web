@@ -10,14 +10,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         <table style="width:100%;">
-            <tr>
-                <td class="auto-style1">
-                    <asp:Label ID="Label2" runat="server" Text="Current:"></asp:Label>
-                </td>
-                <td><asp:TextBox ID="TextBox4" runat="server" ReadOnly="true"></asp:TextBox>
-                </td>
-                <td>&nbsp;</td>
-            </tr>
+ 
             <tr>
                 <td class="auto-style1">
                     <asp:Label ID="Label3" runat="server" Text="Covering Head:"></asp:Label>

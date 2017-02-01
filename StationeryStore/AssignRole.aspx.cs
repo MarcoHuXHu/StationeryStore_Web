@@ -30,16 +30,17 @@ public partial class AssignRole : System.Web.UI.Page
             DropDownList1.Items.Insert(0, new ListItem("Please Select"));
 
             if (de != null){
-                TextBox4.Text = Work.getUser(de.CoveringHeadID).Name;
+                
                 TextBox5.Text = de.StartDate.ToString("dd/MM/yyyy");
                 TextBox6.Text = de.EndDate.ToString("dd/MM/yyyy");
-                DropDownList1.Text = TextBox4.Text;
+                DropDownList1.SelectedValue = Work.getUser(de.CoveringHeadID).Name;
+                DropDownList1.Enabled = false; ;
             }
             else
             {
-                Label2.Visible = false;
-                TextBox4.Visible = false;
+ 
                 Button2.Visible = false;
+                
             }
                      
 
@@ -141,7 +142,7 @@ public partial class AssignRole : System.Web.UI.Page
                      out end));
 
 
-        if (DateTime.Compare(start,DateTime.Now)>=0)
+        if (DateTime.Compare(start,DateTime.Today)>=0)
         {
             Work.deleteDelegation(de);
             Label1.Text = "Revoke Successful!";
