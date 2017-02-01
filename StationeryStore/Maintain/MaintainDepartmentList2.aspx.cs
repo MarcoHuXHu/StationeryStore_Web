@@ -36,6 +36,18 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
         string headID = TextBox9.Text;
         string repID = TextBox10.Text;
 
+        List<Staff> contactPersonList = new List<Staff>();
+
+        List<Department> departmentList = new List<Department>();
+        departmentList = model.Departments.ToList();
+
+        foreach (Department departmentListing in departmentList)
+        {
+            Staff contactPersonToAdd = new Staff();
+            contactPersonToAdd.Name = departmentListing.ContactName;
+            contactPersonList.Add(contactPersonToAdd);
+        }
+
         if (headID == repID)
         {
             throw new Exception("head cannot be same as rep");
@@ -77,9 +89,15 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
             throw new Exception("cannot select existing department head or department rep!");
         }
 
-        else
+        foreach (Staff currentContactPerson in contactPersonList)
         {
-            contactPerson.DepartmentID = DeptID;
+            if (currentContactPerson.Name == contactPerson.Name || currentContactPerson.Name == departmentHead.Name ||
+                currentContactPerson.Name == departmentRep.Name)
+            {
+                throw new Exception("cannot select existing contact person from another department!");
+            }
+        }
+        contactPerson.DepartmentID = DeptID;
             departmentHead.Role = "DeptHead";
             departmentHead.DepartmentID = DeptID;
 
@@ -87,7 +105,7 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
             departmentRep.DepartmentID = DeptID;
             model.SaveChanges();
             Response.Redirect("MaintainDepartmentList1.aspx");
-        }
+     
 
     }
 
