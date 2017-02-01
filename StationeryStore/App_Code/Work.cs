@@ -1017,6 +1017,7 @@ public class Work
         List<string> role = sql2.ToList();
         List<Delegation> li1 = sql1.ToList();
         List<string> headId = new List<string>();
+        String oneheadID = "";
         List<DiscrepancySupplyDetailsModel> li2 = new List<DiscrepancySupplyDetailsModel>();
         //DialogResult dr = MessageBox.Show("list", "Message", MessageBoxButtons.OK, MessageBoxIcon.Question);
         if (role[0].Equals("Clerk"))
@@ -1024,20 +1025,25 @@ public class Work
             //DialogResult dr1 = MessageBox.Show("Employee", "Message", MessageBoxButtons.OK, MessageBoxIcon.Question);
             for (int m = 0; m < li1.Count; m++)
             {
-                if (li1[m].CoveringHeadID.Equals(userId))
+                if (li1[m].CoveringHeadID.Equals(userId) && li1[m].StartDate < now && li1[m].EndDate > now)
                 {
                     headId.Add(li1[m].DepartmentHeadID);
+                    oneheadID = headId[0];
                 }
             }
+            var head = from s in ctx.Staffs where s.UserID == oneheadID select s.Role;
+            List<string> headRole = head.ToList();
+
             if (headId.Count == 2)
             {
                 return listAllDiscrepancies(userId);
             }
-            else if (headId[0].Equals("54213"))
+
+            else if (headRole[0].Equals("Manager"))
             {
                 return listManagerDiscrepancy(userId);
             }
-            else if (headId[0].Equals("54188"))
+            else if (headRole[0].Equals("Supervisor"))
             {
                 return listSupervisorDiscrepancy(userId);
             }
