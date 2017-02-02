@@ -1144,7 +1144,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,
@@ -1166,7 +1166,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,
@@ -1188,7 +1188,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,
@@ -1210,7 +1210,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,
@@ -1232,7 +1232,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,
@@ -1254,7 +1254,7 @@ public class Work
                   {
                       DiscrepancyId = a.Key.DiscrepancyID,
                       Requester = a.Key.Name,
-                      ItemCode = a.Key.ItemID,
+                      ItemID = a.Key.ItemID,
                       Description = a.Key.Description,
                       Quantity = a.Key.Quantity,
                       Reason = a.Key.Reason,

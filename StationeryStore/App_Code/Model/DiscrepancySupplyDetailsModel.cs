@@ -10,7 +10,7 @@ public class DiscrepancySupplyDetailsModel
 {
     private string discrepancyId;
     private string requester;
-    private string itemCode;
+    private string itemID;
     private string description;
     private int quantity;
     private string reason;
@@ -30,10 +30,10 @@ public class DiscrepancySupplyDetailsModel
         get { return requester; }
         set { requester = value; }
     }
-    public string ItemCode
+    public string ItemID
     {
-        get { return itemCode; }
-        set { itemCode = value; }
+        get { return itemID; }
+        set { itemID = value; }
     }
     public string Description
     {
