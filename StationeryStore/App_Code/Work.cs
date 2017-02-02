@@ -691,6 +691,13 @@ public class Work
     public static void DeleteDepartment(string departmentCode)
     {
         Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        List<TransactionLog> transactionList = new List<TransactionLog>();
+        transactionList = ctx.TransactionLogs.Where(x => x.DepartmentID == departmentCode).ToList();
+        foreach (TransactionLog t in transactionList)
+        {
+            ctx.TransactionLogs.Remove(t);
+        }
+        ctx.SaveChanges();
         List<Department> departmentlist = new List<Department>();
         departmentlist = ctx.Departments.Where(department => department.DepartmentID == departmentCode).ToList<Department>();
 

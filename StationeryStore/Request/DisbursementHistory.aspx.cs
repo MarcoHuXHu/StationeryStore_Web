@@ -94,6 +94,7 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         DateTime now = DateTime.Now;
         while (now.DayOfWeek != DayOfWeek.Monday)
             now = now.AddDays(-1);
+        now = now.AddDays(-7);
         int year = now.Year;
         List<myYear> yearlist = new List<myYear>();
         while (year >= startYear)
@@ -112,6 +113,7 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         DateTime now = DateTime.Now;
         while (now.DayOfWeek != DayOfWeek.Monday)
             now = now.AddDays(-1);
+        now = now.AddDays(-7);
         int endMonth = 12;
         List<myMonth> monthlist = new List<myMonth>();
         if (DropDownYear.SelectedValue == now.Year.ToString())
@@ -135,6 +137,7 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         DateTime now = DateTime.Now;
         while (now.DayOfWeek != DayOfWeek.Monday)
             now = now.AddDays(-1);
+        now = now.AddDays(-7);
         if ((year == now.Year) && (month == now.Month))
         {
             end = new DateTime(now.Year, now.Month, now.Day);
@@ -146,10 +149,10 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
             time = time.AddDays(1);
         }
         int i = 1;
-        while (time < end)
+        while (time <= end)
         {
             //if ((samemonth) && (time.AddDays(7) > end)) break;
-            if (time.AddDays(7) > now) break;
+            //if (time.AddDays(7) > now) break;
             weeks.Add(new myWeek(time, i));
             time = time.AddDays(7);
             i++;
