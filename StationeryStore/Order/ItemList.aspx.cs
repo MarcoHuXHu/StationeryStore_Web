@@ -15,13 +15,39 @@ public partial class Order_ItemList : System.Web.UI.Page
         {
             ShowAllBtn.Enabled = false;
             List<Item> iList = Work.getAllItems();
-            GridView1.DataSource = iList;
-            GridView1.DataBind();
-            if (!iList.Any())
-            {
-                Label2.Text = "No item found!";
-            }
-            Session["all"] = iList;
+            Session["itemList"] = iList;
+            // GridView1.DataSource = iList;
+            //GridView1.DataBind();
+            display();
+            // if (!iList.Any())
+            // {
+            //     Label2.Text = "No item found!";
+            // }
+
+        }
+
+    }
+
+    protected void display()
+    {
+        List<Item> iList = (List<Item>)Session["itemList"];
+        GridView1.DataSource = iList;
+        GridView1.DataBind();
+        if (iList.Count == 0)
+        {
+            Label2.ForeColor = System.Drawing.Color.Red;
+            Label2.Text = "No item found!";
+
+        }
+        else if (iList.Count > 1)
+        {
+            Label2.ForeColor = System.Drawing.Color.Black;
+            Label2.Text = "There are a total of " + iList.Count + " items.";
+        }
+        else
+        {
+            Label2.ForeColor = System.Drawing.Color.Black;
+            Label2.Text = "There is only " + iList.Count + " item.";
         }
 
     }
@@ -32,12 +58,14 @@ public partial class Order_ItemList : System.Web.UI.Page
         if (!(string.IsNullOrEmpty(SearchTextBox.Text)))
         {
             List<Item> list = Work.getFoundItems(SearchTextBox.Text);
-            if (!list.Any())
-            {
-                Label2.Text = "No item found!";
-            }
-            GridView1.DataSource = list;
-            GridView1.DataBind();
+            Session["itemList"] = list;
+            /* if (!list.Any())
+             {
+                 Label2.Text = "No item found!";
+             }
+             GridView1.DataSource = list;
+             GridView1.DataBind();*/
+            display();
         }
     }
 
@@ -45,12 +73,15 @@ public partial class Order_ItemList : System.Web.UI.Page
     {
         ShowAllBtn.Enabled = false;
         SearchTextBox.Text = String.Empty;
-        GridView1.DataSource = Session["all"];
+        List<Item> iList = Work.getAllItems();
+        Session["itemList"] = iList;
+        /*GridView1.DataSource = Session["itemList"];
         GridView1.DataBind();
         if (GridView1.Rows.Count == 0)
         {
             Label2.Text = "No item found!";
-        }
+        }*/
+        display();
     }
 
 
@@ -63,7 +94,12 @@ public partial class Order_ItemList : System.Web.UI.Page
             e.Row.ToolTip = "Click on item to order!";
             e.Row.Attributes.Add("style", "cursor:pointer;");
             e.Row.Attributes["onClick"] = string.Format("window.location = 'MakeNewOrder.aspx?ItemID={0}&Description={1}';", DataBinder.Eval(e.Row.DataItem, "ItemID"), DataBinder.Eval(e.Row.DataItem, "Description"));
-
         }
+    }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        display();
     }
 }

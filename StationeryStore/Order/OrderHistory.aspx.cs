@@ -19,26 +19,14 @@ public partial class Order_OrderHistory : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            var list = Work.getOrderStatus();
+            var list = Work.getOrderHistoryStatus();
             list.Insert(0, all);
             SearchDDL.DataSource = list;
             SearchDDL.DataBind();
 
             List<OrderModel> oList = Work.getOrderHistory();
-            HistoryGV.DataSource = oList;
-            HistoryGV.DataBind();
-            if (HistoryGV.Rows.Count == 0)
-            {
-                Label2.Text = "No order!";
-            }
-            else if (HistoryGV.Rows.Count > 1)
-            {
-                Label1.Text = "There are totally " + HistoryGV.Rows.Count + " orders.";
-            }
-            else
-            {
-                Label1.Text = "There is only " + HistoryGV.Rows.Count + " order.";
-            }
+            Session["history"] = oList;
+            display();
         }
     }
 
@@ -46,24 +34,36 @@ public partial class Order_OrderHistory : System.Web.UI.Page
     {
         ViewState["status"] = SearchDDL.SelectedValue;
         List<OrderModel> list = Work.getOrderHistory((string)ViewState["status"]);
+        Session["history"] = list;
+        display();
+    }
+
+    protected void display()
+    {
+        List<OrderModel> list = (List<OrderModel>)Session["history"];
         HistoryGV.DataSource = list;
         HistoryGV.DataBind();
-
-        if (!list.Any())
+        if (list.Count == 0)
         {
-            Label1.Text = "No item found!";
+            Label1.ForeColor = System.Drawing.Color.Red;
+            Label1.Text = "No order!";
+        }
+        else if (list.Count > 1)
+        {
+            Label1.ForeColor = System.Drawing.Color.Black;
+            Label1.Text = "There are a total of " + list.Count + " orders.";
         }
         else
         {
-            if (HistoryGV.Rows.Count > 1)
-            {
-                Label1.Text = "There are totally " + HistoryGV.Rows.Count + " orders.";
-            }
-            else
-            {
-                Label1.Text = "There is only " + HistoryGV.Rows.Count + " order.";
-            }
-
+            Label1.ForeColor = System.Drawing.Color.Black;
+            Label1.Text = "There is only " + list.Count + " order.";
         }
+
+    }
+
+    protected void HistoryGV_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        HistoryGV.PageIndex = e.NewPageIndex;
+        display();
     }
 }

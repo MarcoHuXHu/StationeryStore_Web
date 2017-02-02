@@ -11,10 +11,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Order/OrderHistory.aspx">Order History</asp:HyperLink>
         <br />
-        <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red" Text="Label"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Black" Text="Label"></asp:Label>
         <br />
         <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" OnRowCommand="GridView1_RowCommand" Width="335px">
             <Columns>
+
                 <asp:ButtonField ButtonType="Button" CommandName="Approve" Text="Approve" ControlStyle-CssClass="buttonsmall" />
                 <asp:ButtonField ButtonType="Button" CommandName="Reject" Text="Reject" ControlStyle-CssClass="buttonsmall" />
             </Columns>

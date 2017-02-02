@@ -1408,9 +1408,19 @@ public class Work
 
     public static List<String> getOrderStatus()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-        var list = ctx.Orders.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
-        return list.Select(o => o.Status).ToList();
+        //Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        //var list = ctx.Orders.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
+        //return list.Select(o => o.Status).ToList();
+        string[] status = new string[6] { "PendingApproval", "Cancelled", "Rejected", "Approved", "Ordered", "Completed" };
+        return status.ToList();
+    }
+
+    public static List<String> getOrderHistoryStatus()
+    {
+        // var list = ctx.Orders.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
+        // return list.Select(o => o.Status).Where(o => !o.Contains("PendingApproval")).ToList();
+        string[] stt = new string[5] { "Cancelled", "Rejected", "Approved", "Ordered", "Completed" };
+        return stt.ToList();
     }
 
     public static List<OrderModel> getOrderList()
@@ -1419,11 +1429,11 @@ public class Work
         List<OrderModel> oList = new List<OrderModel>();
         var q = from x in ctx.Orders
                 orderby x.OrderDate descending
-                select new { x.OrderID, x.ItemID, x.Item.Description, x.TotalQty, x.Justification, x.Status };
+                select new { x.OrderID, x.ItemID, x.Item.Description, x.TotalQty, x.Justification, x.OrderDate, x.Status };
 
         foreach (var a in q.ToList())
         {
-            OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.Status);
+            OrderModel ol = new OrderModel(a.OrderID, a.ItemID, a.Description, a.TotalQty, a.Justification, a.OrderDate, a.Status);
             oList.Add(ol);
         }
         return oList;

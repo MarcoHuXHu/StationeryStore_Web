@@ -26,14 +26,17 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
             GridView1.DataBind();
             if (GridView1.Rows.Count == 0)
             {
+                Label2.ForeColor = System.Drawing.Color.Red;
                 Label2.Text = "No pending approval order!";
             }
             else if (GridView1.Rows.Count > 1)
             {
-                Label2.Text = "There are totally " + GridView1.Rows.Count + " orders.";
+                Label2.ForeColor = System.Drawing.Color.Black;
+                Label2.Text = "There are a total of " + GridView1.Rows.Count + " orders.";
             }
             else
             {
+                Label2.ForeColor = System.Drawing.Color.Black;
                 Label2.Text = "There is only " + GridView1.Rows.Count + " order.";
             }
         }

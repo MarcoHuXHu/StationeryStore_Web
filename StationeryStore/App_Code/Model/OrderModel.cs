@@ -33,6 +33,17 @@ public class OrderModel
         this.status = status;
     }
 
+    public OrderModel(string orderId, string itemId, string description, int quantity, string justification, DateTime orderdate, string status)
+    {
+        this.orderId = orderId;
+        this.itemId = itemId;
+        this.description = description;
+        this.quantity = quantity;
+        this.justification = justification;
+        this.orderDate = orderdate;
+        this.status = status;
+    }
+
     public OrderModel(string orderId, string itemId, string category, string description, int quantity, string justification, string status, DateTime orderDate, string comment)
     {
         this.orderId = orderId;

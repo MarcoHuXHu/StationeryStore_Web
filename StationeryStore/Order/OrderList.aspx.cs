@@ -28,22 +28,33 @@ public partial class Order_OrderList : System.Web.UI.Page
             SearchDDL.DataBind();
 
             List<OrderModel> oList = Work.getOrderList();
-            OrderListGV.DataSource = oList;
-            OrderListGV.DataBind();
-            if (OrderListGV.Rows.Count == 0)
-            {
-                Label2.Text = "No order!";
-            }
-           else if (OrderListGV.Rows.Count > 1)
-            {
-                Label2.Text = "There are totally " + OrderListGV.Rows.Count + " orders.";
-            }
-            else
-            {
-                Label2.Text = "There is only " + OrderListGV.Rows.Count + " order.";
-            }
+            Session["orderList"] = oList;
+            display();
         }
-        Label1.Text = "";        
+        Label1.Text = "";
+    }
+
+    protected void display()
+    {
+        List<OrderModel> oList = (List<OrderModel>)Session["orderList"];
+        OrderListGV.DataSource = oList;
+        OrderListGV.DataBind();
+        if (oList.Count == 0)
+        {
+            Label2.ForeColor = System.Drawing.Color.Red;
+            Label2.Text = "No order!";
+        }
+        else if (oList.Count > 1)
+        {
+            Label2.ForeColor = System.Drawing.Color.Black;
+            Label2.Text = "There are a total of " + oList.Count + " orders.";
+        }
+        else
+        {
+            Label2.ForeColor = System.Drawing.Color.Black;
+            Label2.Text = "There is only " + oList.Count + " order.";
+        }
+
     }
 
 
@@ -57,58 +68,14 @@ public partial class Order_OrderList : System.Web.UI.Page
     {
         ViewState["status"] = SearchDDL.SelectedValue;
         List<OrderModel> list = Work.getOrderList((string)ViewState["status"]);
-        OrderListGV.DataSource = list;
-        OrderListGV.DataBind();
-
-        if (!list.Any())
-        {
-            Label2.Text = "No item found!";
-        }
-        else
-        {
-            if (OrderListGV.Rows.Count > 1)
-            {
-                Label2.Text = "There are totally " + OrderListGV.Rows.Count + " orders.";
-            }
-            else
-            {
-                Label2.Text = "There is only " + OrderListGV.Rows.Count + " order.";
-            }
-            
-        }
-    }
-
-
-
-    protected void OrderListGV_RowCreated(object sender, GridViewRowEventArgs e)
-    {
-        GridViewRow row = e.Row;
-        List<TableCell> columns = new List<TableCell>();
-        foreach (DataControlField column in OrderListGV.Columns)
-        {
-            //Get the first Cell /Column
-            TableCell cell = row.Cells[0];
-            // Then Remove it after
-            row.Cells.Remove(cell);
-            //And Add it to the List Collections
-            columns.Add(cell);
-        }
-
-        // Add cells
-        row.Cells.AddRange(columns.ToArray());
+        Session["orderList"] = list;
+        display();
     }
 
 
     protected void OrderListGV_SelectedIndexChanged(object sender, EventArgs e)
     {
         StringBuilder x;
-        /*GridViewRow row = OrderListGV.SelectedRow;
-        string stt = row.Cells[5].Text;
-        string orderID = row.Cells[0].Text;
-        string itemID = row.Cells[1].Text;
-        string description = row.Cells[2].Text;
-        string quantity = row.Cells[3].Text;
-        string justification = row.Cells[4].Text;*/
 
         GridViewRow row = OrderListGV.SelectedRow;
         string stt = ((Label)row.FindControl("stt")).Text;
@@ -148,5 +115,11 @@ public partial class Order_OrderList : System.Web.UI.Page
             //  Response.Redirect("EditOrder.aspx?Order=" + orderID + "&Item=" + itemID + "&Description=" + description + "&Quantity=" + quantity + "&Justification=" + justification.Replace("\n", " "));
         }
 
+    }
+
+    protected void OrderListGV_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        OrderListGV.PageIndex = e.NewPageIndex;
+        display();
     }
 }
