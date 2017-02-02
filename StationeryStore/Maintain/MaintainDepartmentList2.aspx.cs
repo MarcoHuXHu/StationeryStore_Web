@@ -16,11 +16,12 @@ public partial class MaintainDepartmentList2 : System.Web.UI.Page
 
             string chosenCollectionPoint = DropDownList1.SelectedValue;
         }
-        
-    
 
+        TextBox4.BackColor = "Gray";
+        TextBox6.BackColor = "Gray";
+        TextBox7.BackColor = "Gray";
 
-}
+    }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
