@@ -1675,6 +1675,12 @@ public class Work
         // And Validation of changing number
         foreach (DisbursementModel dm in listBySummary)
         {
+            if (dic.ContainsKey(dm.ItemID))
+                dm.RetrivedNumber = dic[dm.ItemID];
+        }
+        foreach (DisbursementModel dm in listBySummary)
+        {
+
             int num = dic[dm.ItemID];
             if (dm.NeededNumber < num)
                 return -1001;   // Over Needed
@@ -1682,8 +1688,8 @@ public class Work
                 return -1002;   // Over InStock
             if (num != dm.RetrivedNumber)
                 res1 = 1;        // Discrepency in BySummary and ByDepartment
-            dm.RetrivedNumber = num;
         }
+
 
         // Submit to write RetrieveLogs
         int res2 = SubmitRetrieve(listByDepartment);
