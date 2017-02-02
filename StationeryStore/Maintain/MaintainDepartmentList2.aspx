@@ -72,5 +72,5 @@ ValidationExpression="[8,9][0-9]{6}">tel should have exactly 7 digits, start wit
         <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" CssClass="buttonm" />
         &nbsp;<asp:Button ID="Button2" runat="server" Text="Cancel" CausesValidation="false" OnClick="Button2_Click" CssClass="buttonm" />
         &nbsp;<asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Search User" CssClass="buttonm" />
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+        
 </asp:Content>

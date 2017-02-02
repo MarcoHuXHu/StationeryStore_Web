@@ -15,18 +15,28 @@ public partial class MaintainSupplierList2 : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        String SupplierCode = TextBox1.Text;
-        String SupplierName = TextBox2.Text;
-        String ContactName = TextBox3.Text;
-        String PhoneNo = TextBox4.Text;
-        String FaxNo = TextBox5.Text;
-        String Address = TextBox6.Text;
-        String GSTNo = TextBox7.Text;
-        string email = TextBox8.Text;
-        Work.CreateSupplier(SupplierCode, SupplierName, ContactName, PhoneNo,
-            FaxNo, Address, GSTNo, email);
+        Page.Validate();
+        if (Page.IsValid == true)
+        {
+            string SupplierCode = TextBox1.Text;
+            string SupplierName = TextBox2.Text;
+            string ContactName = TextBox3.Text;
+            string PhoneNo = TextBox4.Text;
+            string FaxNo = TextBox5.Text;
+            string Address = TextBox6.Text;
+            string GSTNo = TextBox7.Text;
+            string email = TextBox8.Text;
+            Work.CreateSupplier(SupplierCode, SupplierName, ContactName, PhoneNo,
+                FaxNo, Address, GSTNo, email);
+            Response.Redirect("MaintainSupplierList1.aspx");
+        }
 
-        Response.Redirect("MaintainSupplierList1.aspx");
+        else
+        {
+            //throw new Exception("please fill all compulsory fields!");
+        }
+
+       
     }
 
     protected void Button2_Click(object sender, EventArgs e)
