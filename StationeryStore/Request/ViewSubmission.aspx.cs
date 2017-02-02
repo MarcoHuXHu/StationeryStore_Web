@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class RequestHistory : System.Web.UI.Page
 {
+    Work Work = new Work();
     static String ALL = "All";
     string userId;
    

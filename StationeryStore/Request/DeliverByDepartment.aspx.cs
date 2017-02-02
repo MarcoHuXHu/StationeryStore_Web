@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Request_DeliverByDepartment : System.Web.UI.Page
 {
+    Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

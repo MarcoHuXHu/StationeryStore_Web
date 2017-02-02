@@ -8,6 +8,7 @@ using System.Web.Security;
 
 public partial class Login : System.Web.UI.Page
 {
+    Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
 

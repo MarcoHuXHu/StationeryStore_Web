@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public class myYear
 {
+    Work Work = new Work();
     public int value { get; set; }
     public string text { get; set; }
     public myYear() { }

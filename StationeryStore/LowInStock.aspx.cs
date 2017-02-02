@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class LowInStock : System.Web.UI.Page
 {
+    Work Work = new Work();
     string userId;
     protected void Page_Load(object sender, EventArgs e)
     {

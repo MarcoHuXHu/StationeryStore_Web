@@ -9,7 +9,7 @@ using System.Threading;
 
 public partial class AssignRole : System.Web.UI.Page
 {
-
+    Work Work = new Work();
     string userId;
     Delegation de = null;
     protected void Page_Load(object sender, EventArgs e)

@@ -10,7 +10,8 @@ using System.Web;
 /// </summary>
 public class Work
 {
-    
+    Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+
     List<ItemDiscrepancyModel> idlist;
     List<ItemModel> ilist;
     Discrepancy discrepancy;
@@ -20,9 +21,9 @@ public class Work
 
     }
 
-    public static bool Authenticate(string userId, string pwd)
+    public bool Authenticate(string userId, string pwd)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Staff s = ctx.Staffs.Where(x => x.UserID == userId && x.Password == pwd).ToList().FirstOrDefault();
         if (s != null)
         {
@@ -31,9 +32,9 @@ public class Work
         else return false;
     }
 
-    public static List<Item> lowInStock()
+    public  List<Item> lowInStock()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> result = new List<Item>();
         List<Item> all = ctx.Items.ToList();
         foreach (Item i in all)
@@ -47,9 +48,9 @@ public class Work
         }
         return result;
     }
-    public static bool delegated(string userId)
+    public  bool delegated(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Delegation de = ctx.Delegations.Where(x => x.CoveringHeadID == userId && x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today).ToList().FirstOrDefault();
         if (de != null)
         {
@@ -58,9 +59,9 @@ public class Work
         else return false;
     }
 
-    public static bool delegateTo(string userId)
+    public  bool delegateTo(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Delegation de = ctx.Delegations.Where(x => x.DepartmentHeadID == userId && x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today).ToList().FirstOrDefault();
         if (de != null)
         {
@@ -69,9 +70,9 @@ public class Work
         else return false;
     }
 
-    public static Delegation getDlgtInfo(string userId)
+    public  Delegation getDlgtInfo(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Delegation> list = ctx.Delegations.Where(x => x.DepartmentHeadID == userId && (x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today) || (x.StartDate >= DateTime.Today)).ToList();
         if (list.Count == 0)
         {
@@ -93,47 +94,47 @@ public class Work
         }
     }
 
-    public static List<Staff> getDptSfInfo(string userId)
+    public List<Staff> getDptSfInfo(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-        string deptId = Work.getUser(userId).DepartmentID;
+        
+        string deptId = getUser(userId).DepartmentID;
         List<Staff> st1 = ctx.Staffs.OrderBy(x=>x.Name).Where(x => x.DepartmentID == deptId).ToList();
-        st1.Remove(Work.getUser(userId));
+        st1.Remove(getUser(userId));
         return st1;
     }
 
-    public static void addDelegation(Delegation de)
+    public  void addDelegation(Delegation de)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         ctx.Delegations.Add(de);
         ctx.SaveChanges();
     }
 
-    public static void deleteDelegation(Delegation de)
+    public  void deleteDelegation(Delegation de)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         ctx.Delegations.Remove(de);
         ctx.SaveChanges();
     }
 
-    public static void revokeDelegation(Delegation de)
+    public  void revokeDelegation(Delegation de)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Delegation d = ctx.Delegations.Where(x => x.DelegationID == de.DelegationID).ToList().FirstOrDefault();
         d.EndDate = DateTime.Today;
         ctx.SaveChanges();
     }
 
-    public static string getDeptRep(string userId)
+    public  string getDeptRep(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-        string deptId = Work.getUser(userId).DepartmentID;
+        
+        string deptId = getUser(userId).DepartmentID;
         return ctx.Staffs.Where(x => x.DepartmentID == deptId && x.Role == "DeptRep").FirstOrDefault().UserID;
 
     }
-    public static void ChangeRep(string oldRep, string newRep)
+    public  void ChangeRep(string oldRep, string newRep)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Staff newrep = ctx.Staffs.Where(x => x.Name == newRep).First();
         Staff oldrep = ctx.Staffs.Where(x => x.Name == oldRep).First();
         oldrep.Role = "Employee";
@@ -141,44 +142,44 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void changeCollectionPoint(string userId, string point)
+    public  void changeCollectionPoint(string userId, string point)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-        Department d = Work.getUser(userId).Department;
+        
+        Department d = getUser(userId).Department;
         d.Collection_Point = point;
         ctx.SaveChanges();
     }
-    public static string getDeptHeadId(string deptId)
+    public  string getDeptHeadId(string deptId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Staffs.Where(x => x.DepartmentID == deptId && (x.Role == "DeptHead" || x.Role == "Manager" || x.Role == "Supervisor")).ToList().FirstOrDefault().UserID;
     }
 
-    public static Request getRequestById(string id)
+    public  Request getRequestById(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Requests.Where(x => x.RequestID == id).ToList().FirstOrDefault();
     }
-    public static List<Item> getAllItems()
+    public  List<Item> getAllItems()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Items.ToList();
     }
-    public static List<Item> getFoundItems(string text)
+    public  List<Item> getFoundItems(string text)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Items.Where(x => x.Category.Contains(text) || x.Description.Contains(text)).ToList();
     }
 
-    public static Item getItem(string itemId)
+    public  Item getItem(string itemId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Items.Where(x => x.ItemID == itemId).FirstOrDefault();
     }
 
-    public static void createRequest(Request rq)
+    public  void createRequest(Request rq)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
 
         ctx.Requests.Add(rq);
         ctx.SaveChanges();
@@ -186,9 +187,9 @@ public class Work
 
     }
 
-    public static string getRequestId(string deptId)
+    public  string getRequestId(string deptId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Request rq = ctx.Requests.Where(x => x.RequestID.Contains(deptId)).OrderByDescending(y => y.RequestDate).FirstOrDefault();
         if (rq == null) { return null; }
         else
@@ -197,29 +198,29 @@ public class Work
         }
     }
 
-    public static Staff getUser(string id)
+    public  Staff getUser(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Staffs.Where(x => x.UserID == id).FirstOrDefault();
     }
 
-    public static Staff getUserbyName(string name)
+    public  Staff getUserbyName(string name)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Staffs.Where(x => x.Name == name).FirstOrDefault();
     }
 
 
-    public static void createRequestDetail(RequestDetail rd)
+    public  void createRequestDetail(RequestDetail rd)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         ctx.RequestDetails.Add(rd);
         ctx.SaveChanges();
     }
 
-    public static void updateOutstangQty(string deptId, string itemId, int qty)
+    public  void updateOutstangQty(string deptId, string itemId, int qty)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         OutstandingRequest or = ctx.OutstandingRequests.Where(x => x.DepartmentID == deptId && x.ItemID == itemId).FirstOrDefault();
         if (or == null)
         {
@@ -237,45 +238,45 @@ public class Work
         }
     }
 
-    public static List<Request> getRequest(string userId)
+    public  List<Request> getRequest(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Requests.Where(x => x.UserID == userId).OrderByDescending(y => y.RequestDate).ToList();
 
     }
 
-    public static List<Request> getDeptRequests(string userId)
+    public  List<Request> getDeptRequests(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         string deptId = getUser(userId).DepartmentID;
         return ctx.Requests.Where(x => x.Staff.DepartmentID == deptId).OrderByDescending(y => y.RequestDate).ToList();
     }
 
 
 
-    public static List<RequestDetail> getRequestDetail(string id)
+    public  List<RequestDetail> getRequestDetail(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.RequestDetails.Where(x => x.RequestID == id).OrderByDescending(y => y.Request.RequestDate).ToList();
     }
 
-    public static List<String> getRequestSatus()
+    public  List<String> getRequestSatus()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var list = ctx.RequestDetails.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
         return list.Select(o => o.Status).ToList();
     }
 
-    public static List<RqHistory> getRqHistory(string userId)
+    public  List<RqHistory> getRqHistory(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<RqHistory> hList = new List<RqHistory>();
-        List<Request> rqList = Work.getDeptRequests(userId);
+        List<Request> rqList = getDeptRequests(userId);
 
         foreach (Request rq in rqList)
         {
             string status = null;
-            List<RequestDetail> rdList = Work.getRequestDetail(rq.RequestID);
+            List<RequestDetail> rdList = getRequestDetail(rq.RequestID);
             if (rdList[0].Status != "Cancelled")
             {
                 if (rdList[0].Status == "InProgress" || rdList[0].Status == "Completed" || rdList[0].Status == "Unfulfilled")
@@ -286,7 +287,7 @@ public class Work
                 {
                     status = rdList[0].Status;
                 }
-                RqHistory h = new RqHistory(rq.RequestID, rq.RequestDate, Work.getUser(rq.UserID).Name, status);
+                RqHistory h = new RqHistory(rq.RequestID, rq.RequestDate, getUser(rq.UserID).Name, status);
                 hList.Add(h);
             }
 
@@ -294,10 +295,10 @@ public class Work
         return hList;
     }
 
-    public static List<RqDetail> getRqDetail(string rqId)
+    public  List<RqDetail> getRqDetail(string rqId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
-        List<RequestDetail> rdList = Work.getRequestDetail(rqId);
+        
+        List<RequestDetail> rdList = getRequestDetail(rqId);
 
         List<RqDetail> deList = new List<RqDetail>();
         foreach (RequestDetail rd in rdList)
@@ -310,9 +311,9 @@ public class Work
         return deList;
     }
 
-    public static void CancelRequest(string id)
+    public  void CancelRequest(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<RequestDetail> list = ctx.RequestDetails.Where(x => x.RequestID == id).ToList();
         foreach (RequestDetail rd in list)
         {
@@ -322,9 +323,9 @@ public class Work
 
     }
 
-    public static void DeleteRequestItem(string rqId, string itemId)
+    public  void DeleteRequestItem(string rqId, string itemId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         RequestDetail rd = ctx.RequestDetails.Where(x => x.RequestID == rqId && x.ItemID == itemId).ToList().First();
         ctx.RequestDetails.Remove(rd);
         ctx.SaveChanges();
@@ -337,9 +338,9 @@ public class Work
         }
     }
 
-    public static void UpdateRqQty(string rqId, string itemId, int qty)
+    public  void UpdateRqQty(string rqId, string itemId, int qty)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         RequestDetail rd = ctx.RequestDetails.Where(x => x.RequestID == rqId && x.ItemID == itemId).ToList().First();
         rd.RequestQty = qty;
         ctx.SaveChanges();
@@ -350,12 +351,12 @@ public class Work
     /// </summary>
     /// <param name="rqId"></param>
     /// <param name="comment"></param>
-    public static void ApproveRequest(string rqId, string comment)
+    public  void ApproveRequest(string rqId, string comment)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
         rq.Comment = comment;
-        List<RequestDetail> list = Work.getRequestDetail(rqId);
+        List<RequestDetail> list = getRequestDetail(rqId);
 
         // Edited by Marco
         // Updated version can also operate on TransactionLog
@@ -373,12 +374,12 @@ public class Work
         }
     }
 
-    public static void RejecteRequest(string rqId, string comment)
+    public  void RejecteRequest(string rqId, string comment)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Request rq = ctx.Requests.Where(x => x.RequestID == rqId).ToList().First();
         rq.Comment = comment;
-        List<RequestDetail> list = Work.getRequestDetail(rqId);
+        List<RequestDetail> list = getRequestDetail(rqId);
         foreach (RequestDetail rd in list)
         {
             rd.Status = "Rejected";
@@ -389,9 +390,9 @@ public class Work
 
     }
 
-    public static void AllocateItems(string rqId, string itemId, int qty)
+    public  void AllocateItems(string rqId, string itemId, int qty)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         RequestDetail rd = ctx.RequestDetails.Where(x => x.RequestID == rqId && x.ItemID == itemId).ToList().FirstOrDefault();
         int result = rd.RetrievedQty + qty;
         if (result == rd.RequestQty)
@@ -409,9 +410,9 @@ public class Work
     /// 
     /// </summary>
     /// <returns></returns>
-    public static List<DisbursementModel> viewRequestSummary()
+    public  List<DisbursementModel> viewRequestSummary()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<DisbursementModel> list = new List<DisbursementModel>();
         var q = from O in ctx.OutstandingRequests
                 join I in ctx.Items on O.ItemID equals I.ItemID
@@ -436,9 +437,9 @@ public class Work
     /// 
     /// </summary>
     /// <returns></returns>
-    public static List<DisbursementModel> viewRequestByDept()
+    public  List<DisbursementModel> viewRequestByDept()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<DisbursementModel> list = new List<DisbursementModel>();
         var q = from O in ctx.OutstandingRequests
                 orderby O.Department.DepartmentName
@@ -464,14 +465,14 @@ public class Work
 
     public Decimal getMaxPrice(string itemId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from s in ctx.SupplyDetails where s.ItemID == itemId && s.Priority == 1 select s.Price;
         List<Decimal> pricelist = sql.ToList();
         return pricelist[0];
     }
     public List<ItemModel> showAllItems()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from i in ctx.Items
                   select new ItemModel
                   {
@@ -488,7 +489,7 @@ public class Work
 
     public List<ItemModel> searchItems(string category)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from i in ctx.Items
                   where i.Category.Contains(category) || i.Description.Contains(category)
                   select new ItemModel
@@ -505,7 +506,7 @@ public class Work
     }
     public List<ItemDiscrepancyModel> getAllDiscrepancies(string selectedValue)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         if (!selectedValue.Equals("ShowAll"))
         {
             var sql = from i in ctx.Items
@@ -542,7 +543,7 @@ public class Work
 
     public string getMaxDiscrepancyId()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies orderby d.DiscrepancyID select d.DiscrepancyID;
         List<string> li = sql.ToList();
         List<int> newli = li.Select(x => int.Parse(x)).ToList();
@@ -551,7 +552,7 @@ public class Work
 
     public int saveDiscrepancy(string discrepancyId, int quantity, string reason, string status, Item item)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Discrepancy discrepancy = new Discrepancy();
         discrepancy.DiscrepancyID = discrepancyId;
         discrepancy.Quantity = quantity;
@@ -564,7 +565,7 @@ public class Work
 
     public Discrepancy getDiscrepancy(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies where d.DiscrepancyID == id select d;
         discrepancy = sql.FirstOrDefault();
         return discrepancy;
@@ -572,7 +573,7 @@ public class Work
 
     public int updateDiscrepancy(string id, string status)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         discrepancy = getDiscrepancy(id);
         var sql = from i in ctx.Items where i.ItemID == discrepancy.ItemID select i;
         item = sql.FirstOrDefault();
@@ -589,7 +590,7 @@ public class Work
     }
     public int saveDiscrepancy(string discrepancyId, int quantity, string reason, string status, Item item, Staff staff, DateTime now)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Discrepancy discrepancy = new Discrepancy();
         discrepancy.DiscrepancyID = discrepancyId;
         discrepancy.Quantity = quantity;
@@ -603,7 +604,7 @@ public class Work
     }
     public List<Discrepancy> getSpecificDiscrepancies()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join i in ctx.Items on d.ItemID equals i.ItemID
                   join s in ctx.SupplyDetails on i.ItemID equals s.ItemID
@@ -613,7 +614,7 @@ public class Work
     }
     public Staff getSpecificStaff(string staffId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from s in ctx.Staffs where s.UserID == staffId select s;
         return sql.FirstOrDefault();
     }
@@ -631,9 +632,9 @@ public class Work
         return emailId;
     }
     //method
-    public static List<Department> GetDepartment()
+    public  List<Department> GetDepartment()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
 
         List<Department> departmentlist = new List<Department>();
         ////foreach(Supplier sup in model.Supplier)
@@ -648,9 +649,9 @@ public class Work
 
 
     }
-    public static List<Department> GetCollectionPoint()
+    public  List<Department> GetCollectionPoint()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Department> departmentlist = new List<Department>();
         ////foreach(Supplier sup in model.Supplier)
         ////{
@@ -668,7 +669,7 @@ public class Work
 
 
 
-    public static void UpdateDepartment(string DepartmentCode, string departmentname, string contact,
+    public  void UpdateDepartment(string DepartmentCode, string departmentname, string contact,
         string telephone, string headname, string collectionPoint, string repName)
     {
 
@@ -688,9 +689,9 @@ public class Work
         //ctx.SaveChanges();
     }
 
-    public static void DeleteDepartment(string departmentCode)
+    public  void DeleteDepartment(string departmentCode)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<TransactionLog> transactionList = new List<TransactionLog>();
         transactionList = ctx.TransactionLogs.Where(x => x.DepartmentID == departmentCode).ToList();
         foreach (TransactionLog t in transactionList)
@@ -716,7 +717,7 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateDepartment(string DepartmentCode, string departmentname, string contact,
+    public  void CreateDepartment(string DepartmentCode, string departmentname, string contact,
         string telephone, string headname, string collectionPoint, string repName)
     {
 
@@ -756,9 +757,9 @@ public class Work
 
     }
     //method
-    public static List<Item> GetItems()
+    public  List<Item> GetItems()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> itemlist = new List<Item>();
         ////foreach(Supplier sup in model.Supplier)
         ////{
@@ -773,9 +774,9 @@ public class Work
 
     }
 
-    public static List<Item> GetCategory()
+    public  List<Item> GetCategory()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> itemlist = new List<Item>();
         ////foreach(Supplier sup in model.Supplier)
         ////{
@@ -792,10 +793,10 @@ public class Work
 
 
 
-    public static void UpdateItem(string ItemCode, string description, string category,
+    public  void UpdateItem(string ItemCode, string description, string category,
         string reorderLevel, string reorderQty, string uom)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> itemlist = new List<Item>();
 
         itemlist = ctx.Items.Where(item => item.ItemID == ItemCode).ToList<Item>();
@@ -811,9 +812,9 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void DeleteItem(string itemCode)
+    public  void DeleteItem(string itemCode)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> itemlist = new List<Item>();
         itemlist = ctx.Items.Where(item => item.ItemID == itemCode).ToList<Item>();
 
@@ -832,10 +833,10 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateItem(string ItemCode, string description,
+    public  void CreateItem(string ItemCode, string description,
         string Category, string ReorderLevel, string ReorderQty, string UOM, string binNo)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         //List<Supplier> currentList = GetSupplier();
         //foreach(Supplier sup in currentList)
         //{
@@ -871,9 +872,9 @@ public class Work
         }
     }
     //method
-    public static List<Supplier> GetSupplier()
+    public  List<Supplier> GetSupplier()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Supplier> supplierlist = new List<Supplier>();
         ////foreach(Supplier sup in model.Supplier)
         ////{
@@ -888,9 +889,9 @@ public class Work
 
     }
 
-    public static void UpdateSupplier(string SupplierCode, string SupplierName, string GSTRegistrationNo, string ContactName, string Phone, string Fax, string Address)
+    public  void UpdateSupplier(string SupplierCode, string SupplierName, string GSTRegistrationNo, string ContactName, string Phone, string Fax, string Address)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Supplier> supplierlist = new List<Supplier>();
 
         supplierlist = ctx.Suppliers.Where(sup => sup.SupplierID == SupplierCode).ToList<Supplier>();
@@ -907,9 +908,9 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void DeleteSupplier(string SupplierCode)
+    public  void DeleteSupplier(string SupplierCode)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Supplier> supplierlist = new List<Supplier>();
         supplierlist = ctx.Suppliers.Where(sup => sup.SupplierID == SupplierCode).ToList<Supplier>();
 
@@ -928,9 +929,9 @@ public class Work
     //input arguments are SupplierCode, SupplierName, ContactName, PhoneNo, FaxNo, Address, GSTNo
     //return type: void
 
-    public static void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo, string email)
+    public  void CreateSupplier(string SupplierCode, string SupplierName, string ContactName, string PhoneNo, string FaxNo, string Address, string GSTNo, string email)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         //List<Supplier> currentList = GetSupplier();
         //foreach(Supplier sup in currentList)
         //{
@@ -967,10 +968,10 @@ public class Work
 
     }
 
-    public static void UpdateSupplierDetail(string SupplierCode, string itemid, decimal price, int priority)
+    public  void UpdateSupplierDetail(string SupplierCode, string itemid, decimal price, int priority)
     {
 
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<SupplyDetail> supplydetaillist = new List<SupplyDetail>();
 
         supplydetaillist = ctx.SupplyDetails.Where(sup => sup.SupplierID == SupplierCode && sup.ItemID == itemid).ToList<SupplyDetail>();
@@ -982,9 +983,9 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void DeleteSupplierDetail(string SupplierCode, string ItemID)
+    public  void DeleteSupplierDetail(string SupplierCode, string ItemID)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<SupplyDetail> supplierdetaillist = new List<SupplyDetail>();
         supplierdetaillist = ctx.SupplyDetails.Where(sup => sup.SupplierID == SupplierCode && sup.ItemID == ItemID).ToList<SupplyDetail>();
 
@@ -998,10 +999,10 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void CreateSupplierDetail(string SupplierCode, string ItemID, string Price, string priority)
+    public  void CreateSupplierDetail(string SupplierCode, string ItemID, string Price, string priority)
     {
 
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         SupplyDetail toAddSupplyDetail = new SupplyDetail();
 
         toAddSupplyDetail.SupplierID = SupplierCode;
@@ -1026,7 +1027,7 @@ public class Work
     }
     public string isNormalStockNumber(string itemID, string quantity)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         int result;
         string returnMessage = "";
         var sql = from i in ctx.Items where i.ItemID == itemID select i.InStock;
@@ -1041,9 +1042,9 @@ public class Work
         return returnMessage;
     }
 
-    public static List<Item> GetUOM()
+    public  List<Item> GetUOM()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Item> itemlist = new List<Item>();
         ////foreach(Supplier sup in model.Supplier)
         ////{
@@ -1058,16 +1059,16 @@ public class Work
 
     }
 
-    public static void insertNotification(Notification n)
+    public  void insertNotification(Notification n)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         ctx.Notifications.Add(n);
         ctx.SaveChanges();
     }
 
     public List<DiscrepancySupplyDetailsModel> listPendingDiscrepancies(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         DateTime now = DateTime.Now;
         var sql1 = from d in ctx.Delegations select d;
         var sql2 = from s in ctx.Staffs where s.UserID == userId select s.Role;
@@ -1131,7 +1132,7 @@ public class Work
 
     private List<DiscrepancySupplyDetailsModel> listSupervisorDiscrepancy(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         //getMaxPrice(string itemId);
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
@@ -1154,7 +1155,7 @@ public class Work
 
     private List<DiscrepancySupplyDetailsModel> listManagerDiscrepancy(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
                   join i in ctx.Items on d.ItemID equals i.ItemID
@@ -1176,7 +1177,7 @@ public class Work
 
     private List<DiscrepancySupplyDetailsModel> listAllDiscrepancies(string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
                   join i in ctx.Items on d.ItemID equals i.ItemID
@@ -1198,7 +1199,7 @@ public class Work
 
     public List<DiscrepancySupplyDetailsModel> listAllDiscrepancies()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
                   join i in ctx.Items on d.ItemID equals i.ItemID
@@ -1220,7 +1221,7 @@ public class Work
 
     public List<DiscrepancySupplyDetailsModel> listManagerDiscrepancy()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
                   join i in ctx.Items on d.ItemID equals i.ItemID
@@ -1242,7 +1243,7 @@ public class Work
 
     public List<DiscrepancySupplyDetailsModel> listSupervisorDiscrepancy()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var sql = from d in ctx.Discrepancies
                   join st in ctx.Staffs on d.UserID equals st.UserID
                   join i in ctx.Items on d.ItemID equals i.ItemID
@@ -1263,9 +1264,9 @@ public class Work
     }
 
 
-    public static string GetSupplierDetails(decimal price, string supplierLabel)
+    public  string GetSupplierDetails(decimal price, string supplierLabel)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var q = from a in ctx.Suppliers
                 where a.SupplierID == supplierLabel
                 select a;
@@ -1274,9 +1275,9 @@ public class Work
         return result;
     }
 
-    public static SupplyDetail GetSupplier(int priority, string itemid)
+    public  SupplyDetail GetSupplier(int priority, string itemid)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         var qry = from x in ctx.SupplyDetails
                   where x.ItemID == itemid && x.Priority == priority
                   select x;
@@ -1284,9 +1285,9 @@ public class Work
         return s;
     }
 
-    public static string ShowComment(string orderID)
+    public  string ShowComment(string orderID)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         string cmt = "";
         var q = from x in ctx.Orders
                 where x.OrderID == orderID
@@ -1296,9 +1297,9 @@ public class Work
         return cmt;
     }
 
-    public static Order InsertNewOrder(string itemid, string quantity, string justification)
+    public  Order InsertNewOrder(string itemid, string quantity, string justification)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = new Order();
         Order od = ctx.Orders.OrderByDescending(x => x.OrderID).FirstOrDefault();
         if (od == null)
@@ -1324,9 +1325,9 @@ public class Work
         return o;
     }
 
-    public static void UpdateOrder(string orderid, string qty, string justification)
+    public  void UpdateOrder(string orderid, string qty, string justification)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = ctx.Orders.Where(x => x.OrderID == orderid).First();
         o.TotalQty = Convert.ToInt32(qty);
         if (justification != String.Empty)
@@ -1336,33 +1337,33 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static void UpdateOrderStatus(string orderid, string stt)
+    public  void UpdateOrderStatus(string orderid, string stt)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = ctx.Orders.Where(x => x.OrderID == orderid).First();
         o.Status = stt;
         ctx.SaveChanges();
     }
 
-    public static void UpdateComment(string orderID, string comment)
+    public  void UpdateComment(string orderID, string comment)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = ctx.Orders.Where(x => x.OrderID == orderID).First();
         o.Comment = comment;
         ctx.SaveChanges();
     }
 
-    public static void UpdateOrderDetails(string poNumber)
+    public  void UpdateOrderDetails(string poNumber)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         OrderDetail od = ctx.OrderDetails.Where(x => x.PurchaseOrderID == poNumber).First();
         od.ReceivedQty = od.OrderQty;
         ctx.SaveChanges();
     }
 
-    public static void UpdateItemStock(string orderID, string itemID)
+    public  void UpdateItemStock(string orderID, string itemID)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = ctx.Orders.Where(x => x.OrderID == orderID).First();
         Item i = ctx.Items.Where(x => x.ItemID == itemID).First();
         int updatedStock = i.InStock + o.TotalQty;
@@ -1370,9 +1371,9 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public static List<WCFNotification> ViewNotificationByUserID(string userID)
+    public  List<WCFNotification> ViewNotificationByUserID(string userID)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<Notification> nList = ctx.Notifications.Where(x => x.UserID == userID).ToList();
 
         List<WCFNotification> wcfnList = new List<WCFNotification>();
@@ -1388,17 +1389,17 @@ public class Work
 
 
 
-    public static Order getOrderById(string id)
+    public  Order getOrderById(string id)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.Orders.Where(x => x.OrderID == id).ToList().FirstOrDefault();
     }
 
 
 
-    public static List<OrderModel> listPendingOrder()
+    public  List<OrderModel> listPendingOrder()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<OrderModel> list = new List<OrderModel>();
         var q = from x in ctx.Orders
                 where x.Status == "PendingApproval"
@@ -1413,16 +1414,16 @@ public class Work
         return list;
     }
 
-    public static List<String> getOrderStatus()
+    public  List<String> getOrderStatus()
     {
-        //Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        //
         //var list = ctx.Orders.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
         //return list.Select(o => o.Status).ToList();
         string[] status = new string[6] { "PendingApproval", "Cancelled", "Rejected", "Approved", "Ordered", "Completed" };
         return status.ToList();
     }
 
-    public static List<String> getOrderHistoryStatus()
+    public  List<String> getOrderHistoryStatus()
     {
         // var list = ctx.Orders.GroupBy(y => y.Status).Select(x => x.FirstOrDefault()).ToList();
         // return list.Select(o => o.Status).Where(o => !o.Contains("PendingApproval")).ToList();
@@ -1430,9 +1431,9 @@ public class Work
         return stt.ToList();
     }
 
-    public static List<OrderModel> getOrderList()
+    public  List<OrderModel> getOrderList()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<OrderModel> oList = new List<OrderModel>();
         var q = from x in ctx.Orders
                 orderby x.OrderDate descending
@@ -1446,9 +1447,9 @@ public class Work
         return oList;
     }
 
-    public static List<OrderModel> getOrderHistory()
+    public  List<OrderModel> getOrderHistory()
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<OrderModel> oList = new List<OrderModel>();
         var q = from x in ctx.Orders
                 where x.Status != "PendingApproval"
@@ -1463,9 +1464,9 @@ public class Work
         return oList;
     }
 
-    public static List<OrderModel> getOrderList(string stt)
+    public  List<OrderModel> getOrderList(string stt)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<OrderModel> list = new List<OrderModel>();
         if (!stt.Equals("Show All"))
         {
@@ -1487,9 +1488,9 @@ public class Work
         return list;
     }
 
-    public static List<OrderModel> getOrderHistory(string stt)
+    public  List<OrderModel> getOrderHistory(string stt)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         List<OrderModel> list = new List<OrderModel>();
         if (!stt.Equals("Show All"))
         {
@@ -1511,9 +1512,9 @@ public class Work
         return list;
     }
 
-    public static string InsertNewOrder(string itemid, string quantity, string justification, string userId)
+    public  string InsertNewOrder(string itemid, string quantity, string justification, string userId)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         Order o = new Order();
         Order od = ctx.Orders.OrderByDescending(x => x.OrderID).FirstOrDefault();
         if (od == null)
@@ -1547,15 +1548,15 @@ public class Work
 
 
 
-    public static List<OrderDetail> getOrderDetailsList(string orderID)
+    public  List<OrderDetail> getOrderDetailsList(string orderID)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         return ctx.OrderDetails.Where(x => x.OrderID == orderID).ToList();
     }
 
-    public static string InsertOrderDetails(string supplier, string qty, string orderid)
+    public  string InsertOrderDetails(string supplier, string qty, string orderid)
     {
-        Team5ADProjectEntities ctx = new Team5ADProjectEntities();
+        
         OrderDetail o = new OrderDetail();
         OrderDetail od = ctx.OrderDetails.OrderByDescending(x => x.PurchaseOrderID).FirstOrDefault();
         if (od == null)
@@ -1588,7 +1589,7 @@ public class Work
     /// <param name="bySummary"></param>
     /// <param name="byDepartment"></param>
     /// <returns></returns>
-    public static int GetRetrieveLog(List<DisbursementModel> bySummary, List<DisbursementModel> byDepartment)
+    public  int GetRetrieveLog(List<DisbursementModel> bySummary, List<DisbursementModel> byDepartment)
     {
         HistoryDisbursement finder = new HistoryDisbursement();
         int result = finder.GetProgressingLog();
@@ -1612,7 +1613,7 @@ public class Work
     /// </summary>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    private static int SubmitRetrieve(List<DisbursementModel> listByDepartment)
+    private  int SubmitRetrieve(List<DisbursementModel> listByDepartment)
     {
         Transaction clerk = new Transaction();
         foreach (DisbursementModel dm in listByDepartment)
@@ -1628,7 +1629,7 @@ public class Work
     /// <param name="listBySummary"></param>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    public static int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    public  int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Validation of changing number
         foreach (DisbursementModel dm in listBySummary)
@@ -1657,7 +1658,7 @@ public class Work
     /// <param name="listBySummary"></param>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    public static int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    public  int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Update listBySummary
         Dictionary<string, int> dic = new Dictionary<string, int>();
@@ -1695,7 +1696,7 @@ public class Work
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
-    public static int SubmitDeliver(List<DisbursementModel> list)
+    public  int SubmitDeliver(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
         foreach (DisbursementModel dm in list)
@@ -1720,7 +1721,7 @@ public class Work
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
-    public static int SubmitReceive(List<DisbursementModel> list)
+    public  int SubmitReceive(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
         foreach (DisbursementModel dm in list)

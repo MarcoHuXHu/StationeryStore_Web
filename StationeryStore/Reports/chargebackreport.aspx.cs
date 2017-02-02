@@ -19,7 +19,7 @@ public partial class Reports_chargenbackreport : System.Web.UI.Page
     SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["Team5ADProjectConnectionString"].ConnectionString);
     ReportDocument rdoc = new ReportDocument();
 
-
+    Work Work = new Work();
     protected void Page_Init(object sender, EventArgs e)
     {
 

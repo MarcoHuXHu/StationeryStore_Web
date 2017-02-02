@@ -9,6 +9,7 @@ using System.Threading;
 
 public partial class Cart : System.Web.UI.Page
 {
+    Work Work = new Work();
     Dictionary<string, int> cart;
     List<CartItem> cartItemList;
     string userId;

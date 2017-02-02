@@ -9,7 +9,7 @@ using System.Net.Mail;
 /// </summary>
 public class SendEmail
 {
-
+    Work Work = new Work();
     public MailMessage Message;
     public SmtpClient client;
     private string subject;

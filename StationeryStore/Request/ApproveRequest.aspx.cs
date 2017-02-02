@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class RequestDetailPage : System.Web.UI.Page
 {
-    
+    Work Work = new Work();
     string rqId;
     List<RqDetail> deList;
     string userId;

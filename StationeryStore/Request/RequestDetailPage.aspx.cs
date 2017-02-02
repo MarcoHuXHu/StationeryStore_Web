@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class RequestDetailPage : System.Web.UI.Page
 {
+    Work Work = new Work();
     class RqDeatail
     {
         public string RequestId { get; set; }

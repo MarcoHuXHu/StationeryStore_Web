@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 public partial class ChangeRep : System.Web.UI.Page
 {
 
-
+    Work Work = new Work();
     string userId;
     string oldRep;
     protected void Page_Load(object sender, EventArgs e)

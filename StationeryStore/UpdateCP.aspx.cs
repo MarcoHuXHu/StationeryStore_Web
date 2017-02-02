@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class UpdateCP : System.Web.UI.Page
 {
+    Work Work = new Work();
     string userId;
     protected void Page_Load(object sender, EventArgs e)
     {

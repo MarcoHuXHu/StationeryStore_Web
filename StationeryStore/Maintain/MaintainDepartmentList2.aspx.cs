@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class MaintainDepartmentList2 : System.Web.UI.Page
 {
+    Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
 

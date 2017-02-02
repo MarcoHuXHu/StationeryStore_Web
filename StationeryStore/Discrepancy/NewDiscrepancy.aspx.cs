@@ -37,7 +37,7 @@ public partial class NewDiscrepancy : System.Web.UI.Page
         {
             string staffId = (string)Session["user"];
             Staff staff = work.getSpecificStaff(staffId);
-            int i = work.saveDiscrepancy(String.Format("{0:d5}", (Convert.ToInt32(work.getMaxDiscrepancyId()) + 1)), Convert.ToInt32(TextBox4.Text), TextBox5.Text, "Pending Approval", Work.getItem(TextBox1.Text), staff, DateTime.Now);
+            int i = work.saveDiscrepancy(String.Format("{0:d5}", (Convert.ToInt32(work.getMaxDiscrepancyId()) + 1)), Convert.ToInt32(TextBox4.Text), TextBox5.Text, "Pending Approval", work.getItem(TextBox1.Text), staff, DateTime.Now);
             if (i > 0)
             {
                 //DialogResult dr = MessageBox.Show("Updated Successfully!", "New Discrepancy", MessageBoxButtons.OK, MessageBoxIcon.Question);

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Request_AllocateStationery : System.Web.UI.Page
 {
+    Work Work = new Work();
     class AlloItem
     {
         public string itemId { get; set; }

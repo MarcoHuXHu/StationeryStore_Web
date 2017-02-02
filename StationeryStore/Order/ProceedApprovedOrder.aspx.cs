@@ -9,6 +9,7 @@ using System.Text;
 public partial class Order_ProceedApprovedOrder : System.Web.UI.Page
 {
     string userid;
+    Work Work = new Work();
 
     protected void Page_Load(object sender, EventArgs e)
     {

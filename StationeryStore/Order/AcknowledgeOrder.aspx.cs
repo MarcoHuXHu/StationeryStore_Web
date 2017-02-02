@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Order_AcknowledgeOrder : System.Web.UI.Page
 {
+    Work Work = new Work();
     string userid;
     string orderID;
     string itemID;

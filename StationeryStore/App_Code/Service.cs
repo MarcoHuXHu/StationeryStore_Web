@@ -12,7 +12,7 @@ public class Service : IService
 
     public bool Authenticate(WCFUser user)
     {
-        return Work.Authenticate(user.Username, user.Password);
+        return work.Authenticate(user.Username, user.Password);
     }
 
     public List<ItemDiscrepancyModel> GetDiscrepancyList(string selected)
@@ -54,7 +54,7 @@ public class Service : IService
         Discrepancy dis = work.getDiscrepancy(id);
         ItemDiscrepancyModel dm = new ItemDiscrepancyModel();
         dm.DiscrepancyId = dis.DiscrepancyID;
-        dm.Description = Work.getItem(dis.ItemID).Description;
+        dm.Description = work.getItem(dis.ItemID).Description;
         dm.Quantity = dis.Quantity;
         dm.Reason = dis.Reason;
         dm.Status = dis.Status;
@@ -68,13 +68,13 @@ public class Service : IService
 
     public List<RqHistory> ViewSubmission(string userId)
     {
-        return Work.getRqHistory(userId);
+        return work.getRqHistory(userId);
     }
 
     public List<RqHistory> SearchSubmission(string userId, string status)
     {
         List<RqHistory> list = new List<RqHistory>();
-        List<RqHistory> hlist = Work.getRqHistory(userId);
+        List<RqHistory> hlist = work.getRqHistory(userId);
         if (status == "All")
         {
             list = hlist;
@@ -92,7 +92,7 @@ public class Service : IService
 
     public List<RqDetail> ViewRequestDetail(string id)
     {
-        return Work.getRqDetail(id);
+        return work.getRqDetail(id);
     }
 
     public void ApproveRequest(string id, string comment, string status)
@@ -103,7 +103,7 @@ public class Service : IService
             {
                 comment = "NA";
             }
-            Work.ApproveRequest(id, comment);
+            work.ApproveRequest(id, comment);
 
         }
 
@@ -113,14 +113,14 @@ public class Service : IService
             {
                 comment = "NA";
             }
-            Work.RejecteRequest(id, comment);
+            work.RejecteRequest(id, comment);
 
         }
     }
 
     public List<WCFNotification> ViewNotificationByUserID(string userID)
     {
-        return Work.ViewNotificationByUserID(userID);
+        return work.ViewNotificationByUserID(userID);
     }
     
 
