@@ -14,11 +14,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">    
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Search" CssClass="buttonm" />
+        <asp:Label ID="Label4" runat="server"></asp:Label>
         <br />
         <br />
         <table style="width:100%;">
             <tr>
-                <td class="auto-style9">&nbsp;</td>
+                <td class="auto-style9" style="width:60%;">&nbsp;</td>
                 <td>
         <asp:ImageButton ID="ImageButton1" runat="server" Height="50px" ImageAlign="Left" ImageUrl="~/Image/Shopping Cart Filled-100.png" OnClick="ImageButton1_Click" Width="50px" />
                 </td>

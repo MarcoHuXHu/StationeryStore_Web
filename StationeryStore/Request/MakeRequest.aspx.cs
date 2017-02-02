@@ -31,6 +31,10 @@ public partial class MakeRequest : System.Web.UI.Page
         List<Item> search = Work.getFoundItems(TextBox1.Text);
         Session["itemList"] = search;
         display();
+        if (search.Count == 0)
+        {
+            Label4.Text = "No result found.";
+        }
 
     }
 
