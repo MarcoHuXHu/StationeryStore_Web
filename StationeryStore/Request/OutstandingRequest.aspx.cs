@@ -167,7 +167,7 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             // Successfully passed Validation and Changed Database, Update data in ViewState
             ViewState["listBySummary"] = listBySummary;
             ViewState["listByDept"] = listByDepartment;
-            string errorItem = "Update successfully!\\nWe have make some auto-allocation";
+            string errorItem = "Update successfully!\\nAuto allocation is done based on the priority and retrieved number given. Please select ViewByDepartment to see more details.";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
         }
         else if (res == -1001)
