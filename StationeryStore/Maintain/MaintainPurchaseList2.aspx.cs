@@ -46,14 +46,19 @@ public partial class MaintainPurchaseList2 : System.Web.UI.Page
         {
             Label2.Text = "No Item Found!!!";
         }
+        else
+        {
+            Label2.Text = "";
+        }
 
-        
+
         GridView1.DataSource = q.ToList();
         GridView1.DataBind();
     }
 
     protected void ShowAllBtn_Click(object sender, EventArgs e)
     {
+        Label2.Text = "";
         SearchTextBox.Text = String.Empty;
         BindGV();
     }
@@ -89,13 +94,31 @@ public partial class MaintainPurchaseList2 : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        if (GridView1.SelectedRow == null)
+        {
+            throw new Exception("please select a item to proceed!");
+        }
+        string chosenSupplierID = Request.QueryString["field1"];
+        List<SupplyDetail> detailForSupplier = new List<SupplyDetail>();
+        detailForSupplier = context.SupplyDetails.Where(s => s.SupplierID == chosenSupplierID).ToList();
+
         GridViewRow row = GridView1.SelectedRow;
         string ItemID = row.Cells[0].Text;
+
+        foreach (SupplyDetail s in detailForSupplier)
+        {
+            if (s.ItemID == ItemID)
+            {
+                throw new Exception("Item is already stored in purchase list for given supplier!");
+            }
+        }
+        
         string Description = row.Cells[2].Text;
         string UOM = row.Cells[5].Text;
-        string chosenSupplierID = Request.QueryString["field1"];
+        
         Response.Redirect("MaintainPurchaseList3.aspx?field1=" + ItemID + "&field2=" + Description +
             "&field3=" + UOM + "&field4=" + chosenSupplierID);
+    
 
     }
 
