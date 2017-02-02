@@ -54,17 +54,7 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
             PanelSummary.Visible = true;
             PanelDept.Visible = false;
             // Add data to DropDownYear
-            int year = DateTime.Now.Year;
-            List<myYear> yearlist = new List<myYear>();
-            while (year >= startYear)
-            {
-                yearlist.Add(new myYear(year));
-                year--;
-            }
-            DropDownYear.DataSource = yearlist;
-            DropDownYear.DataValueField = "value";
-            DropDownYear.DataTextField = "text";
-            DropDownYear.DataBind();
+            addYear();
             // Add data to DropDownMonth
             addMonth();
             // Add data to DropDownWeek
@@ -99,13 +89,33 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         getData();
     }
 
+    private void addYear()
+    {
+        DateTime now = DateTime.Now;
+        while (now.DayOfWeek != DayOfWeek.Monday)
+            now = now.AddDays(-1);
+        int year = now.Year;
+        List<myYear> yearlist = new List<myYear>();
+        while (year >= startYear)
+        {
+            yearlist.Add(new myYear(year));
+            year--;
+        }
+        DropDownYear.DataSource = yearlist;
+        DropDownYear.DataValueField = "value";
+        DropDownYear.DataTextField = "text";
+        DropDownYear.DataBind();
 
+    }
     private void addMonth()
     {
+        DateTime now = DateTime.Now;
+        while (now.DayOfWeek != DayOfWeek.Monday)
+            now = now.AddDays(-1);
         int endMonth = 12;
         List<myMonth> monthlist = new List<myMonth>();
-        if (DropDownYear.SelectedValue == DateTime.Now.Year.ToString())
-            endMonth = DateTime.Now.Month;
+        if (DropDownYear.SelectedValue == now.Year.ToString())
+            endMonth = now.Month;
         for (int i = 1; i <= endMonth; i++)
             monthlist.Add(new myMonth(i));
         DropDownMonth.DataSource = monthlist;
@@ -121,11 +131,14 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         int month = int.Parse(DropDownMonth.SelectedValue);
         DateTime time = new DateTime(year, month, 1);
         DateTime end = time.AddMonths(1);
-        bool samemonth = false;
-        if ((year == DateTime.Now.Year) && (month == DateTime.Now.Month))
+        //bool samemonth = false;
+        DateTime now = DateTime.Now;
+        while (now.DayOfWeek != DayOfWeek.Monday)
+            now = now.AddDays(-1);
+        if ((year == now.Year) && (month == now.Month))
         {
-            end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            samemonth = true;
+            end = new DateTime(now.Year, now.Month, now.Day);
+            //samemonth = true;
         }
         while (time < end)
         {
@@ -135,7 +148,8 @@ public partial class Request_DisbursementHistory : System.Web.UI.Page
         int i = 1;
         while (time < end)
         {
-            if ((samemonth) && (time.AddDays(7) > end)) break;
+            //if ((samemonth) && (time.AddDays(7) > end)) break;
+            if (time.AddDays(7) > now) break;
             weeks.Add(new myWeek(time, i));
             time = time.AddDays(7);
             i++;
