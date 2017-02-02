@@ -10,12 +10,13 @@ using System.Threading;
 public partial class AssignRole : System.Web.UI.Page
 {
     Work Work = new Work();
+
     string userId;
     Delegation de = null;
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        userId = (string) Session["user"];
+
+        userId = (string)Session["user"];
         if (userId == null)
         {
             Response.Redirect("~/login.aspx");
@@ -25,12 +26,13 @@ public partial class AssignRole : System.Web.UI.Page
         if (!IsPostBack)
         {
             DropDownList1.DataSource = Work.getDptSfInfo(userId).Select(x => x.Name).ToList();
-            
+
             DropDownList1.DataBind();
             DropDownList1.Items.Insert(0, new ListItem("Please Select"));
 
-            if (de != null){
-                
+            if (de != null)
+            {
+
                 TextBox5.Text = de.StartDate.ToString("dd/MM/yyyy");
                 TextBox6.Text = de.EndDate.ToString("dd/MM/yyyy");
                 DropDownList1.SelectedValue = Work.getUser(de.CoveringHeadID).Name;
@@ -38,11 +40,11 @@ public partial class AssignRole : System.Web.UI.Page
             }
             else
             {
- 
+
                 Button2.Visible = false;
-                
+
             }
-                     
+
 
         }
 
@@ -63,7 +65,8 @@ public partial class AssignRole : System.Web.UI.Page
         {
             Label1.Text = "Please select one staff.";
         }
-        else {
+        else
+        {
 
             string[] format = { "dd/MM/yyyy" };
             if (DateTime.TryParseExact(TextBox5.Text,
@@ -92,9 +95,12 @@ public partial class AssignRole : System.Web.UI.Page
                     //Button2.Visible = true;
 
                     // Multi Thread
-                    ThreadStart childref = new ThreadStart(sendemail);
-                    Thread childThread = new Thread(childref);
-                    childThread.Start();
+                    //ThreadStart childref = new ThreadStart(sendemail);
+                    //Thread childThread = new Thread(childref);
+                    //childThread.Start();
+
+                    AsyncEmail ae = sendemail;
+                    ae.BeginInvoke(null, null);
 
                     //Response.Redirect("AssignRole.aspx");
                     Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
@@ -112,6 +118,7 @@ public partial class AssignRole : System.Web.UI.Page
         }
     }
 
+    private delegate void AsyncEmail();
     private void sendemail()
     {
         string coveringheadID = sch.UserID;
@@ -135,31 +142,28 @@ public partial class AssignRole : System.Web.UI.Page
                            format,
                            System.Globalization.CultureInfo.InvariantCulture,
                            System.Globalization.DateTimeStyles.None,
-                           out start));
+                           out start)) ;
         DateTime end;
         if (DateTime.TryParseExact(TextBox6.Text,
                      format,
                      System.Globalization.CultureInfo.InvariantCulture,
                      System.Globalization.DateTimeStyles.None,
-                     out end));
+                     out end)) ;
 
 
         Work.deleteDelegation(de);
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendrevokeemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //ThreadStart childref = new ThreadStart(sendrevokeemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
 
         //Response.Redirect("AssignRole.aspx");
         Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
 
-
-        
-
-
-
-
+        AsyncEmail1 ae = sendrevokeemail;
+        ae.BeginInvoke(null, null);
     }
+    private delegate void AsyncEmail1();
     private void sendrevokeemail()
     {
         string ochId = Work.getUser(de.CoveringHeadID).Name;

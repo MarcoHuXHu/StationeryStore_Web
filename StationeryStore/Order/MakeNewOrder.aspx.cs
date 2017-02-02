@@ -9,8 +9,8 @@ using System.Web.UI.WebControls;
 
 public partial class Order_MakeNewOrder : System.Web.UI.Page
 {
-    string userId;
     Work Work = new Work();
+    string userId;
     protected void Page_Load(object sender, EventArgs e)
     {
         userId = (string)Session["user"];
@@ -28,14 +28,14 @@ public partial class Order_MakeNewOrder : System.Web.UI.Page
     string orderID;
     protected void SubmitBtn_Click(object sender, EventArgs e)
     {
-        
+
         orderID = Work.InsertNewOrder(ItemIDLbl.Text, QuantityTextBox.Text, JustificationTextBox.Text, userId);
 
         // Multi Thread
         ThreadStart childref = new ThreadStart(sendemail);
         Thread childThread = new Thread(childref);
         childThread.Start();
-        
+
 
         string message = "Your order id is " + orderID + ".";
         ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='OrderList.aspx'", true);

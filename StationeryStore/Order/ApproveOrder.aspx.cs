@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 
 public partial class Order_ApproveOrder : System.Web.UI.Page
 {
-    Work Work = new Work();
     string userId;
+    Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
         userId = (string)Session["user"];

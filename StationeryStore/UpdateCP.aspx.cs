@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 
 public partial class UpdateCP : System.Web.UI.Page
 {
-    Work Work = new Work();
     string userId;
+    Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
         userId = (string)Session["user"];
@@ -32,7 +32,7 @@ public partial class UpdateCP : System.Web.UI.Page
 
         point = RadioButtonList1.Text;
         Work.changeCollectionPoint(userId, point);
-        
+
 
         string role = Work.getUser(userId).Role;
 
@@ -49,15 +49,17 @@ public partial class UpdateCP : System.Web.UI.Page
 
 
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //ThreadStart childref = new ThreadStart(sendemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+        AsyncEmail ae = sendemail;
+        ae.BeginInvoke(null, null);
 
         //Response.Redirect("UpdateCP.aspx");
         Response.Write("<script>alert('An email has been sent out!');location.href='UpdateCP.aspx';</script>");
 
     }
-
+    private delegate void AsyncEmail();
     private void sendemail()
     {
         string subject = "Department collectiong point has changed";

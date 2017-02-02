@@ -45,10 +45,11 @@ public partial class NewDiscrepancy : System.Web.UI.Page
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + message + "')</script>");
 
                 // Multi Thread
-                ThreadStart childref = new ThreadStart(sendemail);
-                Console.WriteLine("In Main: Creating the Child thread");
-                Thread childThread = new Thread(childref);
-                childThread.Start();
+                //ThreadStart childref = new ThreadStart(sendemail);
+                //Thread childThread = new Thread(childref);
+                //childThread.Start();
+                AsyncEmail ae = sendemail;
+                ae.BeginInvoke(null, null);
 
                 Response.Write("<script>alert('Updated Successfully!');location.href='ViewDiscrepancy.aspx';</script>");
 
@@ -59,6 +60,7 @@ public partial class NewDiscrepancy : System.Web.UI.Page
             }
         }
     }
+    private delegate void AsyncEmail();
     private void sendemail()
     {
         string headID = work.getEmailToPersonId(TextBox3.Text);

@@ -59,19 +59,21 @@ public partial class RequestDetailPage : System.Web.UI.Page
         {
             comment = "NA";
         }
-        Work.ApproveRequest(rqId,comment);
+        Work.ApproveRequest(rqId, comment);
 
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendApproceEmail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //ThreadStart childref = new ThreadStart(sendApproceEmail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+        AsyncEmail ae = sendApproceEmail;
+        ae.BeginInvoke(null, null);
 
         //Response.Redirect("ViewSubmission.aspx");
         Response.Write("<script>alert('An email has been sent out to inform the requester!');location.href='ViewSubmission.aspx';</script>");
 
 
     }
-
+    private delegate void AsyncEmail();
     private void sendApproceEmail()
     {
         string to = Work.getRequestById(rqId).UserID;
@@ -92,15 +94,18 @@ public partial class RequestDetailPage : System.Web.UI.Page
         Work.RejecteRequest(rqId, comment);
 
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendRejecteEmail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //ThreadStart childref = new ThreadStart(sendRejecteEmail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+
+        AsyncEmail1 ae = sendRejecteEmail;
+        ae.BeginInvoke(null, null);
 
         //Response.Redirect("ViewSubmission.aspx");
         Response.Write("<script>alert('An email has been sent out to inform the requester!');location.href='ViewSubmission.aspx';</script>");
 
     }
-
+    private delegate void AsyncEmail1();
     private void sendRejecteEmail()
     {
         string to = Work.getRequestById(rqId).UserID;

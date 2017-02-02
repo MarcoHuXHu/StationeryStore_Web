@@ -73,7 +73,7 @@ public partial class Cart : System.Web.UI.Page
     public void GridView1_RowCommand(object sender, GridViewDeleteEventArgs e)
     {
         cart = (Dictionary<string, int>)Session["cart"];
-        cartItemList = (List < CartItem > )Session["cartItemDisplay"];
+        cartItemList = (List<CartItem>)Session["cartItemDisplay"];
         CartItem c = cartItemList[e.RowIndex];
         cart.Remove(c.itemId);
         cartItemList.RemoveAt(e.RowIndex);
@@ -88,14 +88,14 @@ public partial class Cart : System.Web.UI.Page
     string newId = null;
     protected void Button3_Click(object sender, EventArgs e)
     {
-        string userid = (string) Session["user"];
-        
+        string userid = (string)Session["user"];
+
         DateTime date = DateTime.Now;
         string deptId = Work.getUser(userid).DepartmentID;
         string id = Work.getRequestId(deptId);
-        
-        
-        
+
+
+
         if (id == null)
         {
             newId = deptId + "/00001";
@@ -103,7 +103,7 @@ public partial class Cart : System.Web.UI.Page
         }
         else
         {
-            newId = deptId + "/"+(String.Format("{0:D5}", Convert.ToInt32(id.Substring(id.Length - 2)) + 1));
+            newId = deptId + "/" + (String.Format("{0:D5}", Convert.ToInt32(id.Substring(id.Length - 2)) + 1));
         }
         Request rq = new Request();
         rq.RequestID = newId;
@@ -111,17 +111,17 @@ public partial class Cart : System.Web.UI.Page
         rq.UserID = userid;
         Work.createRequest(rq);
 
-        for (int i=0;i<cartItemList.Count();i++) 
+        for (int i = 0; i < cartItemList.Count(); i++)
         {
-          
+
             TextBox quantity = cartGridView.Rows[i].FindControl("quantity") as TextBox;
             int qty = 0;
             if (!String.IsNullOrEmpty(quantity.Text))
             {
                 bool isInt = int.TryParse(quantity.Text, out qty);
             }
-  
-            
+
+
             RequestDetail rd = new RequestDetail();
             rd.RequestID = newId;
             rd.ItemID = cartItemList[i].itemId;
@@ -129,20 +129,25 @@ public partial class Cart : System.Web.UI.Page
             rd.Status = "PendingApproval";
             Work.createRequestDetail(rd);
 
-            
-            
+
+
 
 
         }
         Session["cart"] = null;
 
-        // Multi Thread
-        ThreadStart childref = new ThreadStart(sendemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //Multi Thread
+        //ThreadStart childref = new ThreadStart(sendemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+
+        AsyncEmail ae = sendemail;
+        ae.BeginInvoke(null, null);
 
         Response.Write("<script>alert('An email has been sent out to inform your manager!');location.href='RequestHistory.aspx';</script>");
     }
+
+    private delegate void AsyncEmail();
 
     private void sendemail()
     {

@@ -28,24 +28,26 @@ public partial class ChangeRep : System.Web.UI.Page
             oldRep = Work.getUser(Work.getDeptRep(userId)).Name;
             TextBox1.Text = oldRep;
         }
-        
+
     }
 
     string newRep;
     protected void Button1_Click(object sender, EventArgs e)
     {
         newRep = DropDownList1.Text;
-        Work.ChangeRep(Work.getUser(Work.getDeptRep(userId)).Name,newRep);
+        Work.ChangeRep(Work.getUser(Work.getDeptRep(userId)).Name, newRep);
 
         // Multi Thread
-        ThreadStart childref = new ThreadStart(sendemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //ThreadStart childref = new ThreadStart(sendemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+        AsyncEmail ae = sendemail;
+        ae.BeginInvoke(null, null);
 
         //Response.Redirect("ChangeRep.aspx");
         Response.Write("<script>alert('An email has been sent out!');location.href='ChangeRep.aspx';</script>");
     }
-
+    private delegate void AsyncEmail();
     private void sendemail()
     {
         string oldrepID = Work.getUser(Work.getDeptRep(userId)).UserID;
