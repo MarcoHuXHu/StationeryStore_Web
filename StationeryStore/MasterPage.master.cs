@@ -217,7 +217,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Session["user"] = null;
+        Session.Abandon();
         Response.Redirect("~/login.aspx");
     }
 }

@@ -106,7 +106,7 @@
                     <!-- userguide here <a href="Image/User Filled.png" target="_blank" /> -->
                     <img alt="Help" class="auto-style9" src="../Image/questionmark.gif" /><br />
                     <br />
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="buttonm" />
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="buttonm" CausesValidation="false"/>
                 </td>
             </tr>
 
