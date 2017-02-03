@@ -31,6 +31,10 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
                 foreach (DisbursementModel model in byDepartment)
                     model.RetrivedNumber = res2[model.DepartmentID][model.ItemID];
             }
+            // Semi-Auto Allocate, Partially for 0 Retrieved
+            foreach (DisbursementModel dm in bySummary)
+                    dm.RetrivedNumber = Math.Min(dm.InStock, dm.NeededNumber);  // Semi-Auto Allocate
+
             this.ViewState["listBySummary"] = bySummary;
             this.ViewState["listByDept"] = byDepartment;
 

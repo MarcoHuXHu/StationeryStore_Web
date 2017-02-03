@@ -73,7 +73,7 @@ public class Work
     public  Delegation getDlgtInfo(string userId)
     {
         
-        List<Delegation> list = ctx.Delegations.Where(x => x.DepartmentHeadID == userId && (x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today) || (x.StartDate >= DateTime.Today)).ToList();
+        List<Delegation> list = ctx.Delegations.Where(x => x.DepartmentHeadID == userId && ((x.StartDate <= DateTime.Today && x.EndDate >= DateTime.Today) || (x.StartDate >= DateTime.Today))).ToList();
         if (list.Count == 0)
         {
             return null;

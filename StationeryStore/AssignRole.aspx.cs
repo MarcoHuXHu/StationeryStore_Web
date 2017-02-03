@@ -67,54 +67,59 @@ public partial class AssignRole : System.Web.UI.Page
         }
         else
         {
-
-            string[] format = { "dd/MM/yyyy" };
-            if (DateTime.TryParseExact(TextBox5.Text,
+            DateTime result;
+            if (!DateTime.TryParse(TextBox5.Text, out result)||!DateTime.TryParse(TextBox6.Text, out result))
+            { Label1.Text = "Can't key in,please select.";  }
+                
+            else {
+                string[] format = { "dd/MM/yyyy" };
+                if (DateTime.TryParseExact(TextBox5.Text,
                                format,
                                System.Globalization.CultureInfo.InvariantCulture,
                                System.Globalization.DateTimeStyles.None,
                                out start)) ;
-            if (DateTime.TryParseExact(TextBox6.Text,
-                         format,
-                         System.Globalization.CultureInfo.InvariantCulture,
-                         System.Globalization.DateTimeStyles.None,
-                         out end)) ;
-            if (DateTime.Compare(start, DateTime.Today) >= 0)
-            {
-                if (DateTime.Compare(start, end) <= 0)
+                if (DateTime.TryParseExact(TextBox6.Text,
+                             format,
+                             System.Globalization.CultureInfo.InvariantCulture,
+                             System.Globalization.DateTimeStyles.None,
+                             out end)) ;
+
+                if (DateTime.Compare(start, DateTime.Today) >= 0)
                 {
+                    if (DateTime.Compare(start, end) <= 0)
+                    {
 
-                    Delegation dlgt = new Delegation();
-                    dlgt.CoveringHeadID = sch.UserID;
-                    dlgt.StartDate = start;
-                    dlgt.EndDate = end;
-                    dlgt.DepartmentHeadID = userId;
-                    Work.addDelegation(dlgt);
-                    //TextBox4.Text = sch.Name;
-                    //Label1.Text = "Delegation is updated Successful!";
-                    //Button2.Visible = true;
+                        Delegation dlgt = new Delegation();
+                        dlgt.CoveringHeadID = sch.UserID;
+                        dlgt.StartDate = start;
+                        dlgt.EndDate = end;
+                        dlgt.DepartmentHeadID = userId;
+                        Work.addDelegation(dlgt);
+                        //TextBox4.Text = sch.Name;
+                        //Label1.Text = "Delegation is updated Successful!";
+                        //Button2.Visible = true;
 
-                    // Multi Thread
-                    //ThreadStart childref = new ThreadStart(sendemail);
-                    //Thread childThread = new Thread(childref);
-                    //childThread.Start();
+                        // Multi Thread
+                        //ThreadStart childref = new ThreadStart(sendemail);
+                        //Thread childThread = new Thread(childref);
+                        //childThread.Start();
 
-                    AsyncEmail ae = sendemail;
-                    ae.BeginInvoke(null, null);
+                        AsyncEmail ae = sendemail;
+                        ae.BeginInvoke(null, null);
 
-                    //Response.Redirect("AssignRole.aspx");
-                    Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
+                        //Response.Redirect("AssignRole.aspx");
+                        Response.Write("<script>alert('An email has been sent out!');location.href='AssignRole.aspx';</script>");
+                    }
+                    else
+                    {
+                        Label1.Text = "End Date can bot be earlier than Start Date!";
+                    }
+
                 }
                 else
                 {
-                    Label1.Text = "End Date can bot be earlier than Start Date!";
-                }
-
-            }
-            else
-            {
-                Label1.Text = "Start day can not be earlier than today.";
-            }
+                    Label1.Text = "Start day can not be earlier than today.";
+                } }
         }
     }
 

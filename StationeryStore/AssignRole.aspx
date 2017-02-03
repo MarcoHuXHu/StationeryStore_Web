@@ -24,7 +24,7 @@
                 <td class="auto-style1">
                     <asp:Label ID="Label3" runat="server" Text="Covering Officer:"></asp:Label>
                 </td>
-                <td><asp:DropDownList ID="DropDownList1" runat="server" CausesValidation="false">
+                <td><asp:DropDownList ID="DropDownList1" runat="server" >
         </asp:DropDownList>
                 </td>
 
@@ -33,7 +33,7 @@
                 <td class="auto-style1">
                     <asp:Label ID="Label4" runat="server" Text="Start Date:"></asp:Label>
                 </td>
-                <td><asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                <td><asp:TextBox ID="TextBox5" runat="server" ></asp:TextBox>
         <ajaxToolkit:CalendarExtender ID="TextBox5_CalendarExtender" runat="server" TargetControlID="TextBox5" />
         <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox5" Format="dd/MM/yyyy"/>
                 </td>
