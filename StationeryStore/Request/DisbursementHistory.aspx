@@ -7,13 +7,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
 
-    <asp:DropDownList ID="DropDownYear" runat="server" OnSelectedIndexChanged="DropDownYear_SelectedIndexChanged" AutoPostBack="true">
+    <asp:DropDownList ID="DropDownYear" runat="server" OnSelectedIndexChanged="DropDownYear_SelectedIndexChanged" AutoPostBack="true" Font-Names="Arial">
     </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:DropDownList ID="DropDownMonth" runat="server" OnSelectedIndexChanged="DropDownMonth_SelectedIndexChanged" AutoPostBack="true">
+    <asp:DropDownList ID="DropDownMonth" runat="server" OnSelectedIndexChanged="DropDownMonth_SelectedIndexChanged" AutoPostBack="true" Font-Names="Arial">
     </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:DropDownList ID="DropDownWeek" runat="server" OnSelectedIndexChanged="DropDownWeek_SelectedIndexChanged" AutoPostBack="true">
+    <asp:DropDownList ID="DropDownWeek" runat="server" OnSelectedIndexChanged="DropDownWeek_SelectedIndexChanged" AutoPostBack="true" Font-Names="Arial">
     </asp:DropDownList>
 
 
@@ -22,8 +22,8 @@
     <br />
     
     <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" AutoPostBack="true">
-        <asp:ListItem Selected="True">ViewSummary</asp:ListItem>
-        <asp:ListItem>ViewByDepartment</asp:ListItem>
+        <asp:ListItem Selected="True">View Summary</asp:ListItem>
+        <asp:ListItem>View By Department</asp:ListItem>
     </asp:RadioButtonList>
 
     <asp:Panel ID="PanelSummary" runat="server">

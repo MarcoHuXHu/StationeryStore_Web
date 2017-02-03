@@ -8,7 +8,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <p>
-        <asp:Label ID="Label1" runat="server" Text="Request History"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text="Requests History"></asp:Label>
     </p>
     <p>
         <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True">

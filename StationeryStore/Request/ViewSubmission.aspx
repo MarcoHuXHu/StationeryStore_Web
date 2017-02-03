@@ -17,7 +17,7 @@
         </asp:DropDownList>
     </p>
     <p>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="499px">
             <Columns>
 
                 <asp:TemplateField HeaderText="Request ID">
@@ -48,6 +48,7 @@
 
 
             </Columns>
+            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Middle" />
         </asp:GridView>
     </p>
     <p>

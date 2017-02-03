@@ -12,7 +12,7 @@
 
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="ButtonGenerate" runat="server" Height="30px" Text="Generate" Width="90px" OnClick="ButtonGenerate_Click" />
+    <asp:Button ID="ButtonGenerate" runat="server" Height="30px" Text="Generate" Width="90px" OnClick="ButtonGenerate_Click" CssClass="buttonm" />
 
 
     <br />
@@ -50,7 +50,7 @@
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Center" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Retrived">
+                        <asp:TemplateField HeaderText="Retrieved">
                             <ItemTemplate>
                                 <asp:Label runat="server" Text='<%#Eval("RetrivedNumber") %>'></asp:Label>
                             </ItemTemplate>

@@ -6,8 +6,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        
-        Current Department Rep:<asp:TextBox ID="TextBox1" runat="server" ReadOnly="true"></asp:TextBox>
+        <br />
+        <br />
+        Current Department Rep:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="TextBox1" runat="server" ReadOnly="true"></asp:TextBox>
+        <br />
         <br />
         Appoint New Department Rep:<asp:DropDownList ID="DropDownList1" runat="server">
         </asp:DropDownList>

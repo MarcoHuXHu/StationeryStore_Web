@@ -45,6 +45,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <br />
     <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click1" CssClass="button"/>
     </asp:Content>
 

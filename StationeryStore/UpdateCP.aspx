@@ -24,6 +24,6 @@
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select one point." ControlToValidate="RadioButtonList1" ForeColor="Red"></asp:RequiredFieldValidator>
     
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Confirm" OnClick="Button1_Click" CssClass="button" />
+        <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" CssClass="button" />
     
 </asp:Content>
