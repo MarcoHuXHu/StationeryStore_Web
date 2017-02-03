@@ -13,7 +13,7 @@
         <br />
         <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Black" Text="Label"></asp:Label>
         <br />
-        <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" OnRowCommand="GridView1_RowCommand" Width="335px">
+        <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" OnRowCommand="GridView1_RowCommand" Width="472px">
             <Columns>
 
                 <asp:ButtonField ButtonType="Button" CommandName="Approve" Text="Approve" ControlStyle-CssClass="buttonsmall" />

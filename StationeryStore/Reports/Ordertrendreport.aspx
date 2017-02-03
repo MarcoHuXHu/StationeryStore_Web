@@ -8,7 +8,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <h2> Order Trend By Suppliers</h2>
+    <h2> Order Trend Report</h2>
      <p>
         Select 1 or more reporting period (month):&nbsp;&nbsp;<asp:ListBox ID="LBperiod" runat="server" DataSourceID="SqlDataSource4" DataTextField="YYYY/MM" DataValueField="YYYY/MM" Height="73px" SelectionMode="Multiple" Width="165px"></asp:ListBox>
         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT FORMAT(OrderDate, 'yyyy/MM') AS [YYYY/MM] FROM [Order] AS o ORDER BY [YYYY/MM] DESC"></asp:SqlDataSource>
