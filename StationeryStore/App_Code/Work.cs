@@ -190,7 +190,7 @@ public class Work
     public  string getRequestId(string deptId)
     {
         
-        Request rq = ctx.Requests.Where(x => x.RequestID.Contains(deptId)).OrderByDescending(y => y.RequestDate).FirstOrDefault();
+        Request rq = ctx.Requests.Where(x => x.RequestID.Contains(deptId)).OrderByDescending(y => y.RequestID).FirstOrDefault();
         if (rq == null) { return null; }
         else
         {
