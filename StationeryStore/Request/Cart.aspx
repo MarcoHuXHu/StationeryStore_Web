@@ -7,7 +7,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:Button ID="Button1" runat="server" Text="Add Item" OnClick="Button1_Click" CssClass="buttonm" />
-    <asp:GridView ID="cartGridView" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand">
+    <br />
+    <br />
+    <asp:GridView ID="cartGridView" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand" Width="468px">
         <Columns>
             <asp:TemplateField HeaderText="Item">
                 <ItemTemplate>
@@ -38,6 +40,8 @@
 
         </Columns>
     </asp:GridView>
+    <br />
+
     <asp:Button ID="Button2" runat="server" Text="Clear Cart" OnClick="Button2_Click" CssClass="button" />
     &nbsp;
     <asp:Button ID="Button3" runat="server" Text="Submit" OnClick="Button3_Click" CssClass="button" />

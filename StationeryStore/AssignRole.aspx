@@ -22,7 +22,7 @@
  
             <tr>
                 <td class="auto-style1">
-                    <asp:Label ID="Label3" runat="server" Text="Covering Head:"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text="Covering Officer:"></asp:Label>
                 </td>
                 <td><asp:DropDownList ID="DropDownList1" runat="server" CausesValidation="false">
         </asp:DropDownList>
