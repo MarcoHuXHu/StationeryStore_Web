@@ -94,10 +94,10 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in list)
                 if (dm.GivenNumber > dm.NeededNumber)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more given quantity than Needed: \r\n" + errorItem;
+                errorItem = "These Items put more given quantity than Needed: \\n" + errorItem;
                 //System.Windows.Forms.MessageBox.Show(errorItem);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
@@ -109,10 +109,10 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in list)
                 if (dm.GivenNumber > dm.InStock)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more given quantity than InStock: \r\n" + errorItem;
+                errorItem = "These Items put more given quantity than InStock: \\n" + errorItem;
                 //System.Windows.Forms.MessageBox.Show(errorItem);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
@@ -124,13 +124,33 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             string errorItem = "";
             foreach (DisbursementModel dm in list)
                 if (dm.GivenNumber > dm.RetrivedNumber)
-                    errorItem += dm.ItemDesp + "\r\n";
+                    errorItem += dm.ItemDesp + "\\n";
             if (errorItem.Length > 0)
             {
-                errorItem = "These Items put more given quantity than retrieved: \r\n" + errorItem;
+                errorItem = "These Items put more given quantity than retrieved: \\n" + errorItem;
                 //System.Windows.Forms.MessageBox.Show(errorItem);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + errorItem + "')</script>");
             }
         }
+    }
+
+    protected void ButtonGenerate_Click(object sender, EventArgs e)
+    {
+        Dictionary<string, List<DisbursementModel>> dicByDept = (Dictionary<string, List<DisbursementModel>>)ViewState["dicByDept"];
+        string selectedDept = DropDownList1.SelectedValue;
+        List<DisbursementModel> list = new List<DisbursementModel>();
+
+        // Backup the list
+        foreach (DisbursementModel dm in dicByDept[selectedDept])
+            list.Add(new DisbursementModel(dm.DepartmentID, dm.DepartmentName, dm.ItemID, dm.ItemDesp, dm.NeededNumber, dm.InStock, dm.RetrivedNumber));
+
+        // Auto-Generate data for input
+        for (int i = 0; i < list.Count(); i++)
+        {
+            TextBox giveText = GridViewDept.Rows[i].FindControl("Given") as TextBox;
+            int num = Math.Min(list[i].NeededNumber, Math.Min(list[i].InStock, list[i].RetrivedNumber));
+            giveText.Text = num.ToString();
+        }
+
     }
 }
