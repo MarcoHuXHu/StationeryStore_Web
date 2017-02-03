@@ -33,6 +33,7 @@ public partial class Request_OutstandingRequest : System.Web.UI.Page
             }
             // Semi-Auto Allocate, Partially for 0 Retrieved
             foreach (DisbursementModel dm in bySummary)
+                if (dm.RetrivedNumber == 0)     // For Waiting Items, Retrieved = 0 when view by summary
                     dm.RetrivedNumber = Math.Min(dm.InStock, dm.NeededNumber);  // Semi-Auto Allocate
 
             this.ViewState["listBySummary"] = bySummary;
