@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Threading;
+using System.Globalization;
 
 public partial class AssignRole : System.Web.UI.Page
 {
@@ -68,10 +69,11 @@ public partial class AssignRole : System.Web.UI.Page
         else
         {
             DateTime result;
-            //if (!DateTime.TryParse(TextBox5.Text, out result)||!DateTime.TryParse(TextBox6.Text, out result))
-           // { Label1.Text = "Can't key in,please select.";  }
-                
-            //else {
+            if (!DateTime.TryParseExact(TextBox5.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out result) || !DateTime.TryParseExact(TextBox6.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+            { Label1.Text = "Invalid input. Please select from calendar."; }
+
+            else
+            {
                 string[] format = { "dd/MM/yyyy" };
                 if (DateTime.TryParseExact(TextBox5.Text,
                                format,
@@ -112,14 +114,15 @@ public partial class AssignRole : System.Web.UI.Page
                     }
                     else
                     {
-                        Label1.Text = "End Date can bot be earlier than Start Date!";
+                        Label1.Text = "End Date cannot be earlier than Start Date!";
                     }
 
                 }
                 else
                 {
-                    Label1.Text = "Start day can not be earlier than today.";
-                } //}
+                    Label1.Text = "Start day cannot be earlier than today.";
+                }
+            }
         }
     }
 

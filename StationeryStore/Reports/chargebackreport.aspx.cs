@@ -40,7 +40,8 @@ public partial class Reports_chargenbackreport : System.Web.UI.Page
     protected void btnGenrpt_Click(object sender, EventArgs e)
     {
         DateTime result;
-        if (!DateTime.TryParse(txtstartdate.Text, out result) || !DateTime.TryParse(txtenddate.Text, out result))
+        
+        if (!DateTime.TryParseExact(txtstartdate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out result) || !DateTime.TryParseExact(txtenddate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
         {
             Label1.Visible = true;
             Label1.Text = "*Please key in vaild dates";

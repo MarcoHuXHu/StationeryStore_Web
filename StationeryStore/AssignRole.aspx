@@ -41,7 +41,6 @@
                     <asp:Label ID="Label4" runat="server" Text="Start Date:"></asp:Label>
                 </td>
                 <td><asp:TextBox ID="TextBox5" runat="server" ></asp:TextBox>
-        <ajaxToolkit:CalendarExtender ID="TextBox5_CalendarExtender" runat="server" TargetControlID="TextBox5" />
         <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox5" Format="dd/MM/yyyy"/>
                 </td>
             </tr>
