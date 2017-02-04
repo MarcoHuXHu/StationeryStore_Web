@@ -1642,15 +1642,16 @@ public class Work
     /// </summary>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    private  int SubmitRetrieve(List<DisbursementModel> listByDepartment)
+    private int SubmitRetrieve(List<DisbursementModel> listByDepartment)
     {
         Transaction clerk = new Transaction();
+        int result = 0;
         foreach (DisbursementModel dm in listByDepartment)
         {
             int res = clerk.Retrieve(dm.ItemID, dm.DepartmentID, dm.RetrivedNumber);
-            if (res < 0) return res;
+            if (res < 0) result = res;
         }
-        return 0;
+        return result;
     }
     /// <summary>
     /// Clerk change number by Summary
@@ -1658,7 +1659,7 @@ public class Work
     /// <param name="listBySummary"></param>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    public  int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    public int SubmitSummary(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Validation of changing number
         foreach (DisbursementModel dm in listBySummary)
@@ -1745,12 +1746,13 @@ public class Work
             if (dm.GivenNumber > dm.RetrivedNumber)
                 return -1003;   // given > retrieved;
         }
+        int result = 0;
         for (int i = 0; i < list.Count(); i++)
         {
             int res = clerk.Give(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
-            if (res < 0) return res;
+            if (res < 0) result = res;
         }
-        return 0;
+        return result;
     }
     /// <summary>
     /// Dept Rep confirmation and update database
@@ -1758,7 +1760,7 @@ public class Work
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
-    public  int SubmitReceive(List<DisbursementModel> list)
+    public int SubmitReceive(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
         foreach (DisbursementModel dm in list)
@@ -1770,12 +1772,13 @@ public class Work
             if (dm.GivenNumber > dm.RetrivedNumber)
                 return -1003;   // given > retrieved;
         }
+        int result = 0;
         for (int i = 0; i < list.Count(); i++)
         {
             int res = clerk.Receive(list[i].ItemID, list[i].DepartmentID, list[i].GivenNumber);
-            if (res < 0) return res;
+            if (res < 0) result = res;
         }
-        return 0;
+        return result;
     }
 
     /// <summary>
