@@ -10,6 +10,7 @@
     <div>
     Supplier Code:&nbsp;&nbsp; <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="RequiredFieldValidator">please enter supplier id</asp:RequiredFieldValidator>
+        <asp:Label ID="Label1" runat="server"></asp:Label>
         <br />
         Supplier Name:&nbsp; <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="RequiredFieldValidator">please enter suppliername</asp:RequiredFieldValidator>
@@ -41,9 +42,7 @@ ValidationExpression="[0-9]{7}">fax should have exactly 7 digits
                    ErrorMessage="RegularExpressionValidator" ControlToValidate="TextBox7"
 ValidationExpression="[M][R][-][0-9]{7}[-][0-9]">gst registration number should be in MR-XXXXXXX-X format!
               </asp:RegularExpressionValidator>
-        <!--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="TextBox7"  ErrorMessage="RequiredFieldValidator">please enter gst no
-
-        </asp:RequiredFieldValidator>-->
+  
         <br />
         Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>

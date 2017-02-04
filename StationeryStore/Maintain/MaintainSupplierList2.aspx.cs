@@ -15,7 +15,20 @@ public partial class MaintainSupplierList2 : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+
         Page.Validate();
+        List<Supplier> listofSupplier = Work.GetSupplier();
+        foreach (Supplier supplier in listofSupplier)
+        {
+            if (TextBox1.Text == supplier.SupplierID)
+            {
+                Label1.Text = "SupplierID already exists! please change ID!";
+            }
+            else
+            {
+                Label1.Text = "";
+            }
+        }
         if (Page.IsValid == true)
         {
             string SupplierCode = TextBox1.Text;
