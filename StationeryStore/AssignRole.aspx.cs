@@ -68,10 +68,10 @@ public partial class AssignRole : System.Web.UI.Page
         else
         {
             DateTime result;
-            if (!DateTime.TryParse(TextBox5.Text, out result)||!DateTime.TryParse(TextBox6.Text, out result))
-            { Label1.Text = "Can't key in,please select.";  }
+            //if (!DateTime.TryParse(TextBox5.Text, out result)||!DateTime.TryParse(TextBox6.Text, out result))
+           // { Label1.Text = "Can't key in,please select.";  }
                 
-            else {
+            //else {
                 string[] format = { "dd/MM/yyyy" };
                 if (DateTime.TryParseExact(TextBox5.Text,
                                format,
@@ -119,7 +119,7 @@ public partial class AssignRole : System.Web.UI.Page
                 else
                 {
                     Label1.Text = "Start day can not be earlier than today.";
-                } }
+                } //}
         }
     }
 

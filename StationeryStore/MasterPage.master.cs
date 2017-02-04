@@ -193,16 +193,32 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
         else if (role == "Supervisor" || role == "Manager")
         {
-            menu.Items.Add(m17);
-            menu.Items.Add(m18);
-            menu.Items.Add(m8);
-            menu.Items.Add(m22);
-            menu.Items.Add(m23);
-            menu.Items.Add(m24);
-            menu.Items.Add(m25);
-            menu.Items.Add(m20);
-            Panel1.Controls.Add(menu);
-            Panel1.DataBind();
+            if (Work.delegateTo(userId))
+            {
+
+                menu.Items.Add(m8);
+                menu.Items.Add(m22);
+                menu.Items.Add(m23);
+                menu.Items.Add(m24);
+                menu.Items.Add(m25);
+                menu.Items.Add(m20);
+                Panel1.Controls.Add(menu);
+                Panel1.DataBind();
+
+            }else
+            {
+                menu.Items.Add(m17);
+                menu.Items.Add(m18);
+                menu.Items.Add(m8);
+                menu.Items.Add(m22);
+                menu.Items.Add(m23);
+                menu.Items.Add(m24);
+                menu.Items.Add(m25);
+                menu.Items.Add(m20);
+                Panel1.Controls.Add(menu);
+                Panel1.DataBind();
+            }
+               
 
         }
     }

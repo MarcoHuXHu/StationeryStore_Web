@@ -38,7 +38,7 @@
     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="LBcate" ErrorMessage="*Select 1 or more categories"
     ForeColor="Red"></asp:RequiredFieldValidator>
 
-    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" overflow-x="scroll" />
     <p>
         &nbsp;</p>
 </asp:Content>

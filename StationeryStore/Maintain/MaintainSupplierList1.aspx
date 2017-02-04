@@ -17,7 +17,7 @@
    onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
             onrowdeleting="GridView1_OnRowDeleting" CellPadding="0" Width="98%" 
             OnPageIndexChanging="GridView1_PageIndexChanging"  AllowPaging="True" PageSize="30"
-            CssClass="table table-hover table-striped">
+            CssClass="table table-hover table-striped" overflow-x="scroll">
             <RowStyle CssClass="cursor-pointer" />
                     <PagerStyle CssClass="pagination-ys" />
             <RowStyle HorizontalAlign="Left"></RowStyle>

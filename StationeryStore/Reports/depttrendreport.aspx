@@ -34,7 +34,7 @@
     ForeColor="Red"></asp:RequiredFieldValidator> <br />
 
     </p>
-    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" overflow-x="scroll" />
     <p>
         &nbsp;</p>
 </asp:Content>

@@ -118,7 +118,7 @@
 
                 <td class="auto-style3" > 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="Doc/SA43_Team5_UserGuideForWebsite v1.0.pdf" target="_blank" />
+                    <a href="/Doc/SA43_Team5_UserGuideForWebsitev1.0.pdf" target="_blank" />
                     <img alt="Help" class="auto-style9" src="../Image/questionmark.gif" /><br />
                     <br />
                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="buttonm" CausesValidation="false"/>
