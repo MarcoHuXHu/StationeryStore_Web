@@ -140,23 +140,14 @@ public partial class Cart : System.Web.UI.Page
         //ThreadStart childref = new ThreadStart(sendemail);
         //Thread childThread = new Thread(childref);
         //childThread.Start();
+        string headID = Work.getDeptHeadId(Work.getUser(userId).DepartmentID);
+        string subject = "Request " + newId + " for approval";
+        string body = "Dear Sir/ Madam,<br />" + "<br />Request " + newId + " is pending your approval.Please click <a href = 'http://localhost/StationeryStore/Request/ViewSubmission.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
 
-        AsyncEmail ae = sendemail;
-        ae.BeginInvoke(null, null);
+        Work.AsyncSendEmail(headID, subject, body);
 
         Response.Write("<script>alert('An email has been sent out to inform your manager!');location.href='RequestHistory.aspx';</script>");
     }
 
-    private delegate void AsyncEmail();
 
-    private void sendemail()
-    {
-        string headID = Work.getDeptHeadId(Work.getUser(userId).DepartmentID);
-        string subject = "Request " + newId + " for approval";
-        string body = "Dear Sir/ Madam,<br />" + "<br />Request " + newId + " is pending your approval.Please click <a href = 'http://localhost/StationeryStore/Request/ViewSubmission.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
-        SendEmail sm = new SendEmail(headID, subject, body);
-        sm.initEmail();
-        sm.sendEmail();
-        Response.Redirect("RequestHistory.aspx");
-    }
 }

@@ -1765,4 +1765,25 @@ public class Work
         }
         return 0;
     }
+
+    /// <summary>
+    /// Using delegate to send email
+    /// </summary>
+    /// <param name="head"></param>
+    /// <param name="subject"></param>
+    /// <param name="body"></param>
+    public void AsyncSendEmail(string userID, string subject, string body)
+    {
+        AsyncEmail ae = sendemail;
+        ae.BeginInvoke(userID, subject, body, null, null);
+    }
+
+    private void sendemail(string userID, string subject, string body)
+    {
+        SendEmail sm = new SendEmail(userID, subject, body);
+        sm.initEmail();
+        sm.sendEmail();
+    }
+
+    private delegate void AsyncEmail(string headID, string subject, string body);
 }
