@@ -144,4 +144,16 @@ public partial class Request_AllocateStationery : System.Web.UI.Page
 
     }
 
+
+    protected void ButtonGenerate_Click(object sender, EventArgs e)
+    {
+        list = (List<AlloItem>)Session["AllocateList"];
+        for (int i = 0; i < list.Count(); i++)
+        {
+
+            TextBox quantity = GridView1.Rows[i].FindControl("allocated") as TextBox;
+            quantity.Text = GridView1.Rows[i].Cells[3].ToString();
+
+        }
+    }
 }

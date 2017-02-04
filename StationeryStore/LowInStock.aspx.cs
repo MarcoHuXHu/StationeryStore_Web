@@ -24,4 +24,9 @@ public partial class LowInStock : System.Web.UI.Page
             GridView1.DataBind();
         }
     }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+
+    }
 }

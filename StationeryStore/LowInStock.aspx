@@ -16,7 +16,7 @@
   <asp:Label ID="Label1" runat="server" Text="Reminder: Below items are in low stock. Please proceed to order." Font-Size="Medium" ForeColor="Red"></asp:Label>
     <br />
     <br />
-    <center><asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" Width="95%" AllowPaging="True">
+    <center><asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" Width="95%" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging">
                             <RowStyle CssClass="cursor-pointer" />
         <Columns>
         <asp:TemplateField HeaderText="">

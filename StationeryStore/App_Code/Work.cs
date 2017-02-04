@@ -1646,6 +1646,35 @@ public class Work
     {
         Transaction clerk = new Transaction();
         int result = 0;
+
+        // Send Email to notify Dept Rep
+        // Only for department that retrieved more than one Item
+        // Calculate number of item
+        Dictionary<string, DisbursementModel> dic = new Dictionary<string, DisbursementModel>();
+        foreach (DisbursementModel dm in listByDepartment)
+        {
+            if (!dic.ContainsKey(dm.DepartmentID))
+            {
+                DisbursementModel ndm = new DisbursementModel(dm.DepartmentID, dm.DepartmentName, "", "", 0, 0, 0);
+                ndm.RetrivedNumber = 0;
+                dic.Add(dm.DepartmentID, ndm);
+            }
+            dic[dm.DepartmentID].RetrivedNumber += dm.RetrivedNumber;
+        }
+        // Send email to departments
+        foreach (DisbursementModel dm in dic.Values)
+        {
+            if (dm.RetrivedNumber > 0)
+            {
+                // Send Email
+                string userID = ctx.Staffs.Where(x => x.DepartmentID == dm.DepartmentID && x.Role == "DeptRep").FirstOrDefault().UserID;
+                string subject = "Stationery ready for collection";
+                string body = "Dear Sir/ Madam,< br /> " + " < br /> Please come to collection piont to collect the stationey requested by your team on Monday.< br /> " + " < br /> Thanks & regards.";
+                AsyncSendEmail(userID, subject, body);
+            }
+        }
+
+        // Update Database
         foreach (DisbursementModel dm in listByDepartment)
         {
             int res = clerk.Retrieve(dm.ItemID, dm.DepartmentID, dm.RetrivedNumber);
