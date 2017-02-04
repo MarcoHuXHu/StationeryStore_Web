@@ -16,45 +16,56 @@
     <p>
         Select
         Start Date:
-        <asp:TextBox ID="txtstartdate" runat="server" Height="21px"></asp:TextBox>
-        <ajaxToolkit:CalendarExtender ID="txtstartdate_CalendarExtender" runat="server" TargetControlID="txtstartdate" Format="dd/MM/yyyy" />
+        <asp:TextBox ID="txtstartdate" runat="server" Height="21px" ValidationGroup="2"></asp:TextBox>
+        <ajaxToolkit:CalendarExtender ID="txtstartdate_CalendarExtender" runat="server" Format="dd/MM/yyyy" TargetControlID="txtstartdate" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select End Date:&nbsp;&nbsp;
-        <asp:TextBox ID="txtenddate" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtenddate" runat="server" ValidationGroup="2"></asp:TextBox>
         <ajaxToolkit:CalendarExtender ID="txtenddate_CalendarExtender" runat="server" Format="dd/MM/yyyy" TargetControlID="txtenddate" />
         
-       
-    </p>
-    <p>
+       <br />
+       <br />
         Select 1 or more departments:
         <asp:ListBox ID="LBdept" runat="server" DataSourceID="SqlDataSource1" DataTextField="DepartmentID" DataValueField="DepartmentID" Height="114px" Width="148px" SelectionMode="Multiple"></asp:ListBox>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Team5ADProjectConnectionString %>" SelectCommand="SELECT DISTINCT [DepartmentID] FROM [Department]"></asp:SqlDataSource>
                
-    </p>
-    
+   
+        <br />
         <asp:Button ID="btnGenrpt" runat="server" Text="Generate Report" OnClick="btnGenrpt_Click" CssClass="button" />
-           
-    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowValidationErrors="False" Visible="False" />
+        <br />
+        <asp:Label ID="Label1" runat="server" Font-Names="Arial" ForeColor="Red" Text="Label" Visible="False"></asp:Label>
+        <asp:ValidationSummary ID="ValidationSummary1" runat="server" Visible="False" />
           
             
-    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtstartdate" ErrorMessage="*Start Date must not be blank"
-    ForeColor="Red"></asp:RequiredFieldValidator>
-             <br />
-        <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtstartdate"
-         ForeColor="Red" ErrorMessage="*Start date is an invalid date" ValidationGroup="Group2" />
-        <br />
+        <p>
+          
+            
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtstartdate" ErrorMessage="*Start Date must not be blank"
+        ForeColor="Red"></asp:RequiredFieldValidator>
         
-    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtstartdate"
+       
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtenddate" ErrorMessage="*End Date must not be blank"
+         ForeColor="Red"></asp:RequiredFieldValidator> 
+        
+        <br />
+
+        
+       <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtstartdate"
+         ForeColor="Red" ErrorMessage="*Start date is an invalid date" ValidationGroup="Group2" />
+        
+       
+            <br /> 
+
+       <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtenddate"
+         ForeColor="Red" ErrorMessage="*End Date is an invalid date" ValidationGroup="Group2" />
+         <br />
+
+          <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtstartdate"
                   ForeColor="Red" SetFocusOnError="true" ControlToCompare="txtenddate"
                   ErrorMessage="*End Date must be greater than Start Date"
                   Operator="LessThan"
                   ValidationGroup="vg" Type="Date"                           
-                  CultureInvariantValues="true"></asp:CompareValidator> &nbsp;&nbsp;<br/> 
-    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtenddate" ErrorMessage="*End Date must not be blank"
-    ForeColor="Red"></asp:RequiredFieldValidator> <br /> 
-        <asp:CustomValidator runat="server" ClientValidationFunction="ValidateDate" ControlToValidate="txtenddate"
-         ForeColor="Red" ErrorMessage="*End Date is an invalid date" ValidationGroup="Group2" />
-            <br />
-        
+                  CultureInvariantValues="true" Visible="False"></asp:CompareValidator> &nbsp;&nbsp;<br/> 
+
         <script type="text/javascript">
         function ValidateDate(sender, args) {
         var dateString = document.getElementById(sender.controltovalidate).value;
@@ -67,19 +78,18 @@
             args.IsValid = false;
         }
              }
-        </script>
-        <br />
+        </script> 
         
 
-    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="LBdept" ErrorMessage="*Select 1 or more departments"
-    ForeColor="Red"></asp:RequiredFieldValidator> <br />
-    
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="LBdept" ErrorMessage="*Select 1 or more departments"
+         ForeColor="Red"></asp:RequiredFieldValidator> <br />
+        </p>
+
     <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
     <p>
         &nbsp;</p>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <p>
-        &nbsp;</p>
+    
 </asp:Content>
 

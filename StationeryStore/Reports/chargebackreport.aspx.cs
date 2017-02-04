@@ -18,6 +18,8 @@ public partial class Reports_chargenbackreport : System.Web.UI.Page
 {
     SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["Team5ADProjectConnectionString"].ConnectionString);
     ReportDocument rdoc = new ReportDocument();
+    DateTime start;
+    DateTime end;
 
     Work Work = new Work();
     protected void Page_Init(object sender, EventArgs e)
@@ -37,43 +39,76 @@ public partial class Reports_chargenbackreport : System.Web.UI.Page
 
     protected void btnGenrpt_Click(object sender, EventArgs e)
     {
-        try
+        DateTime result;
+        if (!DateTime.TryParse(txtstartdate.Text, out result) || !DateTime.TryParse(txtenddate.Text, out result))
         {
-            cn.Open();
-            SqlCommand cmd = new SqlCommand("chargebackd", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable ds = new DataTable();
-            da.Fill(ds);
-            rdoc.Load(Server.MapPath("chargeback.rpt"));
-            rdoc.SetDataSource(ds);
-
-            rdoc.SetParameterValue("startdate", Convert.ToDateTime(txtstartdate.Text));
-            rdoc.SetParameterValue("enddate", Convert.ToDateTime(txtenddate.Text));
-
-           
-
-            List<string> list1 = new List<string>();
-            foreach (ListItem item in LBdept.Items)
-            {
-                if (item.Selected)
-                {
-                    list1.Add(item.Value);
-                }
-            }
-            string[] result = list1.ToArray();
-            rdoc.SetParameterValue("departmentID", result);
-
-                        
-            Session["charge"] = rdoc;
-            cn.Close();
-            Response.Redirect("chargebackreport.aspx");
-        }
-        catch (DataSourceException)
-        {
-
-            Response.Write("<script>alert('An error has occurred while connecting to the database.');</script>");
+            Label1.Visible = true;
+            Label1.Text = "*Please key in vaild dates";
         }
 
+        else
+        {
+            string[] format = { "dd/MM/yyyy" };
+            if (DateTime.TryParseExact(txtstartdate.Text,
+                           format,
+                           System.Globalization.CultureInfo.InvariantCulture,
+                           System.Globalization.DateTimeStyles.None,
+                           out start))
+                if (DateTime.TryParseExact(txtenddate.Text,
+                             format,
+                             System.Globalization.CultureInfo.InvariantCulture,
+                             System.Globalization.DateTimeStyles.None,
+                             out end))
+
+                    if (DateTime.Compare(Convert.ToDateTime(txtstartdate.Text), Convert.ToDateTime(txtenddate.Text)) <= 0)
+                    {
+                        try
+                        {
+                            cn.Open();
+                            SqlCommand cmd = new SqlCommand("chargebackd", cn);
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            SqlDataAdapter da = new SqlDataAdapter(cmd);
+                            DataTable ds = new DataTable();
+                            da.Fill(ds);
+                            rdoc.Load(Server.MapPath("chargeback.rpt"));
+                            rdoc.SetDataSource(ds);
+
+                            rdoc.SetParameterValue("startdate", Convert.ToDateTime(txtstartdate.Text));
+                            rdoc.SetParameterValue("enddate", Convert.ToDateTime(txtenddate.Text));
+
+
+
+                            List<string> list1 = new List<string>();
+                            foreach (ListItem item in LBdept.Items)
+                            {
+                                if (item.Selected)
+                                {
+                                    list1.Add(item.Value);
+                                }
+                            }
+                            string[] outcome = list1.ToArray();
+                            rdoc.SetParameterValue("departmentID", outcome);
+
+
+                            Session["charge"] = rdoc;
+                            cn.Close();
+                            Response.Redirect("chargebackreport.aspx");
+                        }
+
+                        catch (DataSourceException)
+                        {
+
+                            Response.Write("<script>alert('An error has occurred while connecting to the database.');</script>");
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        Label1.Visible = true;
+                        Label1.Text = "End date cannot be earlier than Start date";
+                    }
+        }
     }
 }
