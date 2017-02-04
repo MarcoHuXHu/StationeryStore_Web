@@ -6,6 +6,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"> 
+    <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
     <%--    <script type="text/javascript">
         var prevselitem = null;
         function selectx(row) {
@@ -18,18 +21,29 @@
     </script>--%>
 
         <div>
-            <asp:Label ID="Label2" runat="server" Text="Item List" Font-Bold="True" Font-Italic="True" Font-Underline="True"></asp:Label>
+           <h3><b>Item List</b></h3>
 
         </div>
         <asp:Label ID="Label3" runat="server" Text="Category:"></asp:Label>
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" CssClass="buttonm" />
-        &nbsp;
+
+    <div class="input-group" id="searchbar" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <asp:TextBox ID="TextBox1" runat="server" cssClass="form-control" placeholder="Search for..."></asp:TextBox>
+      <span class="input-group-btn">
+          <asp:Button ID="Button1" style="color:#D9853B" runat="server" OnClick="Button1_Click" Text="Search" CssClass="btn btn-default" />
+      </span>
+    </div>
+
+       <%-- <asp:TextBox ID="TextBox1" runat="server" cssClass="form-control" placeholder="Search for..."></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" CssClass="buttonm" />--%>
+       
+     &nbsp;
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All" CssClass="buttonm" />
         <br />
         <div>
             <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Red" Visible="False"></asp:Label>
-            <asp:GridView ID="GridView1" runat="server" DataKeyNames="ItemID,Description" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="true" OnPageIndexChanging="GridView1_PageIndexChanging">
+            <asp:GridView ID="GridView1" runat="server" DataKeyNames="ItemID,Description" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="true" CssClass="table table-hover table-striped" OnPageIndexChanging="GridView1_PageIndexChanging">
+                <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
                 <Columns>
                     <asp:TemplateField>
 

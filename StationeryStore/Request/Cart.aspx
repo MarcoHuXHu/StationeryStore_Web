@@ -6,10 +6,14 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
     <asp:Button ID="Button1" runat="server" Text="Add Item" OnClick="Button1_Click" CssClass="buttonm" />
     <br />
     <br />
-    <asp:GridView ID="cartGridView" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand" Width="468px">
+    <asp:GridView ID="cartGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand" Width="98%">
+                            <RowStyle CssClass="cursor-pointer" />
         <Columns>
             <asp:TemplateField HeaderText="Item">
                 <ItemTemplate>

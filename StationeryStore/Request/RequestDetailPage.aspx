@@ -6,7 +6,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="547px">
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="98%" CssClass="table table-hover table-striped">
+        <RowStyle CssClass="cursor-pointer" />
         <Columns>
 
                 <asp:TemplateField HeaderText="Request Date">
@@ -51,7 +55,8 @@
     </asp:GridView>
 
     <asp:Panel ID="Panel1" runat="server">
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand">
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" OnRowDeleting="GridView1_RowCommand" Width="98%" CssClass="table table-hover table-striped">
+            <RowStyle CssClass="cursor-pointer" />
             <Columns>
                 <asp:TemplateField HeaderText="Request Date">
                     <ItemTemplate>                        

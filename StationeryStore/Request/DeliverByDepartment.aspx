@@ -5,7 +5,9 @@
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 
     <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True" Width="200px">
     </asp:DropDownList>
@@ -23,7 +25,8 @@
     <table style="width:100%;">
         <tr>
             <td>
-                <asp:GridView ID="GridViewDept" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="GridViewDept" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False">
+                                        <RowStyle CssClass="cursor-pointer" />
                     <Columns>
                         <asp:TemplateField HeaderText="DepartmentID" Visible="false">
                             <ItemTemplate>

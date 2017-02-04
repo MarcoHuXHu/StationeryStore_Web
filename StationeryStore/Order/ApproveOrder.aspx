@@ -6,6 +6,9 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
      <div>
         <asp:Label ID="Label1" runat="server" Text="Pending Approval" Font-Bold="True"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -13,7 +16,8 @@
         <br />
         <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Black" Text="Label"></asp:Label>
         <br />
-        <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand" Width="335px" AutoGenerateColumns="False" DataKeyNames="OrderID,ItemID" DataSourceID="SqlDataSource1">
+        <asp:GridView ID="GridView1" CssClass="table table-hover table-striped" runat="server" OnRowCommand="GridView1_RowCommand" Width="335px" AutoGenerateColumns="False" DataKeyNames="OrderID,ItemID" DataSourceID="SqlDataSource1">
+              <RowStyle CssClass="cursor-pointer" />
             <Columns>
 
                 <asp:BoundField DataField="OrderID" HeaderText="OrderID" ReadOnly="True" SortExpression="OrderID" />

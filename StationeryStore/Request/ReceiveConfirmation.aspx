@@ -5,11 +5,15 @@
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 
     <table style="width:100%;">
         <tr>
             <td>
-                <asp:GridView ID="GridViewDept" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="GridViewDept" runat="server" AutoGenerateColumns="False" Width="98%" CssClass="table table-hover table-striped">
+                    <RowStyle CssClass="cursor-pointer" />
                     <Columns>
                         <asp:TemplateField HeaderText="DepartmentID" Visible="false">
                             <ItemTemplate>

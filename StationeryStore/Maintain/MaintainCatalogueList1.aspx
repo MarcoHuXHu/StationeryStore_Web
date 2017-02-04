@@ -7,13 +7,18 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
-        Catalogue List
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+    <center><h3><B>Catalogue List</B></h3> 
         
-        <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
+        <asp:GridView Width="95%" ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
    onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" onrowdeleting="GridView1_OnRowDeleting"
             AllowPaging="True" 
-            OnPageIndexChanging="GridView1_PageIndexChanging" Width="1115px" PageSize="30">
+            CssClass="table table-hover table-striped"
+            OnPageIndexChanging="GridView1_PageIndexChanging"  PageSize="30">
+             <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
             
             <Columns>
                 <asp:BoundField DataField="ItemID" HeaderText="ItemID" ReadOnly="true" />
@@ -80,6 +85,8 @@ MaximumValue="999" MinimumValue="1">please input positive integer!</asp:RangeVal
                 <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
-        </asp:GridView>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" CssClass="button" />
+        </asp:GridView> </center> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Item" CssClass="button" />
+
 </asp:Content>

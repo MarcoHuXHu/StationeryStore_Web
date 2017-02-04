@@ -1,20 +1,35 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ItemList.aspx.cs" Inherits="Order_ItemList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+        <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
      <div>
-           <asp:Label ID="Label1" runat="server" Text="Item List" Font-Bold="True" Font-Size="Larger"></asp:Label>
-           <br />
-           <asp:TextBox ID="SearchTextBox" runat="server" ToolTip="Search by Item Description" MaxLength="70"></asp:TextBox>
-           <asp:Button ID="SearchBtn" runat="server" Text="Search" OnClick="SearchBtn_Click" />
+     <center>  <h3><b>Item List</b></h3>
+     <div class="input-group" id="searchbar" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <asp:TextBox ID="SearchTextBox" runat="server" MaxLength="70" ToolTip="Search by Item Description" cssClass="form-control" placeholder="Search for..."></asp:TextBox>
+      <span class="input-group-btn">
+          <asp:Button ID="SearchBtn" style="color:#D9853B" runat="server" OnClick="SearchBtn_Click" Text="Search" CssClass="btn btn-default" />
+      </span></center>
+    </div>
            
-           <asp:Button ID="ShowAllBtn" runat="server" Text="Show All" OnClick="ShowAllBtn_Click" />
+           &nbsp;&nbsp;
+           
+           <asp:Button ID="ShowAllBtn" runat="server" Text="Show All" OnClick="ShowAllBtn_Click" CssClass="buttonm"/>
+        <br />
+        <br />
+&nbsp;&nbsp;
        </div>
         <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Black"></asp:Label>
         <br />
-                <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated" DataKeyNames="ItemID" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging">
-              <Columns>
+           <center>     <asp:GridView ID="GridView1" CssClass="table table-hover table-striped" runat="server" OnRowCreated="GridView1_RowCreated" DataKeyNames="ItemID" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging" Width="98%">
+                                 <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
+                     <Columns>
              <asp:TemplateField HeaderText="ItemID">
                 <ItemTemplate>
                     <asp:Label ID="itemid" runat="server" Text='<%#Eval("ItemID") %>'></asp:Label>
@@ -57,7 +72,7 @@
                 <HeaderStyle HorizontalAlign="Center" />
             </asp:TemplateField>
            </Columns>
-        </asp:GridView>
+        </asp:GridView></center>
         <br />
 </asp:Content>
 

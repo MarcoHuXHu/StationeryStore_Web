@@ -6,11 +6,14 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+    <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
         
             <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Italic="True" Font-Underline="True" Text="Discrepancies"></asp:Label>
             <br />
-            <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand" OnRowCreated="GridView1_RowCreated" DataKeyNames="DiscrepancyID">
+            <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand" OnRowCreated="GridView1_RowCreated" DataKeyNames="DiscrepancyID" CssClass="table table-hover table-striped">
+                <RowStyle CssClass="cursor-pointer" />
                 <Columns>
 
                     <asp:TemplateField>
@@ -28,7 +31,9 @@
             <br />
             <asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Italic="True" Font-Underline="True" Text="Discrepancy History"></asp:Label>
             <br />
-            <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DiscrepancyID" DataSourceID="SqlDataSource1">
+            <asp:GridView ID="GridView2" runat="server" AllowPaging="True" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="DiscrepancyID" DataSourceID="SqlDataSource1">
+                       <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
                 <Columns>
                     <asp:BoundField DataField="DiscrepancyID" HeaderText="DiscrepancyID" ReadOnly="True" SortExpression="DiscrepancyID" />
                     <asp:BoundField DataField="Name" HeaderText="Requester" SortExpression="Name" />

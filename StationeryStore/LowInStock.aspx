@@ -8,10 +8,16 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:Label ID="Label1" runat="server" Text="Reminder: Below items are in low stock. Please proceed to order." Font-Size="Medium" ForeColor="Red"></asp:Label>
+ 
+     <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+       <br />
+  <asp:Label ID="Label1" runat="server" Text="Reminder: Below items are in low stock. Please proceed to order." Font-Size="Medium" ForeColor="Red"></asp:Label>
     <br />
     <br />
-    <asp:GridView ID="GridView1" runat="server">
+    <center><asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" Width="95%">
+                            <RowStyle CssClass="cursor-pointer" />
         <Columns>
         <asp:TemplateField HeaderText="">
                     <ItemTemplate>
@@ -19,6 +25,6 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
-    </asp:GridView>
+    </asp:GridView></center>
 </asp:Content>
 

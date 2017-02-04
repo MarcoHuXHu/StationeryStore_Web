@@ -6,22 +6,34 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div>
-    <asp:Label ID="Label1" runat="server" Text="Item List" Font-Bold="True" Font-Size="Larger"></asp:Label>
-           <br />
-           <asp:TextBox ID="SearchTextBox" runat="server"></asp:TextBox>
-           <asp:Button ID="SearchBtn" runat="server" Text="Search" OnClick="SearchBtn_Click" CssClass="buttonsmall" />
-           &nbsp; 
-           <asp:Button ID="ShowAllBtn" runat="server" Text="Show All" OnClick="ShowAllBtn_Click" CssClass="buttonsmall" />
+       <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+
+    <center><h3><B>Item List</B></h3>
+
+          <div class="input-group" id="searchbar" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+              <asp:TextBox ID="SearchTextBox" runat="server" cssClass="form-control" placeholder="Search for..."></asp:TextBox>
+      <span class="input-group-btn">
+          <asp:Button ID="SearchBtn" style="color:#D9853B" runat="server" OnClick="SearchBtn_Click" Text="Search" CssClass="btn btn-default" />
+      </span>
     </div>
-        <asp:Label ID="Label2" runat="server"></asp:Label>
+ 
+       </center>
+           &nbsp;&nbsp;
+           <asp:Button ID="ShowAllBtn" runat="server" Text="Show All" OnClick="ShowAllBtn_Click" CssClass="buttonsmall" />
+
+       <center><asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Small" ForeColor="Red"></asp:Label>
         <br />
         <asp:GridView ID="GridView1" runat="server" DataKeyNames="ItemID" 
-            onselectedindexchanged="GridView1_SelectedIndexChanged"
-              OnRowDataBound="GridView1_RowDataBound"  AllowPaging="True" 
+            onselectedindexchanged="GridView1_SelectedIndexChanged" Width="98%"
+              OnRowDataBound="GridView1_RowDataBound"  AllowPaging="True" CssClass="table table-hover table-striped"
             OnPageIndexChanging="GridView1_PageIndexChanging" ViewStateMode="Enabled" PageSize="30">
+                    <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
        
 
-        </asp:GridView>
+        </asp:GridView></center> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" CssClass="button" />
 </asp:Content>

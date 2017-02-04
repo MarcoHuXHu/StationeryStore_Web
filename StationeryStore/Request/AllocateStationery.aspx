@@ -5,7 +5,11 @@
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting">
+     <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+    <asp:GridView ID="GridView1" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting">
+                            <RowStyle CssClass="cursor-pointer" />
          <Columns>
             <asp:TemplateField HeaderText="Item Description" SortExpression ="Item">
                 <ItemTemplate>

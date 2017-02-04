@@ -5,6 +5,9 @@
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
     <script type = "text/javascript" >
         function preventBack(){window.history.forward();}
         setTimeout("preventBack()", 0);
@@ -23,8 +26,9 @@
 &nbsp;<asp:Label ID="DescriptionLbl" runat="server" Text="Label"></asp:Label>
         <br />
         <br />
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
-              <Columns>
+                <asp:GridView ID="GridView1" Width="70%" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="False">
+                    <RowStyle CssClass="cursor-pointer" />
+                     <Columns>
              <asp:TemplateField HeaderText="PurchaseOrderID">
                 <ItemTemplate>
                     <asp:Label ID="poid" runat="server" Text='<%#Eval("PurchaseOrderID") %>'></asp:Label>
@@ -54,7 +58,6 @@
 
            </Columns>
         </asp:GridView>
-        <br />
     
         
     <asp:Button ID="SubmitBtn" runat="server" Text="Acknowledge" CssClass="button" OnClick="SubmitBtn_Click" />
@@ -62,8 +65,9 @@
     <br />
     <br />
     <asp:Label ID="Label5" runat="server" Text="Completed Purchase Order" Font-Bold="True"></asp:Label>
-     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False">
-              <Columns>
+     <asp:GridView ID="GridView2" Width="70%" runat="server" AutoGenerateColumns="False" CssClass="table table-hover table-striped">
+                    <RowStyle CssClass="cursor-pointer" />
+          <Columns>
              <asp:TemplateField HeaderText="PurchaseOrderID">
                 <ItemTemplate>
                     <asp:Label ID="poid" runat="server" Text='<%#Eval("PurchaseOrderID") %>'></asp:Label>

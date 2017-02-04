@@ -5,7 +5,9 @@
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 
     <asp:DropDownList ID="DropDownYear" runat="server" OnSelectedIndexChanged="DropDownYear_SelectedIndexChanged" AutoPostBack="true" Font-Names="Arial">
     </asp:DropDownList>
@@ -28,7 +30,8 @@
 
     <asp:Panel ID="PanelSummary" runat="server">
 
-        <asp:GridView ID="GridViewSummary" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="GridViewSummary" runat="server" AutoGenerateColumns="False" Width="98%" CssClass="table table-hover table-striped" >
+            <RowStyle CssClass="cursor-pointer" />
             <Columns>
             <asp:TemplateField HeaderText="ItemID">
                 <ItemTemplate>
@@ -84,7 +87,9 @@
             <tr>
                 <td>
                     <asp:GridView ID="GridViewDept" runat="server"
-                         AllowSorting="True" AutoGenerateColumns="False" OnSorting="GridViewDept_Sorting" OnSelectedIndexChanged="GridViewDept_SelectedIndexChanged">
+                         AllowSorting="True" AutoGenerateColumns="False" OnSorting="GridViewDept_Sorting" OnSelectedIndexChanged="GridViewDept_SelectedIndexChanged"
+                        Width="98%" CssClass="table table-hover table-striped" >
+                        <RowStyle CssClass="cursor-pointer" />
                         <Columns>
                             <asp:TemplateField HeaderText="DepartmentID" Visible="false">
                                 <ItemTemplate>

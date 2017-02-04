@@ -1,21 +1,32 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="OrderList.aspx.cs" Inherits="Order_OrderList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+        <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
+    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 <div>
-        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" />
+         <center>  <h3><b>Order List</b></h3>
+        &nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="Label3" runat="server" Text="Choose Status: "></asp:Label>
         <asp:DropDownList ID="SearchDDL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="SearchDDL_SelectedIndexChanged">
-        </asp:DropDownList>
+        </asp:DropDownList></center>
     </div>
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" CssClass="buttonm" />
+     <br />
+&nbsp;&nbsp;
         <asp:Label ID="Label2" runat="server" Font-Size="Medium" ForeColor="Black" Text="Label" Font-Bold="True"></asp:Label>
-        <br />
         <asp:Label ID="Label1" runat="server" Text="Label" ForeColor="Red"></asp:Label>
         <br />
-        <asp:GridView ID="OrderListGV" runat="server" OnSelectedIndexChanged="OrderListGV_SelectedIndexChanged" Width="320px" CssClass="auto-style1" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="OrderListGV_PageIndexChanging">
-            <Columns>
+       <center> <asp:GridView ID="OrderListGV"  CssClass="table table-hover table-striped"  runat="server" OnSelectedIndexChanged="OrderListGV_SelectedIndexChanged" Width="98%" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="OrderListGV_PageIndexChanging">
+                                       <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
+             <Columns>
              <asp:TemplateField HeaderText="OrderID">
                 <ItemTemplate>
                     <asp:Label ID="orderid" runat="server" Text='<%#Eval("orderId") %>'></asp:Label>
@@ -68,6 +79,6 @@
     
                 <asp:ButtonField CommandName="Select" Text="Proceed" />
             </Columns>
-        </asp:GridView>
+        </asp:GridView></center>
         </asp:Content>
 

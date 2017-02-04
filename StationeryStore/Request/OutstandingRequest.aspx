@@ -6,7 +6,9 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 
     <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged">
         <asp:ListItem Selected="True">ViewSummary</asp:ListItem>
@@ -15,7 +17,8 @@
 
     <asp:Panel ID="PanelSummary" runat="server">
 
-        <asp:GridView ID="GridViewSummary" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="GridViewSummary" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False">
+            <RowStyle CssClass="cursor-pointer" />
              <Columns>
             <asp:TemplateField HeaderText="ItemID">
                 <ItemTemplate>
@@ -63,7 +66,8 @@
         <table style="width:100%;">
             <tr>
                 <td>
-                    <asp:GridView ID="GridViewDept" runat="server" AllowSorting="True" AutoGenerateColumns="False" OnSorting="GridViewDept_Sorting" OnSelectedIndexChanged="GridViewDept_SelectedIndexChanged">
+                    <asp:GridView ID="GridViewDept" runat="server" CssClass="table table-hover table-striped" AllowSorting="True" AutoGenerateColumns="False" OnSorting="GridViewDept_Sorting" OnSelectedIndexChanged="GridViewDept_SelectedIndexChanged">
+                        <RowStyle CssClass="cursor-pointer" />
                         <Columns>
                             <asp:TemplateField HeaderText="DepartmentID" Visible="false">
                                 <ItemTemplate>

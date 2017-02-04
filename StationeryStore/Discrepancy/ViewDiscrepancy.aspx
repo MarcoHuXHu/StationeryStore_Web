@@ -6,6 +6,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+
     <div>
         <asp:Button ID="Button1" runat="server" Text="New Discrepancy" OnClick="Button1_Click" CssClass="buttonm" />
 &nbsp;<asp:Label ID="Label1" runat="server" Text="View By:"></asp:Label>
@@ -17,8 +21,11 @@
             <asp:ListItem Value="Pending Approval">PendingApproval</asp:ListItem>
         </asp:DropDownList>
         <br />
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging" >
-        </asp:GridView>
+        <br />
+        <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging" >
+       <RowStyle CssClass="cursor-pointer" />
+                    <PagerStyle CssClass="pagination-ys" />
+             </asp:GridView>
     
     </div>
 </asp:Content>

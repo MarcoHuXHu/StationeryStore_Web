@@ -6,11 +6,17 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    Department List
+        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
+
+    <center><h3><B>Department List</B></h3>
         
         <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
-   onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
-            onrowdeleting="GridView1_OnRowDeleting" Width="1115px">
+   onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" CssClass="table table-hover table-striped" 
+            onrowdeleting="GridView1_OnRowDeleting" Width="98%">
+             <RowStyle CssClass="cursor-pointer" />
+
             
             <AlternatingRowStyle HorizontalAlign="Left" />
             
@@ -92,9 +98,10 @@ Height="21px" Width="263px"></asp:DropDownList>
                 <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
-        </asp:GridView>
+        </asp:GridView></center>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Department" CssClass="button" />
-        
+       
   
         
 </asp:Content>

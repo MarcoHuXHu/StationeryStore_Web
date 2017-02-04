@@ -9,7 +9,14 @@
             height: 151px;
         }
         .auto-style11 {
-            height: 100px;
+            height: 49px;
+        }
+        .auto-style12 {
+            width: 123px;
+        }
+        .auto-style13 {
+            height: 49px;
+            width: 123px;
         }
     </style>
 </asp:Content>
@@ -21,7 +28,7 @@
         <table class="auto-style10">
  
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style12">
                     <asp:Label ID="Label3" runat="server" Text="Covering Officer:"></asp:Label>
                 </td>
                 <td><asp:DropDownList ID="DropDownList1" runat="server" >
@@ -30,7 +37,7 @@
 
             </tr>
             <tr>
-                <td class="auto-style1">
+                <td class="auto-style12">
                     <asp:Label ID="Label4" runat="server" Text="Start Date:"></asp:Label>
                 </td>
                 <td><asp:TextBox ID="TextBox5" runat="server" ></asp:TextBox>
@@ -39,7 +46,7 @@
                 </td>
             </tr>
                         <tr>
-                <td class="auto-style1">
+                <td class="auto-style12">
                     <asp:Label ID="Label5" runat="server" Text="End Date:"></asp:Label>
                             </td>
                 <td>
@@ -48,7 +55,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="auto-style12">
                     
                     &nbsp;</td>
                 <td>
@@ -58,7 +65,7 @@
                 </td>
             </tr>
                         <tr>
-                <td class = "auto-style11">
+                <td class = "auto-style13">
                     
                     <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" Height="36px" Width="90px" CssClass="button" />
                     
