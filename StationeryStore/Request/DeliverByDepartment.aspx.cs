@@ -40,8 +40,12 @@ public partial class Request_DeliverByDepartment : System.Web.UI.Page
             ViewState["dicByDept"] = dicByDept;
             // Initiate the GridView
             string selectedDept = DropDownList1.SelectedValue;
-            GridViewDept.DataSource = dicByDept[selectedDept];
-            GridViewDept.DataBind();
+            if (selectedDept !="")
+            {
+                GridViewDept.DataSource = dicByDept[selectedDept];
+                GridViewDept.DataBind();
+            }
+
         }
     }
 
