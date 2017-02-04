@@ -152,7 +152,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 menu.Items.Add(m9);
                 menu.Items.Add(m5);
                 menu.Items.Add(m10);
-                //menu.Items.Add(m12);
+                menu.Items.Add(m12);
                 menu.Items.Add(m21);
                 menu.Items.Add(m17);
                 menu.Items.Add(m18);

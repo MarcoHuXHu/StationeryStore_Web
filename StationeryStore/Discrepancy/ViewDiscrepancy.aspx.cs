@@ -42,11 +42,13 @@ public partial class ViewDiscrepancy : System.Web.UI.Page
 
     protected void display()
     {
+        GridView1.DataSource = work.getAllDiscrepancies(DropDownList1.SelectedValue);
         GridView1.DataBind();
     }
 
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        display();
     }
 }

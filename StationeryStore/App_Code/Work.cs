@@ -1042,6 +1042,10 @@ public class Work
         {
             return "Please enter positive/negative number!";
         }
+        else if (Convert.ToInt32(quantity) == 0)
+        {
+            return "Discrepancy quantity cannot be zero!";
+        }
         else if (Convert.ToInt32(quantity) > sql.FirstOrDefault())
         {
             return "Out range of stock!Please key in correct number!";
@@ -1683,7 +1687,7 @@ public class Work
     /// <param name="listBySummary"></param>
     /// <param name="listByDepartment"></param>
     /// <returns></returns>
-    public  int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
+    public int SubmitByDepartment(List<DisbursementModel> listBySummary, List<DisbursementModel> listByDepartment)
     {
         // Update listBySummary
         Dictionary<string, int> dic = new Dictionary<string, int>();
@@ -1701,7 +1705,11 @@ public class Work
         foreach (DisbursementModel dm in listBySummary)
         {
             if (dic.ContainsKey(dm.ItemID))
+            {
+                if (dic[dm.ItemID] != dm.RetrivedNumber)
+                    res1 = 1;        // Discrepency in BySummary and ByDepartment
                 dm.RetrivedNumber = dic[dm.ItemID];
+            }
         }
         foreach (DisbursementModel dm in listBySummary)
         {
@@ -1711,8 +1719,6 @@ public class Work
                 return -1001;   // Over Needed
             if (dm.InStock < num)
                 return -1002;   // Over InStock
-            if (num != dm.RetrivedNumber)
-                res1 = 1;        // Discrepency in BySummary and ByDepartment
         }
 
 
@@ -1727,7 +1733,7 @@ public class Work
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
-    public  int SubmitDeliver(List<DisbursementModel> list)
+    public int SubmitDeliver(List<DisbursementModel> list)
     {
         Transaction clerk = new Transaction();
         foreach (DisbursementModel dm in list)

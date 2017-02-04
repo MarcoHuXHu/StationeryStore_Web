@@ -42,7 +42,7 @@ public partial class ApproveDiscrepancy : System.Web.UI.Page
         int i = work.updateDiscrepancy(e.CommandArgument.ToString(), e.CommandName);
         if (i > 0)
         {
-            Response.Write("<script>alert('Update successfully!');location.href='ViewDiscrepancy.aspx';</script>");
+            Response.Write("<script>alert('Update successfully!');location.href='ApproveDiscrepancy.aspx';</script>");
             //DialogResult dr = MessageBox.Show("Successful Operation!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Question);
             //if (dr == DialogResult.OK)
             //{
@@ -52,11 +52,13 @@ public partial class ApproveDiscrepancy : System.Web.UI.Page
     }
     protected void display()
     {
+        GridView1.DataSource = work.getAllDiscrepancies("Pending Approval");
         GridView1.DataBind();
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        display();
     }
     protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
     {
