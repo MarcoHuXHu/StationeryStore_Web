@@ -76,12 +76,13 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Redirect("~/login.aspx");
 
         string role = user.Role;
+        Menu menu = new Menu();
 
         if (role == "Employee")
         {
             if (Work.delegated(userId))
             {
-                Menu menu = new Menu();
+                
                 menu.Items.Add(m4);
                 menu.Items.Add(m6);
                 menu.Items.Add(m20);
@@ -90,7 +91,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             else
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m1);
                 menu.Items.Add(m2);
                 menu.Items.Add(m20);
@@ -103,7 +103,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             if (Work.delegated(userId))
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m3);
                 menu.Items.Add(m4);
                 menu.Items.Add(m19);
@@ -114,7 +113,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             else
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m1);
                 menu.Items.Add(m2);
                 menu.Items.Add(m3);
@@ -129,7 +127,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             if (Work.delegateTo(userId))
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m7);
                 menu.Items.Add(m6);
                 menu.Items.Add(m8);
@@ -139,7 +136,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             else
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m4);
                 menu.Items.Add(m7);
                 menu.Items.Add(m6);
@@ -153,7 +149,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             if (Work.delegated(userId))
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m9);
                 menu.Items.Add(m5);
                 menu.Items.Add(m10);
@@ -175,7 +170,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             else
             {
-                Menu menu = new Menu();
                 menu.Items.Add(m9);
                 menu.Items.Add(m5);
                 menu.Items.Add(m10);
@@ -199,8 +193,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
         else if (role == "Supervisor" || role == "Manager")
         {
-
-            Menu menu = new Menu();
             menu.Items.Add(m17);
             menu.Items.Add(m18);
             menu.Items.Add(m8);

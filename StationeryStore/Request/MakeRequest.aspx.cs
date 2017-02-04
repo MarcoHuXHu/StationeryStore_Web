@@ -10,6 +10,7 @@ public partial class MakeRequest : System.Web.UI.Page
     Work Work = new Work();
     protected void Page_Load(object sender, EventArgs e)
     {
+
         string userId = (string)Session["user"];
         if (userId == null)
         {
@@ -21,7 +22,8 @@ public partial class MakeRequest : System.Web.UI.Page
             List<Item> list = Work.getAllItems();
             Session["itemList"] = list;
             display();
-            
+
+            retrieveCart();
         }
 
     }
@@ -43,7 +45,8 @@ public partial class MakeRequest : System.Web.UI.Page
         List<Item> list = (List <Item> ) Session["itemList"];
         itemGridView.DataSource = list;
         itemGridView.DataBind();
-        
+        itemGridView.UseAccessibleHeader = true;
+        itemGridView.HeaderRow.TableSection = TableRowSection.TableHeader;
     }
 
     protected void itemGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -54,20 +57,35 @@ public partial class MakeRequest : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        Dictionary<string, int> cart = (Dictionary <string, int>) Session["cart"];
-        if (cart == null)
-            cart = new Dictionary<string, int>();
-        List<Item> list = (List <Item> )Session["itemList"];
-        int page = itemGridView.PageIndex;
-        int size = 0;
-        if(page != itemGridView.PageCount - 1)
+        Dictionary<string, int> cart = retrieveCart();
+        if (cart.Count() != 0)
         {
-            size = 10;
+            Label1.Text = "Your items haven been added to cart successfully.";
+
         }else
         {
-            size = list.Count() - 10 *page;
+            Label1.Text = "Please select item to add.";
         }
-        
+
+    }
+
+    private Dictionary<string, int> retrieveCart()
+    {
+        Dictionary<string, int> cart = (Dictionary<string, int>)Session["cart"];
+        if (cart == null)
+            cart = new Dictionary<string, int>();
+        List<Item> list = (List<Item>)Session["itemList"];
+        int page = itemGridView.PageIndex;
+        int size = 0;
+        if (page != itemGridView.PageCount - 1)
+        {
+            size = 10;
+        }
+        else
+        {
+            size = list.Count() - 10 * page;
+        }
+
         for (int i = 0; i < size; i++)
         {
             TextBox quantity = itemGridView.Rows[i].FindControl("quantity") as TextBox;
@@ -79,9 +97,9 @@ public partial class MakeRequest : System.Web.UI.Page
 
             if (qty > 0)
             {
-                if(cart.Count() !=0 && cart.ContainsKey(list[page * 10 + i].ItemID))
+                if (cart.Count() != 0 && cart.ContainsKey(list[page * 10 + i].ItemID))
                 {
-                    cart[list[page*10+i].ItemID] = qty;
+                    cart[list[page * 10 + i].ItemID] = qty;
 
                 }
                 else
@@ -94,15 +112,7 @@ public partial class MakeRequest : System.Web.UI.Page
 
         }
         Session["cart"] = cart;
-        if (cart.Count() != 0)
-        {
-            Label1.Text = "Your items haven been added to cart successfully.";
-
-        }else
-        {
-            Label1.Text = "Please select item to add.";
-        }
-
+        return cart;
     }
 
 
@@ -111,7 +121,8 @@ public partial class MakeRequest : System.Web.UI.Page
         Dictionary<string, int> cart = (Dictionary<string, int>)Session["cart"];
         if(cart == null || cart.Count()==0)
         {
-            Label3.Text = "Your cart is currently empty.";
+            //Label3.Text = "Your cart is currently empty.";
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "showToaster()", true);
         }
         else
         {

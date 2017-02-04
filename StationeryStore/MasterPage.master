@@ -8,12 +8,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+<%--    <link href="~/Stylesheet/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Stylesheet/pagingCss.css" rel="stylesheet" />--%>
+
+
+    <style type="text/css">
+        #searchbar {
+            width: 400px;
+        }
+        .auto-style8{
+            border-spacing: 2px;
+            border-collapse: separate;
+        }
+        .input-group{
+            border-spacing:0px;
+        }
+    </style>
     <title> Stationery Store Inventory System</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     
 
-        <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
-        <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 
     </asp:ContentPlaceHolder>
     
