@@ -9,10 +9,9 @@
         <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
     <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
-    <div>
+    <div style="overflow-x:scroll;width:90%;margin-left: 20px; ">
     
-        <center><h3><B> Supplier List</B></h3>
-        
+        <h3><B> Supplier List</B></h3>
         <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
    onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" 
             onrowdeleting="GridView1_OnRowDeleting" CellPadding="0" Width="98%" 
@@ -97,7 +96,8 @@ ValidationExpression="[0-9]{9}">tel should have exactly 9 digits
                     
             </Columns>
             
-        </asp:GridView></center>
+        </asp:GridView>
+  
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Supplier" CssClass="button" />
     </div>

@@ -217,6 +217,7 @@ public class Work
         
         ctx.RequestDetails.Add(rd);
         ctx.SaveChanges();
+
     }
 
     public  void updateOutstangQty(string deptId, string itemId, int qty)
@@ -1669,7 +1670,7 @@ public class Work
                 // Send Email
                 string userID = ctx.Staffs.Where(x => x.DepartmentID == dm.DepartmentID && x.Role == "DeptRep").FirstOrDefault().UserID;
                 string subject = "Stationery ready for collection";
-                string body = "Dear Sir/ Madam,< br /> " + " < br /> Please come to collection piont to collect the stationey requested by your team on Monday.< br /> " + " < br /> Thanks & regards.";
+                string body = "Dear Sir/ Madam,<br /> " + " <br /> Please come to collection piont to collect the stationey requested by your team on Monday.<br /> " + " <br /> Thanks & regards.";
                 AsyncSendEmail(userID, subject, body);
             }
         }

@@ -37,6 +37,10 @@ public partial class MakeRequest : System.Web.UI.Page
         {
             Label4.Text = "No result found.";
         }
+        else
+        {
+            Label4.Text = "";
+        }
 
     }
 
@@ -46,7 +50,8 @@ public partial class MakeRequest : System.Web.UI.Page
         itemGridView.DataSource = list;
         itemGridView.DataBind();
         itemGridView.UseAccessibleHeader = true;
-        itemGridView.HeaderRow.TableSection = TableRowSection.TableHeader;
+        if(itemGridView.HeaderRow != null)
+            itemGridView.HeaderRow.TableSection = TableRowSection.TableHeader;
     }
 
     protected void itemGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)

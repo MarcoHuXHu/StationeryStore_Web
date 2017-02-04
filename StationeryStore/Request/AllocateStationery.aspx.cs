@@ -70,21 +70,31 @@ public partial class Request_AllocateStationery : System.Web.UI.Page
 
     protected void Button1_Click1(object sender, EventArgs e)
     {
-        list = (List<AlloItem>)Session["AllocateList"];
-        for (int i = 0; i < list.Count(); i++)
+        list = (List<AlloItem>)Session["AllocateList"];       
+        int page = GridView1.PageIndex;
+        int size = 0;
+        if (page != GridView1.PageCount - 1)
         {
+            size = 10;
+        }
+        else
+        {
+            size = list.Count() - 10 * page;
+        }
 
-            TextBox quantity = GridView1.Rows[i].FindControl("allocated") as TextBox;
+        for (int i = page * 10; i < size + page * 10; i++)
+        {
+            TextBox quantity = GridView1.Rows[i - page * 10].FindControl("allocated") as TextBox;
             int qty = 0;
             if (!String.IsNullOrEmpty(quantity.Text))
             {
                 bool isInt = int.TryParse(quantity.Text, out qty);
             }
             Work.AllocateItems(list[i].requestId, list[i].itemId, qty);
-            Response.Redirect("AllocateStationery.aspx");
-
+            
         }
-        
+        Response.Redirect("AllocateStationery.aspx");
+
     }
 
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
@@ -148,12 +158,36 @@ public partial class Request_AllocateStationery : System.Web.UI.Page
     protected void ButtonGenerate_Click(object sender, EventArgs e)
     {
         list = (List<AlloItem>)Session["AllocateList"];
-        for (int i = 0; i < list.Count(); i++)
+        int page = GridView1.PageIndex;
+        int size = 0;
+        if (page != GridView1.PageCount - 1)
         {
-
-            TextBox quantity = GridView1.Rows[i].FindControl("allocated") as TextBox;
-            quantity.Text = GridView1.Rows[i].Cells[3].ToString();
-
+            size = 10;
         }
+        else
+        {
+            size = list.Count() - 10 * page;
+        }
+
+        for (int i = page*10; i < size + page*10; i++)
+        {
+            TextBox quantity = GridView1.Rows[i - page*10].FindControl("allocated") as TextBox;
+            quantity.Text = list[i].neededQty.ToString();
+        }
+            
+
+          
+        
+    }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        list = (List<AlloItem>)Session["AllocateList"];
+        GridView1.PageIndex = e.NewPageIndex;
+        GridView1.DataSource = list;
+        GridView1.DataBind();
+        GridView1.UseAccessibleHeader = true;
+        if (GridView1.HeaderRow != null)
+            GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
     }
 }

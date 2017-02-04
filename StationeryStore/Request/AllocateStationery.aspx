@@ -9,8 +9,9 @@
     <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
     <asp:Button ID="ButtonGenerate" runat="server" Text="Generate" OnClick="ButtonGenerate_Click" />
-    <asp:GridView ID="GridView1" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting">
-                            <RowStyle CssClass="cursor-pointer" />
+    <asp:GridView ID="GridView1" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging">
+        <RowStyle CssClass="cursor-pointer" />
+        <PagerStyle CssClass="pagination-ys" />
          <Columns>
             <asp:TemplateField HeaderText="Item Description" SortExpression ="Item">
                 <ItemTemplate>

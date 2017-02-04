@@ -31,16 +31,19 @@ public partial class Order_MakeNewOrder : System.Web.UI.Page
 
         orderID = Work.InsertNewOrder(ItemIDLbl.Text, QuantityTextBox.Text, JustificationTextBox.Text, userId);
 
-        // Multi Thread
-        ThreadStart childref = new ThreadStart(sendemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //Multi Thread
+        //ThreadStart childref = new ThreadStart(sendemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+
+        AsyncEmail ae = sendemail;
+        ae.BeginInvoke(null, null);
 
 
         string message = "Your order id is " + orderID + ".";
         ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='OrderList.aspx'", true);
     }
-
+    private delegate void AsyncEmail();
     private void sendemail()
     {
         string headID = Work.getDeptHeadId(Work.getUser(userId).DepartmentID);

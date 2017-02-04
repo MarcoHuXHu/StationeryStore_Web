@@ -1,17 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MaintainDepartmentList1.aspx.cs" Inherits="MaintainDepartmentList1" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
     <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
     <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
 
-    <center><h3><B>Department List</B></h3>
-        
+    <h3 style="margin-left: 20px; "><B>Department List</B></h3>
+        <div style="overflow-x:scroll;width:90%;margin-left: 20px; ">
         <asp:GridView ID="GridView1"  runat="server" AutoGenerateColumns="False" Height="242px"  onrowcancelingedit="GridView1_RowCancelingEdit" 
    onrowediting="GridView1_RowEditing" onrowupdating="GridView1_RowUpdating" CssClass="table table-hover table-striped" 
             onrowdeleting="GridView1_OnRowDeleting" Width="98%">
@@ -28,7 +28,7 @@
             <%# Eval("DepartmentName")%>
           </ItemTemplate>
           <EditItemTemplate>
-            <asp:TextBox runat="server" ID="txtDepartmentName" Text='<%# Eval("DepartmentName")%>' />
+            <asp:TextBox runat="server" ID="txtDepartmentName" Text='<%# Eval("DepartmentName")%>'/>
           </EditItemTemplate>
       </asp:TemplateField>
 
@@ -38,7 +38,7 @@
           </ItemTemplate>
           <EditItemTemplate>
             <asp:DropDownList ID="DropDownList2" runat="server" DataTextField="Name" DataValueField="UserID" 
-Height="21px" Width="263px">
+Height="21px" Width="100px">
 </asp:DropDownList>
 
                
@@ -64,7 +64,7 @@ ValidationExpression="[8,9][0-9]{6}">tel should have exactly 7 digits, start wit
           </ItemTemplate>
           <EditItemTemplate>
              <asp:DropDownList ID="DropDownList4" runat="server" DataTextField="Name" DataValueField="UserID" 
-Height="21px" Width="263px"></asp:DropDownList>
+Height="21px" Width="100px"></asp:DropDownList>
           </EditItemTemplate>
       </asp:TemplateField>
                 <asp:TemplateField HeaderText="Collection Point">
@@ -88,7 +88,7 @@ Height="21px" Width="263px"></asp:DropDownList>
           </ItemTemplate>
           <EditItemTemplate>
                  <asp:DropDownList ID="DropDownList3" runat="server" DataTextField="Name" DataValueField="UserID" 
-Height="21px" Width="263px"></asp:DropDownList>
+Height="21px" Width="100px"></asp:DropDownList>
           </EditItemTemplate>
       </asp:TemplateField>
                 
@@ -98,10 +98,12 @@ Height="21px" Width="263px"></asp:DropDownList>
                 <asp:CommandField ShowDeleteButton="true" ButtonType="Button"  ControlStyle-CssClass="buttonm" />
                     
             </Columns>
-        </asp:GridView></center>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </asp:GridView>
+        </div>
+        </>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Add Department" CssClass="button" />
-       
-  
-        
+
+
+
 </asp:Content>

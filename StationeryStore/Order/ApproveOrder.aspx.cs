@@ -89,10 +89,12 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
             string stt = "Approved";
             Work.UpdateOrderStatus(orderID, stt);
 
-            // Multi Thread
-            ThreadStart childref = new ThreadStart(sendemail);
-            Thread childThread = new Thread(childref);
-            childThread.Start();
+            //// Multi Thread
+            //ThreadStart childref = new ThreadStart(sendemail);
+            //Thread childThread = new Thread(childref);
+            //childThread.Start();
+            AsyncEmail ae = sendemail;
+            ae.BeginInvoke(null, null);
 
             string message = "You have successfully send email for order approval. The order " + orderID + " is approved successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='ApproveOrder.aspx'", true);
@@ -131,14 +133,18 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
             Work.UpdateComment(orderID, ReasonTextBox.Text);
         }
 
-        // Multi Thread
-        ThreadStart childref = new ThreadStart(sendrejectemail);
-        Thread childThread = new Thread(childref);
-        childThread.Start();
+        //Multi Thread
+        //ThreadStart childref = new ThreadStart(sendrejectemail);
+        //Thread childThread = new Thread(childref);
+        //childThread.Start();
+        AsyncEmail ae = sendrejectemail;
+        ae.BeginInvoke(null, null);
 
         string message = "You have successfully send email for order rejection. The order " + orderID + " is rejected.";
         ScriptManager.RegisterStartupScript(this, this.GetType(), "message", "alert('" + message + "');window.location='ApproveOrder.aspx'", true);
     }
+
+    private delegate void AsyncEmail();
 
     private void sendrejectemail()
     {
