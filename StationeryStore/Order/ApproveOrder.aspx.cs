@@ -23,8 +23,8 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
         if (!IsPostBack)
         {
             List<OrderModel> oList = Work.listPendingOrder();
-            GridView1.DataSource = oList;
-            GridView1.DataBind();
+           // GridView1.DataSource = oList;
+          //  GridView1.DataBind();
             if (GridView1.Rows.Count == 0)
             {
                 Label2.ForeColor = System.Drawing.Color.Red;
@@ -43,19 +43,19 @@ public partial class Order_ApproveOrder : System.Web.UI.Page
         }
     }
 
-    protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
-    {
-        GridViewRow row = e.Row;
-        List<TableCell> columns = new List<TableCell>();
-        foreach (DataControlField column in GridView1.Columns)
-        {
-            TableCell cell = row.Cells[0];
-            row.Cells.Remove(cell);
-            columns.Add(cell);
-        }
+    //protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+    //{
+    //    GridViewRow row = e.Row;
+    //    List<TableCell> columns = new List<TableCell>();
+    //    foreach (DataControlField column in GridView1.Columns)
+    //    {
+    //        TableCell cell = row.Cells[0];
+    //        row.Cells.Remove(cell);
+    //        columns.Add(cell);
+    //    }
 
-        row.Cells.AddRange(columns.ToArray());
-    }
+    //    row.Cells.AddRange(columns.ToArray());
+    //}
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {

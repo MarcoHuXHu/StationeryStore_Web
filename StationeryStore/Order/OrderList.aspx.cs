@@ -85,8 +85,9 @@ public partial class Order_OrderList : System.Web.UI.Page
         string description = ((Label)row.FindControl("desc")).Text;
         string quantity = ((Label)row.FindControl("qty")).Text;
         string justification = ((Label)row.FindControl("justification")).Text;
+        string orderdate = ((Label)row.FindControl("orderdate")).Text;
 
-        if ((stt == "Cancelled") || (stt == "Completed"))
+        if (stt == "Cancelled") 
         {
             Label1.Text = "The order <b>" + orderID + "</b> is <b>" + stt.ToLower() + "</b>. No more further process.";
         }
@@ -101,8 +102,11 @@ public partial class Order_OrderList : System.Web.UI.Page
                 x.Append(" The reason is " + cmt + ".");
             }
             Label1.Text = x.ToString();
+        } else if (stt == "Completed")
+        {
+            Response.Redirect("CompletedOrder.aspx?OrderID=" + orderID + "&Item=" + itemID + "&Description=" + description + "&Quantity=" + quantity + "&OrderDate=" + orderdate);
         }
-        else if (stt == "Approved")
+            else if (stt == "Approved")
         {
             Response.Redirect("ProceedApprovedOrder.aspx?Order=" + orderID + "&Item=" + itemID + "&Description=" + description + "&Quantity=" + quantity);
         }

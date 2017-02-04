@@ -14,6 +14,7 @@ public class Work
 
     List<ItemDiscrepancyModel> idlist;
     List<ItemModel> ilist;
+    List<Decimal> pricelist;
     Discrepancy discrepancy;
     Item item;
     public Work()
@@ -1353,21 +1354,19 @@ public class Work
         ctx.SaveChanges();
     }
 
-    public  void UpdateOrderDetails(string poNumber)
+    public void UpdateOrderDetails(string poNumber, string orderid)
     {
-        
-        OrderDetail od = ctx.OrderDetails.Where(x => x.PurchaseOrderID == poNumber).First();
+        OrderDetail od = ctx.OrderDetails.Where(x => x.OrderID == orderid && x.PurchaseOrderID == poNumber).First();
         od.ReceivedQty = od.OrderQty;
         ctx.SaveChanges();
     }
 
-    public  void UpdateItemStock(string orderID, string itemID)
+    public void UpdateItemStock(string itemID, string po, string orderID)
     {
-        
-        Order o = ctx.Orders.Where(x => x.OrderID == orderID).First();
-        Item i = ctx.Items.Where(x => x.ItemID == itemID).First();
-        int updatedStock = i.InStock + o.TotalQty;
-        i.InStock = updatedStock;
+        // Order o = ctx.Orders.Where(x => x.OrderID == orderID).First();
+        OrderDetail od = ctx.OrderDetails.Where(x => x.OrderID == orderID && x.PurchaseOrderID == po).FirstOrDefault();
+        Item i = ctx.Items.Where(x => x.ItemID == itemID).FirstOrDefault();
+        i.InStock = i.InStock + od.OrderQty;
         ctx.SaveChanges();
     }
 
@@ -1393,6 +1392,26 @@ public class Work
     {
         
         return ctx.Orders.Where(x => x.OrderID == id).ToList().FirstOrDefault();
+    }
+
+    public OrderDetail getCompletedOrder(string orderid, string po)
+    {
+        return ctx.OrderDetails.Where(x => x.OrderID == orderid && x.PurchaseOrderID == po && x.ReceivedQty == x.OrderQty).FirstOrDefault();
+    }
+
+    public List<OrderDetail> getCompletedOrderList(string orderID)
+    {
+        return ctx.OrderDetails.Where(x => x.OrderID == orderID && x.ReceivedQty == x.OrderQty).ToList();
+    }
+
+    public OrderDetail getInCompleteOrder(string orderid, string po)
+    {
+        return ctx.OrderDetails.Where(x => x.OrderID == orderid && x.PurchaseOrderID == po && !(x.ReceivedQty == x.OrderQty)).FirstOrDefault();
+    }
+
+    public List<OrderDetail> getInCompleteOrderList(string orderID)
+    {
+        return ctx.OrderDetails.Where(x => x.OrderID == orderID && x.ReceivedQty != x.OrderQty).ToList();
     }
 
 

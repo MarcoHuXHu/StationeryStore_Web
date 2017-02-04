@@ -1,22 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="OrderList.aspx.cs" Inherits="Order_OrderList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <link href="../Stylesheet/simple-sidebar.css" rel="stylesheet" />
-    <link href="../Stylesheet/StyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div>
-        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" CssClass="buttonm" />
+<div>
+        <asp:Button ID="OrderBtn" runat="server" Text="New Order" OnClick="OrderBtn_Click" />
     &nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="Label3" runat="server" Text="Choose Status: "></asp:Label>
-        <asp:DropDownList ID="SearchDDL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="SearchDDL_SelectedIndexChanged" Font-Names="Arial">
+        <asp:DropDownList ID="SearchDDL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="SearchDDL_SelectedIndexChanged">
         </asp:DropDownList>
     </div>
         <asp:Label ID="Label2" runat="server" Font-Size="Medium" ForeColor="Black" Text="Label" Font-Bold="True"></asp:Label>
         <br />
         <asp:Label ID="Label1" runat="server" Text="Label" ForeColor="Red"></asp:Label>
         <br />
-        <asp:GridView ID="OrderListGV" runat="server" OnSelectedIndexChanged="OrderListGV_SelectedIndexChanged" Width="377px" CssClass="auto-style1" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="OrderListGV_PageIndexChanging">
+        <asp:GridView ID="OrderListGV" runat="server" OnSelectedIndexChanged="OrderListGV_SelectedIndexChanged" Width="320px" CssClass="auto-style1" AutoGenerateColumns="False" AllowPaging="True" OnPageIndexChanging="OrderListGV_PageIndexChanging">
             <Columns>
              <asp:TemplateField HeaderText="OrderID">
                 <ItemTemplate>
