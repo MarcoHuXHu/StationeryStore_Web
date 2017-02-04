@@ -815,7 +815,13 @@ public class Work
 
     public  void DeleteItem(string itemCode)
     {
-        
+        List<TransactionLog> transactionList = new List<TransactionLog>();
+        transactionList = ctx.TransactionLogs.Where(x => x.ItemID==itemCode).ToList();
+        foreach (TransactionLog t in transactionList)
+        {
+            ctx.TransactionLogs.Remove(t);
+        }
+        ctx.SaveChanges();
         List<Item> itemlist = new List<Item>();
         itemlist = ctx.Items.Where(item => item.ItemID == itemCode).ToList<Item>();
 
