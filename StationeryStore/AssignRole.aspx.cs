@@ -175,8 +175,8 @@ public partial class AssignRole : System.Web.UI.Page
     private void sendrevokeemail()
     {
         string ochId = Work.getUser(de.CoveringHeadID).Name;
-        string subject = "Assignment issuse have changed";
-        string body = "Dear " + ochId + ",<br/><br />Your 'covering head'task is cancel.<br/><br />Thanks & regards.";
+        string subject = "Delegation cancelled";
+        string body = "Dear " + ochId + ",<br/><br />Your delegation task has been cancelled.<br/><br />Thanks & regards.";
         SendEmail sm = new SendEmail(Work.getUser(de.CoveringHeadID).UserID, subject, body);
         sm.initEmail();
         sm.sendEmail();

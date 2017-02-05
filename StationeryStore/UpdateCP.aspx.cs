@@ -62,8 +62,8 @@ public partial class UpdateCP : System.Web.UI.Page
     private delegate void AsyncEmail();
     private void sendemail()
     {
-        string subject = "Department collectiong point has changed";
-        string body = "Dear Sir/Mrs,<br/><br/>" + "Your department collection point has changed as " + point + ".<br/><br/>Regards.";
+        string subject = "New collectiong point ";
+        string body = "Dear Sir/Mrs,<br/><br/>" + "Your department collection point has been changed to " + point + ".<br/><br/>Regards.";
         SendEmail sm = new SendEmail(someone, subject, body);
         sm.initEmail();
         sm.sendEmail();

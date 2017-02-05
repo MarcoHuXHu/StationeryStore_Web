@@ -64,8 +64,8 @@ public partial class NewDiscrepancy : System.Web.UI.Page
     private void sendemail()
     {
         string headID = work.getEmailToPersonId(TextBox3.Text);
-        string subject = "Request " + work.getMaxDiscrepancyId() + " for approval";
-        string body = "Dear Sir/ Madam,<br />" + "<br />Request " + work.getMaxDiscrepancyId() + " is pending your approval.Please click <a href = 'http://localhost/StationeryStore/Discrepancy/ApproveDiscrepancy.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
+        string subject = "Discrepancy " + work.getMaxDiscrepancyId() + " for approval";
+        string body = "Dear Sir/ Madam,<br />" + "<br />Discrepancy " + work.getMaxDiscrepancyId() + " is pending your approval.Please click <a href = 'http://localhost/StationeryStore/Discrepancy/ApproveDiscrepancy.aspx'>here</a> to see more details.<br />" + "<br />Thanks & regards.";
         SendEmail sm = new SendEmail(headID, subject, body);
         sm.initEmail();
         sm.sendEmail();
