@@ -8,7 +8,7 @@
      <link href="../Stylesheet/css/bootstrap.css" rel="stylesheet" />
     <link href="../Stylesheet/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="../Stylesheet/pagingCss.css" rel="stylesheet" />
-    <asp:Button ID="ButtonGenerate" runat="server" Text="Generate" OnClick="ButtonGenerate_Click" />
+    <asp:Button ID="ButtonGenerate" runat="server" Text="Generate" OnClick="ButtonGenerate_Click"  CssClass="buttonm"/>
     <asp:GridView ID="GridView1" runat="server" Width="98%" CssClass="table table-hover table-striped"  AutoGenerateColumns="False" AllowSorting="True" OnSorting="GridView1_Sorting" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging">
         <RowStyle CssClass="cursor-pointer" />
         <PagerStyle CssClass="pagination-ys" />

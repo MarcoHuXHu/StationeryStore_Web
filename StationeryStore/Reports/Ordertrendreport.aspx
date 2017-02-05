@@ -8,6 +8,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    
     <h2> Order Trend Report</h2>
      <p>
         Select 1 or more reporting period (month):&nbsp;&nbsp;<asp:ListBox ID="LBperiod" runat="server" DataSourceID="SqlDataSource4" DataTextField="YYYY/MM" DataValueField="YYYY/MM" Height="73px" SelectionMode="Multiple" Width="165px"></asp:ListBox>
@@ -41,5 +42,6 @@
     <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" overflow-x="scroll" />
     <p>
         &nbsp;</p>
+        
 </asp:Content>
 
