@@ -29,11 +29,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
         MenuItem m5 = new MenuItem("Disburse Stationery at Collection");
         m5.NavigateUrl = "Request/DeliverByDepartment.aspx";
         MenuItem m6 = new MenuItem("Update Collection Point");
-        m6.NavigateUrl = "UpdateCP.aspx";
+        m6.NavigateUrl = "Others/UpdateCP.aspx";
         MenuItem m7 = new MenuItem("Assign Department Representative");
-        m7.NavigateUrl = "ChangeRep.aspx";
+        m7.NavigateUrl = "Others/ChangeRep.aspx";
         MenuItem m8 = new MenuItem("Delegation");
-        m8.NavigateUrl = "AssignRole.aspx";
+        m8.NavigateUrl = "Others/AssignRole.aspx";
         MenuItem m9 = new MenuItem("Outstanding Request");
         m9.NavigateUrl = "Request/OutstandingRequest.aspx";
         MenuItem m10 = new MenuItem("Disbursement History");
@@ -57,9 +57,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
         MenuItem m19 = new MenuItem("Acknowledge Collection");
         m19.NavigateUrl = "Request/ReceiveConfirmation.aspx ";
         MenuItem m20 = new MenuItem("Notifications");
-        m20.NavigateUrl = "ViewNotificationByUserID.aspx";
+        m20.NavigateUrl = "Others/ViewNotificationByUserID.aspx";
         MenuItem m21 = new MenuItem("Low In Stock");
-        m21.NavigateUrl = "LowInStock.aspx";
+        m21.NavigateUrl = "Others/LowInStock.aspx";
         MenuItem m22 = new MenuItem("Inventory Status Report");
         m22.NavigateUrl = "Reports/InventoryStatusReport.aspx";
         MenuItem m23 = new MenuItem("Order Trend Report");

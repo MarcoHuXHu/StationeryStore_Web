@@ -39,7 +39,7 @@ public partial class Login : System.Web.UI.Page
             }
             else if (role == "Clerk")
             {
-                Response.Redirect("LowInStock.aspx");
+                Response.Redirect("Others/LowInStock.aspx");
             }
             else if (role == "Manager" || role == "Supervisor")
             {
